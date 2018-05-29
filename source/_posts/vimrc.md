@@ -1,8 +1,10 @@
 ---
 title: vimrc
 date: 2018-05-28 15:53:49
-tags:
+tags: "vim"
+categories: "other"
 ---
+```
 setlocal noswapfile " 不要生成swap文件
 set bufhidden=hide " 当buffer被丢弃的时候隐藏它
 colorscheme evening " 设定配色方案
@@ -31,3 +33,4 @@ set foldmethod=syntax " 设置语法折叠
 set foldcolumn=0 " 设置折叠区域的宽度
 setlocal foldlevel=1 " 设置折叠层数为 1
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR> " 用空格键来开关折叠
+```
