@@ -43,7 +43,7 @@
     
     <title>
         
-            论文阅读: MatchPyramid: Text Matching as Image Recognition | 
+            论文阅读: ResNet-Deep Residual Learning for Image Recognition | 
         
         BLOG
     </title>
@@ -54,7 +54,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content=",NLP,NLM,Deep Learning">
+    <meta name="keywords" content=",Deep Learning,Paper">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -215,7 +215,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="BLOG">
-    <meta name="msapplication-starturl" content="https://fclehly.github.io/2018/05/29/论文阅读-MatchPyramid-Text-Matching-as-Image-Recognition/">
+    <meta name="msapplication-starturl" content="https://fclehly.github.io/2018/05/29/论文阅读-ResNet-Deep-Residual-Learning-for-Image-Recognition/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="BLOG">
@@ -230,16 +230,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="https://fclehly.github.io/2018/05/29/论文阅读-MatchPyramid-Text-Matching-as-Image-Recognition/">
+    <meta property="og:url" content="https://fclehly.github.io/2018/05/29/论文阅读-ResNet-Deep-Residual-Learning-for-Image-Recognition/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="论文阅读: MatchPyramid: Text Matching as Image Recognition | BLOG">
+    <meta property="og:title" content="论文阅读: ResNet-Deep Residual Learning for Image Recognition | BLOG">
     <meta property="og:image" content="/img/favicon.ico">
     <meta property="og:description" content="">
-    <meta property="og:article:tag" content="NLP"> <meta property="og:article:tag" content="NLM"> <meta property="og:article:tag" content="Deep Learning"> 
+    <meta property="og:article:tag" content="Deep Learning"> <meta property="og:article:tag" content="Paper"> 
 
     
-        <meta property="article:published_time" content="Tue May 29 2018 21:07:40 GMT+0800">
-        <meta property="article:modified_time" content="Wed May 30 2018 19:15:10 GMT+0800">
+        <meta property="article:published_time" content="Tue May 29 2018 21:54:21 GMT+0800">
+        <meta property="article:modified_time" content="Tue May 29 2018 22:09:00 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -247,7 +247,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://fclehly.github.io/2018/05/29/论文阅读-MatchPyramid-Text-Matching-as-Image-Recognition/index.html" />
+        <link rel="canonical" href="https://fclehly.github.io/2018/05/29/论文阅读-ResNet-Deep-Residual-Learning-for-Image-Recognition/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -259,10 +259,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "https://fclehly.github.io/2018/05/29/论文阅读-MatchPyramid-Text-Matching-as-Image-Recognition/index.html",
-    "headline": "论文阅读: MatchPyramid: Text Matching as Image Recognition",
-    "datePublished": "Tue May 29 2018 21:07:40 GMT+0800",
-    "dateModified": "Wed May 30 2018 19:15:10 GMT+0800",
+    "mainEntityOfPage": "https://fclehly.github.io/2018/05/29/论文阅读-ResNet-Deep-Residual-Learning-for-Image-Recognition/index.html",
+    "headline": "论文阅读: ResNet-Deep Residual Learning for Image Recognition",
+    "datePublished": "Tue May 29 2018 21:54:21 GMT+0800",
+    "dateModified": "Tue May 29 2018 22:09:00 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "FWZ",
@@ -280,7 +280,7 @@
             "url": "/img/favicon.ico"
         }
     },
-    "keywords": ",NLP,NLM,Deep Learning",
+    "keywords": ",Deep Learning,Paper",
     "description": "",
 }
 </script>
@@ -340,15 +340,6 @@
     <!-- Left aligned menu below button -->
     
     
-    <button id="post-toc-trigger-btn"
-        class="mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">format_list_numbered</i>
-    </button>
-
-    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#论文信息"><span class="post-toc-number">1.</span> <span class="post-toc-text">论文信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Abstract"><span class="post-toc-number">2.</span> <span class="post-toc-text">Abstract</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">3.</span> <span class="post-toc-text">Introduction</span></a></li></ol>
-    </ul>
-    
 
 
 
@@ -365,11 +356,20 @@
                 
     <!-- Paradox Post Header -->
     
-        <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(http://p5.qhimg.com/t01e48ab37b3bf64f4a.png)">
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
     
             <p class="article-headline-p">
-                论文阅读: MatchPyramid: Text Matching as Image Recognition
+                论文阅读: ResNet-Deep Residual Learning for Image Recognition
             </p>
         </div>
 
@@ -412,7 +412,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/Deep-Learning/">Deep Learning</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/NLM/">NLM</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/NLP/">NLP</a>
+        <a class="post_tag-link" href="/tags/Deep-Learning/">Deep Learning</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Paper/">Paper</a>
     </ul>
     
 
@@ -429,7 +429,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=论文阅读: MatchPyramid: Text Matching as Image Recognition&url=https://fclehly.github.io/2018/05/29/论文阅读-MatchPyramid-Text-Matching-as-Image-Recognition/index.html&pic=https://fclehly.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=论文阅读: ResNet-Deep Residual Learning for Image Recognition&url=https://fclehly.github.io/2018/05/29/论文阅读-ResNet-Deep-Residual-Learning-for-Image-Recognition/index.html&pic=https://fclehly.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -438,7 +438,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=论文阅读: MatchPyramid: Text Matching as Image Recognition&url=https://fclehly.github.io/2018/05/29/论文阅读-MatchPyramid-Text-Matching-as-Image-Recognition/index.html&via=FWZ" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=论文阅读: ResNet-Deep Residual Learning for Image Recognition&url=https://fclehly.github.io/2018/05/29/论文阅读-ResNet-Deep-Residual-Learning-for-Image-Recognition/index.html&via=FWZ" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -447,7 +447,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://fclehly.github.io/2018/05/29/论文阅读-MatchPyramid-Text-Matching-as-Image-Recognition/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://fclehly.github.io/2018/05/29/论文阅读-ResNet-Deep-Residual-Learning-for-Image-Recognition/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -456,7 +456,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://fclehly.github.io/2018/05/29/论文阅读-MatchPyramid-Text-Matching-as-Image-Recognition/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://fclehly.github.io/2018/05/29/论文阅读-ResNet-Deep-Residual-Learning-for-Image-Recognition/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -481,16 +481,7 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-
-<h2 id="论文信息"><a href="#论文信息" class="headerlink" title="论文信息"></a>论文信息</h2><p>题目： Text Matching as Image Recognition<br>作者： Liang Pang, Yanyan Lan, Jiafeng Guo, Jun Xu, Shengxian Wan, and Xueqi Cheng<br>会议： AAAI2016</p>
-<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>匹配两个文本是许多自然语言处理任务中的一个基本问题。 一种有效的方法是从单词，短语和句子中提取有意义的匹配模式以产生匹配的分数。 受卷积神经网络在图像识别中的成功启发，神经元可以基于提取出的基本视觉模式（如定向边和角）捕捉许多复杂图案，我们建议将文本匹配建模为图像识别问题。 首先，构造一个匹配矩阵，其条目表示词语之间的相似性，并将其视为图像。 然后利用卷积神经网络以逐层方式捕获丰富的匹配模式。 实验表明，通过类似图像识别模式的组成层次，我们的模型可以成功识别显着信号，例如n-gram和n-term匹配。 实验结果证明了它相对于baseline的优越性。</p>
-<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>问题定义如下：<br>$$Match(\boldsymbol{T_1}, \boldsymbol{T_2})=F(\Phi(\boldsymbol{T_1}), \Phi(\boldsymbol{T_2}))$$<br>\(T_1 = (w_1, w_2, …, w_m)\) 和 \(T_2 = (v_1, v_2, …, v_n) \)是两个文本，\(\Phi \)是一个将文本映射到向量的函数。<br>本文贡献：   </p>
-<ol>
-<li>一个关于使用图像识别做文本匹配的新的视角</li>
-<li>一个新的深度网络结构MatchPyramid，基于匹配矩阵（它能在词，短语到整个句子这些不同层次上提取信息）</li>
-<li>在不同</li>
-</ol>
+        <p><img src="t01a73567f957034c8c.png" alt=""></p>
 
         
     
@@ -511,21 +502,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/05/29/论文阅读-ResNet-Deep-Residual-Learning-for-Image-Recognition/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2018/05/28/vimrc/" id="post_nav-older" class="next-content">
+        <a href="/2018/05/29/论文阅读-MatchPyramid-Text-Matching-as-Image-Recognition/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
