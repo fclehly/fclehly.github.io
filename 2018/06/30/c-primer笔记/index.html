@@ -43,7 +43,7 @@
     
     <title>
         
-            vimrc | 
+            c++primer笔记 | 
         
         BLOG
     </title>
@@ -54,7 +54,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content=",vim">
+    <meta name="keywords" content=",c++">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -220,7 +220,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="BLOG">
-    <meta name="msapplication-starturl" content="https://fclehly.github.io/2018/05/28/vimrc/">
+    <meta name="msapplication-starturl" content="https://fclehly.github.io/2018/06/30/c-primer笔记/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="BLOG">
@@ -235,16 +235,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="https://fclehly.github.io/2018/05/28/vimrc/">
+    <meta property="og:url" content="https://fclehly.github.io/2018/06/30/c-primer笔记/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="vimrc | BLOG">
+    <meta property="og:title" content="c++primer笔记 | BLOG">
     <meta property="og:image" content="/img/favicon.ico">
     <meta property="og:description" content="">
-    <meta property="og:article:tag" content="vim"> 
+    <meta property="og:article:tag" content="c++"> 
 
     
-        <meta property="article:published_time" content="Mon May 28 2018 15:53:49 GMT+0800">
-        <meta property="article:modified_time" content="Wed May 30 2018 14:36:11 GMT+0800">
+        <meta property="article:published_time" content="Sat Jun 30 2018 15:02:00 GMT+0800">
+        <meta property="article:modified_time" content="Sun Jul 01 2018 18:14:48 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -252,7 +252,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://fclehly.github.io/2018/05/28/vimrc/index.html" />
+        <link rel="canonical" href="https://fclehly.github.io/2018/06/30/c-primer笔记/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -264,10 +264,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "https://fclehly.github.io/2018/05/28/vimrc/index.html",
-    "headline": "vimrc",
-    "datePublished": "Mon May 28 2018 15:53:49 GMT+0800",
-    "dateModified": "Wed May 30 2018 14:36:11 GMT+0800",
+    "mainEntityOfPage": "https://fclehly.github.io/2018/06/30/c-primer笔记/index.html",
+    "headline": "c++primer笔记",
+    "datePublished": "Sat Jun 30 2018 15:02:00 GMT+0800",
+    "dateModified": "Sun Jul 01 2018 18:14:48 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "FWZ",
@@ -285,7 +285,7 @@
             "url": "/img/favicon.ico"
         }
     },
-    "keywords": ",vim",
+    "keywords": ",c++",
     "description": "",
 }
 </script>
@@ -345,6 +345,15 @@
     <!-- Left aligned menu below button -->
     
     
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#阅读c-primer"><span class="post-toc-number">1.</span> <span class="post-toc-text">阅读c++ primer</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Chapter-1-开始"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Chapter 1 开始</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Chapter-2-变量和基本类型"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Chapter 2 变量和基本类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#变量声明和定义"><span class="post-toc-number">1.2.0.1.</span> <span class="post-toc-text">变量声明和定义</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#引用"><span class="post-toc-number">1.2.0.2.</span> <span class="post-toc-text">引用</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#指针"><span class="post-toc-number">1.2.0.3.</span> <span class="post-toc-text">指针</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#const"><span class="post-toc-number">1.2.0.4.</span> <span class="post-toc-text">const</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#常量表达式"><span class="post-toc-number">1.2.0.5.</span> <span class="post-toc-text">常量表达式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#类型别名"><span class="post-toc-number">1.2.0.6.</span> <span class="post-toc-text">类型别名</span></a></li></ol></li></ol></li></ol></li></ol>
+    </ul>
+    
 
 
 
@@ -361,20 +370,11 @@
                 
     <!-- Paradox Post Header -->
     
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-            <script type="text/ls-javascript" id="post-thumbnail-script">
-    var randomNum = Math.floor(Math.random() * 19 + 1);
-
-    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
-    $('.post_thumbnail-random').addClass('lazy');
-</script>
-
-        
+        <!-- Custom Thumbnail -->
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(http://p0.qhimg.com/t017ae756a191647d56.png)">
     
             <p class="article-headline-p">
-                vimrc
+                c++primer笔记
             </p>
         </div>
 
@@ -393,7 +393,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>FWZ</strong>
-        <span>5月 28, 2018</span>
+        <span>6月 30, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -417,7 +417,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/vim/">vim</a>
+        <a class="post_tag-link" href="/tags/c/">c++</a>
     </ul>
     
 
@@ -434,7 +434,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=vimrc&url=https://fclehly.github.io/2018/05/28/vimrc/index.html&pic=https://fclehly.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=c++primer笔记&url=https://fclehly.github.io/2018/06/30/c-primer笔记/index.html&pic=https://fclehly.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -443,7 +443,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=vimrc&url=https://fclehly.github.io/2018/05/28/vimrc/index.html&via=FWZ" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=c++primer笔记&url=https://fclehly.github.io/2018/06/30/c-primer笔记/index.html&via=FWZ" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -452,7 +452,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://fclehly.github.io/2018/05/28/vimrc/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://fclehly.github.io/2018/06/30/c-primer笔记/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -461,7 +461,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://fclehly.github.io/2018/05/28/vimrc/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://fclehly.github.io/2018/06/30/c-primer笔记/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -486,35 +486,40 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <pre><code>setlocal noswapfile &quot; 不要生成swap文件
-set bufhidden=hide &quot; 当buffer被丢弃的时候隐藏它
-colorscheme evening &quot; 设定配色方案
-set number &quot; 显示行号
-set cursorline &quot; 突出显示当前行
-set ruler &quot; 打开状态栏标尺
-set shiftwidth=4 &quot; 设定 &lt;&lt; 和 &gt;&gt; 命令移动时的宽度为 4
-set softtabstop=4 &quot; 使得按退格键时可以一次删掉 4 个空格
-set tabstop=4 &quot; 设定 tab 长度为 4
-set nobackup &quot; 覆盖文件时不备份
-set autochdir &quot; 自动切换当前目录为当前文件所在的目录
-set backupcopy=yes &quot; 设置备份时的行为为覆盖
-set hlsearch &quot; 搜索时高亮显示被找到的文本
-set noerrorbells &quot; 关闭错误信息响铃
-set novisualbell &quot; 关闭使用可视响铃代替呼叫
-set t_vb= &quot; 置空错误铃声的终端代码
-set matchtime=2 &quot; 短暂跳转到匹配括号的时间
-set magic &quot; 设置魔术
-set smartindent &quot; 开启新行时使用智能自动缩进
-set backspace=indent,eol,start &quot; 不设定在插入状态无法用退格键和 Delete 键删除回车符
-set cmdheight=1 &quot; 设定命令行的行数为 1
-set laststatus=2 &quot; 显示状态栏 (默认值为 1, 无法显示状态栏)
-set statusline=\ %&lt;%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&amp;fileformat}\ %{&amp;encoding}\ Ln\ %l,\ Col\ %c/%L%) &quot; 设置在状态行显示的信息
-set foldenable &quot; 开始折叠
-set foldmethod=syntax &quot; 设置语法折叠
-set foldcolumn=0 &quot; 设置折叠区域的宽度
-setlocal foldlevel=1 &quot; 设置折叠层数为 1
-nnoremap &lt;space&gt; @=((foldclosed(line(&#39;.&#39;)) &lt; 0) ? &#39;zc&#39; : &#39;zo&#39;)&lt;CR&gt; &quot; 用空格键来开关折叠
+        <h1 id="阅读c-primer"><a href="#阅读c-primer" class="headerlink" title="阅读c++ primer"></a>阅读c++ primer</h1><h2 id="Chapter-1-开始"><a href="#Chapter-1-开始" class="headerlink" title="Chapter 1 开始"></a>Chapter 1 开始</h2><p>执行完程序可以通过echo命令获得返回值：<br>Linux:  </p>
+<blockquote>
+<p>echo $?</p>
+</blockquote>
+<p>Windows:  </p>
+<blockquote>
+<p>echo %ERRORLEVEL%</p>
+</blockquote>
+<p><strong>cerr</strong> 输出警告和错误信息，ostream对象，写到cerr的数据不缓冲。<br><strong>clog</strong> 输出一般性信息，ostream对象，写到clog的数据缓冲，存入日志文件。</p>
+<h2 id="Chapter-2-变量和基本类型"><a href="#Chapter-2-变量和基本类型" class="headerlink" title="Chapter 2 变量和基本类型"></a>Chapter 2 变量和基本类型</h2><h4 id="变量声明和定义"><a href="#变量声明和定义" class="headerlink" title="变量声明和定义"></a>变量声明和定义</h4><p>变量能且只能被定义一次，但是可以被多次声明。  </p>
+<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><p>引用并非对象，它只是为一个已存在的对象所起的另外一个名字。</p>
+<h4 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h4><p><strong>nullptr</strong> 是一种特殊类型的字面值，它可以被转换成任意其他的指针类型。<br>NULL的值就是0，在cstdlib中定义。  </p>
+<blockquote>
+<p>建议： 初始化所有指针</p>
+</blockquote>
+<p><strong>void*</strong>是一种特殊的指针类型，可用于存放任意对象的地址，我们对该地址中到底是个什么类型的对象并不了解。</p>
+<h4 id="const"><a href="#const" class="headerlink" title="const"></a>const</h4><p>顶层const(top-level const)表示指针本身是个常量；<br>底层const(low-level const)表示指针所指的对象是一个常量；</p>
+<h4 id="常量表达式"><a href="#常量表达式" class="headerlink" title="常量表达式"></a>常量表达式</h4><p>如果认定变量是一个常量表达式，那就把它声明为constexpr类型；</p>
+<p>一个constexpr指针的初始值必须是nullptr或0，或存储于摸个固定地址中的对象；</p>
+<pre><code class="cpp">constexpr int mf = 20;
+const int limit = mf + 1;
+constexpr int sz = size(); \\size是一个constexpr函数
 </code></pre>
+<h4 id="类型别名"><a href="#类型别名" class="headerlink" title="类型别名"></a>类型别名</h4><ol>
+<li>关键字 <strong>typedef</strong>：<blockquote>
+<p>typedef double base, *p;</p>
+</blockquote>
+</li>
+<li>别名声明(c++11):<blockquote>
+<p>using SI = Sales_item;</p>
+</blockquote>
+</li>
+</ol>
+
         
     
 
@@ -534,21 +539,13 @@ nnoremap &lt;space&gt; @=((foldclosed(line(&#39;.&#39;)) &lt; 0) ? &#39;zc&#39; 
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/05/29/论文阅读-MatchPyramid-Text-Matching-as-Image-Recognition/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2018/05/28/hello-world/" id="post_nav-older" class="next-content">
+        <a href="/2018/05/29/论文阅读-ResNet-Deep-Residual-Learning-for-Image-Recognition/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
