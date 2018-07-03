@@ -9,6 +9,7 @@ categories:
 thumbnail: "http://p0.qhimg.com/t017ae756a191647d56.png"
 ---
 # 阅读c++ primer
+[C++手册](http://www.cplusplus.com/)
 ## Chapter 1 开始
 执行完程序可以通过echo命令获得返回值：
 Linux:  
@@ -21,33 +22,143 @@ Windows:
 **clog** 输出一般性信息，ostream对象，写到clog的数据缓冲，存入日志文件。
 
 ## Chapter 2 变量和基本类型
-#### 变量声明和定义
+### 变量声明和定义
 变量能且只能被定义一次，但是可以被多次声明。  
-#### 引用
+### 引用
 引用并非对象，它只是为一个已存在的对象所起的另外一个名字。
-#### 指针
+### 指针
 **nullptr** 是一种特殊类型的字面值，它可以被转换成任意其他的指针类型。
 NULL的值就是0，在cstdlib中定义。  
 > 建议： 初始化所有指针
 
 **void***是一种特殊的指针类型，可用于存放任意对象的地址，我们对该地址中到底是个什么类型的对象并不了解。
 
-#### const
+### const
 顶层const(top-level const)表示指针本身是个常量；
 底层const(low-level const)表示指针所指的对象是一个常量；
 
-#### 常量表达式
+### 常量表达式
 如果认定变量是一个常量表达式，那就把它声明为constexpr类型；
 
 一个constexpr指针的初始值必须是nullptr或0，或存储于摸个固定地址中的对象；
 ```cpp
 constexpr int mf = 20;
 const int limit = mf + 1;
-constexpr int sz = size(); \\size是一个constexpr函数
+constexpr int sz = size(); //size是一个constexpr函数
 ```
 
-#### 类型别名
+### 类型别名
 1. 关键字 **typedef**：
-> typedef double base, \*p;
+
+```cpp
+typedef double base, \*p;
+```
+
 2. 别名声明(c++11):
-> using SI = Sales_item;
+
+```cpp
+using SI = Sales_item;
+```
+
+### auto类型说明符
+auto一般会忽略顶层const，同时底层const会保留下来：
+```cpp
+int i = 0;
+const int ci = i, &cr = ci;
+auto b = ci;  //b是int
+auto c = cr;  //c是int
+auto d = &i;  //d是int*
+auto e = &ci; //e是const int*
+```
+如果希望推断出的auto类型是一个顶层const，需要明确指出：
+```cpp
+const auto f = ci;
+```
+
+### decltype类型指示符
+
+```cpp
+decltype (f()) sum = x; //sum的类型就是函数f的返回类型，编译器并不实际调用函数f，而是使用当调用发生时f的返回值作为sum的类型。
+```
+
+decltype处理顶层const：如果decltype使用的表达式是一个变量，则decltype返回该变量的类型（包括顶层const和引用）：
+```cpp
+const int ci = 0, &cj = ci;
+decltype(ci) x = 0; //x的类型是const int
+decltype(cj) y = x; //y的类型是const int&，y绑定到变量x
+decltype(cj) z; //错误：z是一个引用，必须初始化
+```
+
+> 切记：decltype((variable))的结果永远是引用，而decltype(variable)结果只用当variable本身是一个引用时才是引用；
+
+
+## Chapter 3 字符串、向量和数组
+### 命名空间的using声明
+```cpp
+//...
+using std:cin;
+//....
+cin >> i;
+```
+> 头文件不应该包含using声明
+
+### size_type类型
+string:size()、vector:size()等函数返回size_type类型，无符号整数，与机器无关。
+
+### size_t类型
+使用数组下标时，通常定义为size_t类型，size_t类型时一种机器相关的无符号类型，它被设计得足够大以便能表示内存中任意对象的大小。
+
+### 迭代器
+const_iterator只能读元素，不能写元素；
+(c++11)cbegin()和cend()返回const_iterator;
+
+## Chapter 4 表达式
+### 命名的强制类型转换
+1. static_cast：
+任何具有明确定义的类型转换，只要不包含底层const，都可以使用static_cast。将较大的算术类型赋值给较小的类型。
+2. const_cast:
+const_cast智能改变运算对象的底层const；将常量对象转换为非常量对象；常用于函数重载的上下文中。
+3. reinterpret_cast:
+reinterpret_cast通常为运算对象的位模式提供较低层次上的重新解释；
+
+## Chapter 5 语句
+### 异常
+```cpp
+throw runtime_error("....");
+```
+类型runtime_error定义在stdexcept头文件中；
+stdexcept头文件中定义的异常类有：
+exception, runtime_error, range_error, underflow_error, overflow_error, logic_error, domain_error, invalid_argument, length_error, out_of_range;
+
+## Chapter 6 函数
+形参尽量使用常量引用；
+### 可变形参
+initializer_list形参:initializer_list是一种模板类型；
+```cpp
+void error_msg(initializer_list<string> il) {}
+```
+
+### 引用返回左值
+调用一个返回引用的函数得到左值，其他返回类型得到右值。
+
+### 列表初始化返回值
+C++11：函数可以返回花括号包围的值的列表。
+```cpp
+vector<string> f() {
+  //...
+  return {"1", "s2"};
+}
+```
+
+### 主函数main的返回值
+定义在cstdlib头文件中：
+EXIT_FAILURE, EXI_SUCCESS;
+
+### 声明一个返回数组指针的函数
+Type (\*function(parameter_list))[dimension]  
+例如：
+int (\*func(int i))[10];
+
+### 使用尾置返回类型
+C++11：tailing return type：  
+auto func(int i) -> int(\*)[10];

@@ -3,6 +3,7 @@ title: vimrc
 date: 2018-05-28 15:53:49
 tags: "vim"
 categories: "other"
+thumbnail: "https://gss1.bdstatic.com/-vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike92%2C5%2C5%2C92%2C30/sign=4e455aea9045d688b70fbaf6c5ab167b/279759ee3d6d55fb3f43e5ff6f224f4a21a4dd66.jpg"
 ---
 ```
 setlocal noswapfile " 不要生成swap文件
