@@ -23,6 +23,41 @@ thumbnail: "http://p5.qhimg.com/t01e48ab37b3bf64f4a.png"
 $$Match(\boldsymbol{T_1}, \boldsymbol{T_2})=F(\Phi(\boldsymbol{T_1}), \Phi(\boldsymbol{T_2}))$$
 \\(T_1 = (w_1, w_2, ..., w_m)\\) 和 \\(T_2 = (v_1, v_2, ..., v_n) \\)是两个文本，\\(\Phi \\)是一个将文本映射到向量的函数。
 本文贡献：   
-1. 一个关于使用图像识别做文本匹配的新的视角
-2. 一个新的深度网络结构MatchPyramid，基于匹配矩阵（它能在词，短语到整个句子这些不同层次上提取信息）
-3. 在不同
+1. 一个关于使用图像识别做文本匹配的新的视角；
+2. 一个新的深度网络结构MatchPyramid，基于匹配矩阵（它能在词，短语到整个句子这些不同层次上提取信息）；
+3. 在不同任务上展现了这个结构强大的能力；
+
+## Motivation
+![motivation](motivation.png)
+作者认为两个句子的匹配和图像识别任务有很多的相似处，比如上图中的两个句子词、短语、句子层面的匹配可以类比到图像识别中的边、角、模式、部分等层次的特征提取，如下图。
+![relationship](relationship.png)
+
+## 网络简介
+网络结构如下所示：
+
+![模型预览](model_overview.png)
+
+### 匹配矩阵
+这个匹配矩阵是这篇paper的关键所在，它将句子语义匹配与图像识别联系了起来。
+
+paper中介绍了三种构建匹配矩阵的方法：
+1. **Indicator**: 
+就是判断两个句子中的词是否分别相同
+![](indicator.png)
+2. **Cosine**:
+两个句子进行词嵌入编码后，每个词向量分别计算余弦值；
+![](cosine.png)
+3. **Dot Product**: 
+两个句子进行词嵌入编码后，每个词向量分别点积即可，其实就是一个句子表征矩阵乘以另一个句子表征矩阵的转置；
+![](dot_product.png)
+
+例子如下：
+![](indicator_and_dot_product.png)
+
+### 其他一些细节
+因为句子长度可能不一致，所以每次生成的匹配矩阵的size就可能不一样，因此作者采用了Hierarchical Convolution解决这个问题。
+![](hierarchical_convolution.png)
+* 第一层卷积的pooling使用dynamic pooling生成一个一定size的feature map；
+* 第二层的卷积求和算。   
+* 激活函数是ReLU；
+* 2层MLP，softmax输出预测结果；
