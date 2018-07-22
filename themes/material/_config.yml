@@ -65,7 +65,7 @@ background:
     purecolor: "#F5F5F5"
     #bgimg: "/img/bg.png"
     bing:
-        enable: false
+        enable: true
         parameter:
 
 # Images Settings
@@ -122,7 +122,7 @@ qrcode:
 #    Prettify
 #        theme: # Available value in /source/css/prettify/[theme].min.css
 prettify:
-    enable: false
+    enable: true
     theme: "github-v2"
 
 #    Hanabi (https://github.com/egoist/hanabi)
@@ -300,7 +300,7 @@ vendors:
     # FontAwesome 4.5.0
     fontawesome:
     # MathJax 2.7.0-2.7.1
-    mathjax:
+    mathjax: "http://cdn.mathjax.org/mathjax/latest/MathJax.js"
     # Prettify r298 (only prettify.js)
     prettify:
     # Material Icons 3.0.1
