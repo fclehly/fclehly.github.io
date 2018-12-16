@@ -25,7 +25,13 @@ More info: [Server](https://hexo.io/docs/server.html)
 ### Generate static files
 
 ``` bash
-$ hexo generate
+$ hexo generate [options]
+# -d generate and deloy
+# -w watch file's changes
+```
+or simplely
+``` bash
+$ hexo g
 ```
 
 More info: [Generating](https://hexo.io/docs/generating.html)
@@ -35,5 +41,26 @@ More info: [Generating](https://hexo.io/docs/generating.html)
 ``` bash
 $ hexo deploy
 ```
+or simplely
+``` bash
+$ hexo d
+```
 
 More info: [Deployment](https://hexo.io/docs/deployment.html)
+
+### Clean
+``` bash
+$ hexo clean
+```
+remove cache(`db.json`) and generated static file(`public`)
+### List
+``` bash
+$ hexo list <type>
+```
+List website info
+
+### Version
+``` bash
+$ hexo version
+```
+show version of hexo
