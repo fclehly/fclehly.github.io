@@ -7,7 +7,6 @@ tags:
 - Deep Learning
 categories:
 - Paper
-- Deep Learning
 thumbnail: "http://p5.qhimg.com/t01e48ab37b3bf64f4a.png"
 ---
 #<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>

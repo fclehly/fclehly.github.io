@@ -1,9 +1,8 @@
 ---
 title: Thinking in Function Programming
 date: 2018-12-16 15:23:36
-tags:
-- Thinking
-- Programming
+categories:
+- Turtorial
 ---
 
 # Thinking in Function Programming

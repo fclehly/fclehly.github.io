@@ -6,6 +6,5 @@ tags:
 - Paper
 categories:
 - Paper
-- Deep Learning
 ---
 ![](t01a73567f957034c8c.png)

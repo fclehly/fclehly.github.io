@@ -2,10 +2,10 @@
 title: c++primer笔记
 date: 2018-06-30 15:02:00
 tags:
+- reading
 - c++
 categories:
-- c++
-- book reading
+- Note
 thumbnail: "http://p0.qhimg.com/t017ae756a191647d56.png"
 ---
 # 阅读c++ primer
