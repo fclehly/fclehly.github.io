@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            c++primer笔记 | 
+        
+        fengweizan&#39;s BLOG
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" itemprop="description" content="my blog with material design">
+    <meta name="keywords" content=",reading,c++">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/github-v2.min.css?AfzKxt++K+/lhZBlSjnxwg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body {
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text {
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="fengweizan&#39;s BLOG">
+    <meta name="msapplication-starturl" content="https://fclehly.github.io/2018/06/30/c-primer笔记/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="fengweizan&#39;s BLOG">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://fclehly.github.io/2018/06/30/c-primer笔记/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="c++primer笔记 | fengweizan&#39;s BLOG">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="my blog with material design">
+    <meta property="og:article:tag" content="reading"> <meta property="og:article:tag" content="c++"> 
+
+    
+        <meta property="article:published_time" content="Sat Jun 30 2018 15:02:00 GMT+0800">
+        <meta property="article:modified_time" content="Sat Jan 19 2019 23:38:27 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://fclehly.github.io/2018/06/30/c-primer笔记/index.html">
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://fclehly.github.io/2018/06/30/c-primer笔记/index.html",
+    "headline": "c++primer笔记",
+    "datePublished": "Sat Jun 30 2018 15:02:00 GMT+0800",
+    "dateModified": "Sat Jan 19 2019 23:38:27 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "FWZ",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "fengweizan&#39;s BLOG",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",reading,c++",
+    "description": "my blog with material design",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn" class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#阅读c-primer"><span class="post-toc-number">1.</span> <span class="post-toc-text">阅读c++ primer</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Chapter-1-开始"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Chapter 1 开始</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Chapter-2-变量和基本类型"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Chapter 2 变量和基本类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#变量声明和定义"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">变量声明和定义</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#引用"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">引用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#指针"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">指针</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#const"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">const</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常量表达式"><span class="post-toc-number">1.2.5.</span> <span class="post-toc-text">常量表达式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类型别名"><span class="post-toc-number">1.2.6.</span> <span class="post-toc-text">类型别名</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#auto类型说明符"><span class="post-toc-number">1.2.7.</span> <span class="post-toc-text">auto类型说明符</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#decltype类型指示符"><span class="post-toc-number">1.2.8.</span> <span class="post-toc-text">decltype类型指示符</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Chapter-3-字符串、向量和数组"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Chapter 3 字符串、向量和数组</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#命名空间的using声明"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">命名空间的using声明</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#size-type类型"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">size_type类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#size-t类型"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">size_t类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#迭代器"><span class="post-toc-number">1.3.4.</span> <span class="post-toc-text">迭代器</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Chapter-4-表达式"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Chapter 4 表达式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#命名的强制类型转换"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">命名的强制类型转换</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Chapter-5-语句"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">Chapter 5 语句</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#异常"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">异常</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Chapter-6-函数"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">Chapter 6 函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#可变形参"><span class="post-toc-number">1.6.1.</span> <span class="post-toc-text">可变形参</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#引用返回左值"><span class="post-toc-number">1.6.2.</span> <span class="post-toc-text">引用返回左值</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#列表初始化返回值"><span class="post-toc-number">1.6.3.</span> <span class="post-toc-text">列表初始化返回值</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#主函数main的返回值"><span class="post-toc-number">1.6.4.</span> <span class="post-toc-text">主函数main的返回值</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#声明一个返回数组指针的函数"><span class="post-toc-number">1.6.5.</span> <span class="post-toc-text">声明一个返回数组指针的函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用尾置返回类型"><span class="post-toc-number">1.6.6.</span> <span class="post-toc-text">使用尾置返回类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#默认实参"><span class="post-toc-number">1.6.7.</span> <span class="post-toc-text">默认实参</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#constexpr函数"><span class="post-toc-number">1.6.8.</span> <span class="post-toc-text">constexpr函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#调试帮助"><span class="post-toc-number">1.6.9.</span> <span class="post-toc-text">调试帮助</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#函数指针"><span class="post-toc-number">1.6.10.</span> <span class="post-toc-text">函数指针</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Chapter-7-类"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">Chapter 7 类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#default"><span class="post-toc-number">1.7.1.</span> <span class="post-toc-text">=default</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#可变数据成员"><span class="post-toc-number">1.7.2.</span> <span class="post-toc-text">可变数据成员</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#返回-this"><span class="post-toc-number">1.7.3.</span> <span class="post-toc-text">返回*this</span></a></li></ol></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        <!-- Custom Thumbnail -->
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(http://p0.qhimg.com/t017ae756a191647d56.png)">
+    
+            <p class="article-headline-p">
+                c++primer笔记
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar">
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>FWZ</strong>
+        <span>6月 30, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/c/">c++</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/reading/">reading</a>
+    </li></ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=c++primer笔记&url=https://fclehly.github.io/2018/06/30/c-primer笔记/index.html&pic=https://fclehly.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=c++primer笔记&url=https://fclehly.github.io/2018/06/30/c-primer笔记/index.html&via=FWZ" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://fclehly.github.io/2018/06/30/c-primer笔记/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://fclehly.github.io/2018/06/30/c-primer笔记/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="阅读c-primer"><a href="#阅读c-primer" class="headerlink" title="阅读c++ primer"></a>阅读c++ primer</h1><p><a href="http://www.cplusplus.com/" target="_blank" rel="noopener">C++手册</a></p>
+<h2 id="Chapter-1-开始"><a href="#Chapter-1-开始" class="headerlink" title="Chapter 1 开始"></a>Chapter 1 开始</h2><p>执行完程序可以通过echo命令获得返回值：<br>Linux:<br><code>echo $?</code></p>
+<p>Windows:<br><code>echo %ERRORLEVEL%</code></p>
+<p><strong>cerr</strong> 输出警告和错误信息，ostream对象，写到cerr的数据不缓冲。<br><strong>clog</strong> 输出一般性信息，ostream对象，写到clog的数据缓冲，存入日志文件。</p>
+<h2 id="Chapter-2-变量和基本类型"><a href="#Chapter-2-变量和基本类型" class="headerlink" title="Chapter 2 变量和基本类型"></a>Chapter 2 变量和基本类型</h2><h3 id="变量声明和定义"><a href="#变量声明和定义" class="headerlink" title="变量声明和定义"></a>变量声明和定义</h3><p>变量能且只能被定义一次，但是可以被多次声明。  </p>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>引用并非对象，它只是为一个已存在的对象所起的另外一个名字。</p>
+<h3 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h3><p><strong>nullptr</strong> 是一种特殊类型的字面值，它可以被转换成任意其他的指针类型。<br><strong>NULL</strong>的值就是0，在<strong>cstdlib__</strong>中定义。  </p>
+<blockquote>
+<p>建议： 初始化所有指针</p>
+</blockquote>
+<p><strong>void*</strong>是一种特殊的指针类型，可用于存放任意对象的地址，我们对该地址中到底是个什么类型的对象并不了解。</p>
+<h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>顶层const(top-level const)表示指针本身是个常量；<br>底层const(low-level const)表示指针所指的对象是一个常量；</p>
+<h3 id="常量表达式"><a href="#常量表达式" class="headerlink" title="常量表达式"></a>常量表达式</h3><p>如果认定变量是一个常量表达式，那就把它声明为constexpr类型；</p>
+<p>一个<strong>constexpr</strong>指针的初始值必须是<strong>nullptr</strong>或0，或存储于摸个固定地址中的对象；</p>
+<pre><code class="cpp">constexpr int mf = 20;
+const int limit = mf + 1;
+constexpr int sz = size(); //size是一个constexpr函数
+</code></pre>
+<h3 id="类型别名"><a href="#类型别名" class="headerlink" title="类型别名"></a>类型别名</h3><ol>
+<li>关键字 <strong>typedef</strong>：</li>
+</ol>
+<pre><code class="cpp">typedef double base, \*p;
+</code></pre>
+<ol start="2">
+<li>别名声明(c++11):</li>
+</ol>
+<pre><code class="cpp">using SI = Sales_item;
+</code></pre>
+<h3 id="auto类型说明符"><a href="#auto类型说明符" class="headerlink" title="auto类型说明符"></a>auto类型说明符</h3><p><strong>auto</strong> 一般会忽略顶层const，同时底层const会保留下来：</p>
+<pre><code class="cpp">int i = 0;
+const int ci = i, &amp;cr = ci;
+auto b = ci;  //b是int
+auto c = cr;  //c是int
+auto d = &amp;i;  //d是int*
+auto e = &amp;ci; //e是const int*
+</code></pre>
+<p>如果希望推断出的auto类型是一个顶层const，需要明确指出：</p>
+<pre><code class="cpp">const auto f = ci;
+</code></pre>
+<h3 id="decltype类型指示符"><a href="#decltype类型指示符" class="headerlink" title="decltype类型指示符"></a>decltype类型指示符</h3><pre><code class="cpp">decltype (f()) sum = x; //sum的类型就是函数f的返回类型，编译器并不实际调用函数f，而是使用当调用发生时f的返回值作为sum的类型。
+</code></pre>
+<p><strong>decltype</strong> 处理顶层const：如果decltype使用的表达式是一个变量，则decltype返回该变量的类型（包括顶层const和引用）：</p>
+<pre><code class="cpp">const int ci = 0, &amp;cj = ci;
+decltype(ci) x = 0; //x的类型是const int
+decltype(cj) y = x; //y的类型是const int&amp;，y绑定到变量x
+decltype(cj) z; //错误：z是一个引用，必须初始化
+</code></pre>
+<blockquote>
+<p>切记：decltype((variable))的结果永远是引用，而decltype(variable)结果只用当variable本身是一个引用时才是引用；</p>
+</blockquote>
+<h2 id="Chapter-3-字符串、向量和数组"><a href="#Chapter-3-字符串、向量和数组" class="headerlink" title="Chapter 3 字符串、向量和数组"></a>Chapter 3 字符串、向量和数组</h2><h3 id="命名空间的using声明"><a href="#命名空间的using声明" class="headerlink" title="命名空间的using声明"></a>命名空间的using声明</h3><pre><code class="cpp">//...
+using std:cin;
+//....
+cin &gt;&gt; i;
+</code></pre>
+<blockquote>
+<p>头文件不应该包含using声明</p>
+</blockquote>
+<h3 id="size-type类型"><a href="#size-type类型" class="headerlink" title="size_type类型"></a>size_type类型</h3><p>string:size()、vector:size()等函数返回size_type类型，无符号整数，与机器无关。</p>
+<h3 id="size-t类型"><a href="#size-t类型" class="headerlink" title="size_t类型"></a>size_t类型</h3><p>使用数组下标时，通常定义为size_t类型，size_t类型时一种机器相关的无符号类型，它被设计得足够大以便能表示内存中任意对象的大小。</p>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p><strong>const_iterator</strong> 只能读元素，不能写元素；<br>(c++11)cbegin()和cend()返回const_iterator;</p>
+<h2 id="Chapter-4-表达式"><a href="#Chapter-4-表达式" class="headerlink" title="Chapter 4 表达式"></a>Chapter 4 表达式</h2><h3 id="命名的强制类型转换"><a href="#命名的强制类型转换" class="headerlink" title="命名的强制类型转换"></a>命名的强制类型转换</h3><ol>
+<li><strong>static_cast</strong>：<br>任何具有明确定义的类型转换，只要不包含底层const，都可以使用static_cast。将较大的算术类型赋值给较小的类型。</li>
+<li><strong>const_cast</strong>:<br>const_cast智能改变运算对象的底层const；将常量对象转换为非常量对象或逆操作；常用于函数重载的上下文中。</li>
+<li><strong>reinterpret_cast</strong>:<br>reinterpret_cast通常为运算对象的位模式提供较低层次上的重新解释；</li>
+</ol>
+<h2 id="Chapter-5-语句"><a href="#Chapter-5-语句" class="headerlink" title="Chapter 5 语句"></a>Chapter 5 语句</h2><h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><pre><code class="cpp">throw runtime_error(&quot;....&quot;);
+</code></pre>
+<p>类型runtime_error定义在 <strong>stdexcept</strong> 头文件中；<br>stdexcept头文件中定义的异常类有：</p>
+<ul>
+<li>exception,</li>
+<li>runtime_error,</li>
+<li>range_error,</li>
+<li>underflow_error,</li>
+<li>overflow_error,</li>
+<li>logic_error,</li>
+<li>domain_error,</li>
+<li>invalid_argument,</li>
+<li>length_error,</li>
+<li>out_of_range;</li>
+</ul>
+<h2 id="Chapter-6-函数"><a href="#Chapter-6-函数" class="headerlink" title="Chapter 6 函数"></a>Chapter 6 函数</h2><p>形参尽量使用常量引用；</p>
+<h3 id="可变形参"><a href="#可变形参" class="headerlink" title="可变形参"></a>可变形参</h3><p><strong>initializer_list</strong> 形参:initializer_list是一种模板类型；</p>
+<pre><code class="cpp">void error_msg(initializer_list&lt;string&gt; il) {}
+</code></pre>
+<h3 id="引用返回左值"><a href="#引用返回左值" class="headerlink" title="引用返回左值"></a>引用返回左值</h3><p>调用一个返回引用的函数得到左值，其他返回类型得到右值。</p>
+<h3 id="列表初始化返回值"><a href="#列表初始化返回值" class="headerlink" title="列表初始化返回值"></a>列表初始化返回值</h3><p>C++11：函数可以返回花括号包围的值的列表。</p>
+<pre><code class="cpp">vector&lt;string&gt; f() {
+  //...
+  return {&quot;1&quot;, &quot;s2&quot;};
+}
+</code></pre>
+<h3 id="主函数main的返回值"><a href="#主函数main的返回值" class="headerlink" title="主函数main的返回值"></a>主函数main的返回值</h3><p>定义在 <strong>cstdlib</strong> 头文件中：<br><strong>EXIT_FAILURE</strong>, <strong>EXI_SUCCESS</strong>;</p>
+<h3 id="声明一个返回数组指针的函数"><a href="#声明一个返回数组指针的函数" class="headerlink" title="声明一个返回数组指针的函数"></a>声明一个返回数组指针的函数</h3><p><code>Type (*function(parameter_list))[dimension]</code><br>例如：<br><code>int (*func(int i))[10];</code></p>
+<h3 id="使用尾置返回类型"><a href="#使用尾置返回类型" class="headerlink" title="使用尾置返回类型"></a>使用尾置返回类型</h3><p>C++11：tailing return type：<br><code>auto func(int i) -&gt; int(*)[10];</code></p>
+<h3 id="默认实参"><a href="#默认实参" class="headerlink" title="默认实参"></a>默认实参</h3><p><code>string f(string, string, char = &#39;*&#39;)</code></p>
+<h3 id="constexpr函数"><a href="#constexpr函数" class="headerlink" title="constexpr函数"></a>constexpr函数</h3><p>constexpr函数的返回类型和所有形参都得是字面值类型，函数体中有且只有一条return语句;<br><code>constexpr int sz() {return 1;}</code><br>内联函数和constexpr函数通常定义在头文件中。</p>
+<h3 id="调试帮助"><a href="#调试帮助" class="headerlink" title="调试帮助"></a>调试帮助</h3><p>如果定义了NDEBUG，那么assert什么也不做；<br><code>CC -D NDEBUG main.cpp</code></p>
+<ul>
+<li><code>__func__</code>：当前函数的名字</li>
+<li><code>__FILE__</code>：存放文件名的字符串字面值。</li>
+<li><code>__LINE__</code>：存放当前行号的整形字面值。</li>
+<li><code>__TIME__</code>：存放文件编译时间的字符串字面值。</li>
+<li><code>__DATE__</code>：存放文件便宜日期的字符串字面值。</li>
+</ul>
+<h3 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h3><p><code>bool (*pf)(int, int)</code></p>
+<h2 id="Chapter-7-类"><a href="#Chapter-7-类" class="headerlink" title="Chapter 7 类"></a>Chapter 7 类</h2><h3 id="default"><a href="#default" class="headerlink" title="=default"></a>=default</h3><p>C++11：如果我们需要默认的行为，那么可以通过在参数列表后写 <strong>= default</strong> 来要求编译器生成构造函数。</p>
+<h3 id="可变数据成员"><a href="#可变数据成员" class="headerlink" title="可变数据成员"></a>可变数据成员</h3><pre><code class="cpp">class Screen {
+public:
+  void some_member() const;
+  //...
+private:
+  mutable size_t access_ctr;  //即使在一个const对象中也能被修改
+};
+void Screen::some_member() const {
+  ++access_ctr;
+  //...
+}
+</code></pre>
+<h3 id="返回-this"><a href="#返回-this" class="headerlink" title="返回*this"></a>返回*this</h3><pre><code class="cpp">class Screen {
+public:
+  Screen &amp;set(char);
+  Screen &amp;set(pos, pos, char);
+  //...
+};
+
+inline Screen &amp;Screen::set(char c) {
+  //...
+  return *this; //将this对象作为左值返回
+}
+
+inline Screen &amp;Screen::set(pos r, pos l, char c) {
+  //...
+  return *this;
+}
+
+myScreen.set(&#39;#&#39;).set(1, 2, &#39;*&#39;);
+</code></pre>
+<p>一个const成员函数如果以引用的形式返回*this，那么它的返回类型将是常量引用；</p>
+<p>###</p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2018/07/01/Computer-Graphics/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/06/01/hello-world/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="FWZ's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        youremail@email.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">3</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+
+    <!-- Pages  -->
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material" class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+        <a href="https://twitter.com/twitter" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-twitter">
+                <span class="visuallyhidden">Twitter</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Facebook -->
+    
+        <a href="https://www.facebook.com/facebook" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-facebook">
+                <span class="visuallyhidden">Facebook</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Google + -->
+    
+        <a href="https://www.google.com/" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-gplus">
+                <span class="visuallyhidden">Google Plus</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>fengweizan's BLOG
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+<script type="text/ls-javascript" id="Bing-Background-script">
+    queue.offer(function(){
+        $('body').attr('data-original', 'https://api.i-meto.com/bing?');
+    });
+</script>
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+        </body>
+    
+</html>
