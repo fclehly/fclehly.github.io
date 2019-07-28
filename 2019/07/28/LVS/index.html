@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
-    <head><meta name="generator" content="Hexo 3.8.0">
+    <head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
@@ -54,7 +54,7 @@
 
     <meta name="format-detection" content="telephone=no">
     <meta name="description" itemprop="description" content="my blog with material design">
-    <meta name="keywords" content="">
+    <meta name="keywords" content=",lvs,loadbalance">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -240,11 +240,11 @@
     <meta property="og:title" content="LVS | fengweizan&#39;s BLOG">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="my blog with material design">
-    
+    <meta property="og:article:tag" content="lvs"> <meta property="og:article:tag" content="loadbalance"> 
 
     
         <meta property="article:published_time" content="Sun Jul 28 2019 20:26:16 GMT+0800">
-        <meta property="article:modified_time" content="Sun Jul 28 2019 21:28:03 GMT+0800">
+        <meta property="article:modified_time" content="Sun Jul 28 2019 23:40:58 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -267,7 +267,7 @@
     "mainEntityOfPage": "https://fclehly.github.io/2019/07/28/LVS/index.html",
     "headline": "LVS",
     "datePublished": "Sun Jul 28 2019 20:26:16 GMT+0800",
-    "dateModified": "Sun Jul 28 2019 21:28:03 GMT+0800",
+    "dateModified": "Sun Jul 28 2019 23:40:58 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "FWZ",
@@ -285,7 +285,7 @@
             "url": "/img/favicon.png"
         }
     },
-    "keywords": "",
+    "keywords": ",lvs,loadbalance",
     "description": "my blog with material design",
 }
 </script>
@@ -345,12 +345,13 @@
     <!-- Left aligned menu below button -->
     
     
-    <button id="post-toc-trigger-btn" class="mdl-button mdl-js-button mdl-button--icon">
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
         <i class="material-icons">format_list_numbered</i>
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简单拓扑"><span class="post-toc-number">1.</span> <span class="post-toc-text">简单拓扑</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基于LB的集群"><span class="post-toc-number">1.</span> <span class="post-toc-text">基于LB的集群</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简单拓扑"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">简单拓扑</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#NAT"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">NAT</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#S-NAT"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">S_NAT</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#D-NAT"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">D_NAT</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -396,7 +397,7 @@
 
     <!-- Author Avatar -->
     <div id="author-avatar">
-        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
     </div>
     <!-- Author Name & Date -->
     <div>
@@ -418,6 +419,15 @@
     
 
     <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/loadbalance/">loadbalance</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/lvs/">lvs</a>
+    </ul>
     
 
     <!-- Share -->
@@ -485,7 +495,7 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h2 id="简单拓扑"><a href="#简单拓扑" class="headerlink" title="简单拓扑"></a>简单拓扑</h2><p>![ip-topo.001.png]</p>
+        <h2 id="基于LB的集群"><a href="#基于LB的集群" class="headerlink" title="基于LB的集群"></a>基于LB的集群</h2><h3 id="简单拓扑"><a href="#简单拓扑" class="headerlink" title="简单拓扑"></a>简单拓扑</h3><p><img src="ip-topo.001.png" alt="ip-topo.001.png"></p>
 <ul>
 <li>LB: 负载均衡器；IP；转发，不做三次握手；保证三次握手到四次分手不可分割；</li>
 <li>CIP: Client IP;</li>
@@ -493,7 +503,11 @@
 <li>DIP: Director’s IP;</li>
 <li>RIP: Real IP;</li>
 </ul>
-
+<h4 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h4><h3 id="S-NAT"><a href="#S-NAT" class="headerlink" title="S_NAT"></a>S_NAT</h3><p>数据包过路由器时，修改源的IP地址。</p>
+<h3 id="D-NAT"><a href="#D-NAT" class="headerlink" title="D_NAT"></a>D_NAT</h3><p>数据包过路由器时，修改目标的IP地址。</p>
+<pre class="mermaid">sequenceDiagram
+    Alice->>+John: Hello John, how are you?
+    John-->>-Alice: Great!</pre>
         
     
 
@@ -612,7 +626,7 @@
             <ul class="dropdown-menu">
             <li>
                 <a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/06/">六月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">3</span></a>
-            </li></ul>
+            </ul>
         </li>
         
     
@@ -646,7 +660,7 @@ It will not impact the appearance and can give developers a lot of support :)
 
 <!-- Theme Material -->
 
-    <a href="https://github.com/viosey/hexo-theme-material" class="sidebar-footer-text-a" target="_blank">
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
         <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
             主题 - Material
             <span class="sidebar-badge badge-circle">i</span>
@@ -691,8 +705,8 @@ It will not impact the appearance and can give developers a lot of support :)
                     <!--Footer-->
 <footer class="mdl-mini-footer" id="bottom">
     
-        <!-- Paradox Footer Left Section -->
-        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Paradox Footer Left Section -->
+    <div class="mdl-mini-footer--left-section sns-list">
     <!-- Twitter -->
     
         <a href="https://twitter.com/twitter" target="_blank">
@@ -749,15 +763,18 @@ It will not impact the appearance and can give developers a lot of support :)
 </div>
 
 
-        <!--Copyright-->
-        <div id="copyright">
-            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>fengweizan's BLOG
-            
-        </div>
+    <!--Copyright-->
+    <div id="copyright">
+        Copyright&nbsp;©
+        <script
+            type="text/javascript">var fd = new Date(); document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>
+        fengweizan's BLOG
+        
+    </div>
 
-        <!-- Paradox Footer Right Section -->
+    <!-- Paradox Footer Right Section -->
 
-        <!--
+    <!--
         I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
         It will not impact the appearance and can give developers a lot of support :)
 
@@ -765,14 +782,25 @@ It will not impact the appearance and can give developers a lot of support :)
         它不会影响美观并可以给开发者很大的支持。 :)
         -->
 
-        <div class="mdl-mini-footer--right-section">
-            <div>
-                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
-                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
-            </div>
+    <div class="mdl-mini-footer--right-section">
+        <div>
+            <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank"
+                    class="footer-develop-a">Hexo</a></div>
+            <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material"
+                    target="_blank" class="footer-develop-a">Material</a></div>
         </div>
+    </div>
     
 </footer>
+
+
+    <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+    <script>
+        console.log(window.mermaid);
+        if (window.mermaid) {
+            mermaid.initialize({ startOnLoad: true});
+        }
+    </script>
 
 
                     <!-- Import JS File -->

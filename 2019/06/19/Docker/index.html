@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
-    <head><meta name="generator" content="Hexo 3.8.0">
+    <head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
@@ -54,7 +54,7 @@
 
     <meta name="format-detection" content="telephone=no">
     <meta name="description" itemprop="description" content="my blog with material design">
-    <meta name="keywords" content="">
+    <meta name="keywords" content>
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -345,7 +345,8 @@
     <!-- Left aligned menu below button -->
     
     
-    <button id="post-toc-trigger-btn" class="mdl-button mdl-js-button mdl-button--icon">
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
         <i class="material-icons">format_list_numbered</i>
     </button>
 
@@ -396,7 +397,7 @@
 
     <!-- Author Avatar -->
     <div id="author-avatar">
-        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
     </div>
     <!-- Author Name & Date -->
     <div>
@@ -498,7 +499,7 @@
 <h3 id="更轻松的维护和扩展"><a href="#更轻松的维护和扩展" class="headerlink" title="更轻松的维护和扩展"></a>更轻松的维护和扩展</h3><blockquote>
 <p>Docker 使用的分层存储以及镜像的技术，使得应用重复部分的复用更为容易，也使得应用的维护更新更加简单，基于基础镜像进一步扩展镜像也变得非常简单。此外，Docker 团队同各个开源项目团队一起维护了一大批高质量的 官方镜像，既可以直接在生产环境使用，又可以作为基础进一步定制，大大的降低了应用服务的镜像制作成本。</p>
 </blockquote>
-<h2 id="VM-Vagrant-Docker"><a href="#VM-Vagrant-Docker" class="headerlink" title="VM, Vagrant, Docker"></a>VM, Vagrant, Docker</h2><p>最开始，大家就想着直接把整个系统打包再部署，即虚拟机技术，保证了系统和环境的稳定，减少了大量手工操作。但是，缺点也是有的，那就是无法自动化打包过程，于是<a href="https://www.vagrantup.com/" target="_blank" rel="noopener">Vargrant</a>被做了出来，Vargrant使用了vargrantfile文件给开发者提供了定义自动化构建VM镜像的功能。但是，还是有缺点，首先，打包出来的镜像太大，包含了过多不需要使用的依赖；其次，服务启动必须等得VM的系统启动完成后才能启动服务。<br>为了解决VM的缺点，Docker被开发了出来，它提供了系统上的进程级别的虚拟化技术。与VM需要虚拟化整个硬件和操作系统不同，Docker是直接基于宿主机的操作系统进行虚拟化，性能几乎没有损耗。具体结构差异如下：</p>
+<h2 id="VM-Vagrant-Docker"><a href="#VM-Vagrant-Docker" class="headerlink" title="VM, Vagrant, Docker"></a>VM, Vagrant, Docker</h2><p>最开始，大家就想着直接把整个系统打包再部署，即虚拟机技术，保证了系统和环境的稳定，减少了大量手工操作。但是，缺点也是有的，那就是无法自动化打包过程，于是<a href="https://www.vagrantup.com/">Vargrant</a>被做了出来，Vargrant使用了vargrantfile文件给开发者提供了定义自动化构建VM镜像的功能。但是，还是有缺点，首先，打包出来的镜像太大，包含了过多不需要使用的依赖；其次，服务启动必须等得VM的系统启动完成后才能启动服务。<br>为了解决VM的缺点，Docker被开发了出来，它提供了系统上的进程级别的虚拟化技术。与VM需要虚拟化整个硬件和操作系统不同，Docker是直接基于宿主机的操作系统进行虚拟化，性能几乎没有损耗。具体结构差异如下：</p>
 <pre><code>虚拟机：
     +------------+-------------+
     | App A      |  App B      |
@@ -582,7 +583,7 @@ Docker：
  |     bootfs    |  Read Only
  +---------------+
 
-</code></pre><h3 id="Docker-Registry"><a href="#Docker-Registry" class="headerlink" title="Docker Registry"></a>Docker Registry</h3><p>Docker仓库分为公有和私有，放着一些已有的镜像，官方的docker registry是<a href="https://www.docker.com/products/docker-hub" target="_blank" rel="noopener">Docker Hub</a>。</p>
+</code></pre><h3 id="Docker-Registry"><a href="#Docker-Registry" class="headerlink" title="Docker Registry"></a>Docker Registry</h3><p>Docker仓库分为公有和私有，放着一些已有的镜像，官方的docker registry是<a href="https://www.docker.com/products/docker-hub">Docker Hub</a>。</p>
 <h3 id="Namespaces"><a href="#Namespaces" class="headerlink" title="Namespaces"></a>Namespaces</h3><p>C++中有namespace这个概念，它实现了代码块的封装，更重要的是代码的隔离，使得不同namespace下可以有相同的变量名但意义不同。在linux里，namespace是一个重要的特性，提供了系统资源的隔离，包括进程/网络/文件系统等。linux实现namespace的重要目的就是为了实现轻量级的虚拟化，也就是容器（linux里的lxc了解一下）。在同一namespace下的进程可以感知彼此的变化，而不能发现其他进程，从而使得一个namespace下的进程认为自身处于一个独立的系统中，便达到了独立和隔离的目的。<br>Docker目前用到了以下几种namespace进行资源隔离。</p>
 <ul>
 <li>PID， Process ID, 进程隔离；</li>
@@ -765,7 +766,7 @@ ENTRYPOINT [&quot;/usr/bin/python3&quot;, &quot;/root/app/manage.py&quot;, &quot
             <ul class="dropdown-menu">
             <li>
                 <a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/06/">六月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">3</span></a>
-            </li></ul>
+            </ul>
         </li>
         
     
@@ -799,7 +800,7 @@ It will not impact the appearance and can give developers a lot of support :)
 
 <!-- Theme Material -->
 
-    <a href="https://github.com/viosey/hexo-theme-material" class="sidebar-footer-text-a" target="_blank">
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
         <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
             主题 - Material
             <span class="sidebar-badge badge-circle">i</span>
@@ -844,8 +845,8 @@ It will not impact the appearance and can give developers a lot of support :)
                     <!--Footer-->
 <footer class="mdl-mini-footer" id="bottom">
     
-        <!-- Paradox Footer Left Section -->
-        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Paradox Footer Left Section -->
+    <div class="mdl-mini-footer--left-section sns-list">
     <!-- Twitter -->
     
         <a href="https://twitter.com/twitter" target="_blank">
@@ -902,15 +903,18 @@ It will not impact the appearance and can give developers a lot of support :)
 </div>
 
 
-        <!--Copyright-->
-        <div id="copyright">
-            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>fengweizan's BLOG
-            
-        </div>
+    <!--Copyright-->
+    <div id="copyright">
+        Copyright&nbsp;©
+        <script
+            type="text/javascript">var fd = new Date(); document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>
+        fengweizan's BLOG
+        
+    </div>
 
-        <!-- Paradox Footer Right Section -->
+    <!-- Paradox Footer Right Section -->
 
-        <!--
+    <!--
         I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
         It will not impact the appearance and can give developers a lot of support :)
 
@@ -918,14 +922,25 @@ It will not impact the appearance and can give developers a lot of support :)
         它不会影响美观并可以给开发者很大的支持。 :)
         -->
 
-        <div class="mdl-mini-footer--right-section">
-            <div>
-                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
-                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
-            </div>
+    <div class="mdl-mini-footer--right-section">
+        <div>
+            <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank"
+                    class="footer-develop-a">Hexo</a></div>
+            <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material"
+                    target="_blank" class="footer-develop-a">Material</a></div>
         </div>
+    </div>
     
 </footer>
+
+
+    <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+    <script>
+        console.log(window.mermaid);
+        if (window.mermaid) {
+            mermaid.initialize({ startOnLoad: true});
+        }
+    </script>
 
 
                     <!-- Import JS File -->

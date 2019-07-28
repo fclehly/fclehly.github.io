@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html style="display: none;" lang="zh">
-    <head><meta name="generator" content="Hexo 3.8.0">
+    <head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <!--
         © Material Theme
@@ -54,7 +54,7 @@
 
     <meta name="format-detection" content="telephone=no">
     <meta name="description" itemprop="description" content="my blog with material design">
-    <meta name="keywords" content="">
+    <meta name="keywords" content>
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -315,7 +315,7 @@
     <!-- Post Excerpt -->
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
         
-            简单拓扑
+            基于...
         
         &nbsp;&nbsp;&nbsp;
         <span>
@@ -336,6 +336,11 @@
         </div>
         <div id="post_entry-right-info">
           
+              <!-- Category -->
+              <span class="post_entry-category">
+                  <a class="post_category-link" href="/categories/server/">server</a>
+              </span>
+            
 
             
 
@@ -965,7 +970,7 @@ JAXB 异常
             <ul class="dropdown-menu">
             <li>
                 <a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/06/">六月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">3</span></a>
-            </li></ul>
+            </ul>
         </li>
         
     
@@ -999,7 +1004,7 @@ It will not impact the appearance and can give developers a lot of support :)
 
 <!-- Theme Material -->
 
-    <a href="https://github.com/viosey/hexo-theme-material" class="sidebar-footer-text-a" target="_blank">
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
         <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
             主题 - Material
             <span class="sidebar-badge badge-circle">i</span>
@@ -1044,8 +1049,8 @@ It will not impact the appearance and can give developers a lot of support :)
                     <!--Footer-->
 <footer class="mdl-mini-footer" id="bottom">
     
-        <!-- Paradox Footer Left Section -->
-        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Paradox Footer Left Section -->
+    <div class="mdl-mini-footer--left-section sns-list">
     <!-- Twitter -->
     
         <a href="https://twitter.com/twitter" target="_blank">
@@ -1102,15 +1107,18 @@ It will not impact the appearance and can give developers a lot of support :)
 </div>
 
 
-        <!--Copyright-->
-        <div id="copyright">
-            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>fengweizan's BLOG
-            
-        </div>
+    <!--Copyright-->
+    <div id="copyright">
+        Copyright&nbsp;©
+        <script
+            type="text/javascript">var fd = new Date(); document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>
+        fengweizan's BLOG
+        
+    </div>
 
-        <!-- Paradox Footer Right Section -->
+    <!-- Paradox Footer Right Section -->
 
-        <!--
+    <!--
         I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
         It will not impact the appearance and can give developers a lot of support :)
 
@@ -1118,14 +1126,25 @@ It will not impact the appearance and can give developers a lot of support :)
         它不会影响美观并可以给开发者很大的支持。 :)
         -->
 
-        <div class="mdl-mini-footer--right-section">
-            <div>
-                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
-                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
-            </div>
+    <div class="mdl-mini-footer--right-section">
+        <div>
+            <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank"
+                    class="footer-develop-a">Hexo</a></div>
+            <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material"
+                    target="_blank" class="footer-develop-a">Material</a></div>
         </div>
+    </div>
     
 </footer>
+
+
+    <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+    <script>
+        console.log(window.mermaid);
+        if (window.mermaid) {
+            mermaid.initialize({ startOnLoad: true});
+        }
+    </script>
 
 
                     <!-- Import JS File -->
