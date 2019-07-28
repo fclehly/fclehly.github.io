@@ -4,7 +4,11 @@ date: 2019-07-27 22:29:23
 tags:
 ---
 
+[坑](#坑)   
+- [JAXB 异常](#jaxb-异常)
+
 ## 坑
+### JAXB 异常
 在运行spring-cloud-eureka-server时，会报错，日志打印错误栈如下：
 ```
 java.lang.TypeNotPresentException: Type javax.xml.bind.JAXBContext not present
