@@ -244,7 +244,7 @@
 
     
         <meta property="article:published_time" content="Sun Jul 28 2019 20:26:16 GMT+0800">
-        <meta property="article:modified_time" content="Sun Jul 28 2019 23:40:58 GMT+0800">
+        <meta property="article:modified_time" content="Mon Jul 29 2019 21:43:16 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -267,7 +267,7 @@
     "mainEntityOfPage": "https://fclehly.github.io/2019/07/28/LVS/index.html",
     "headline": "LVS",
     "datePublished": "Sun Jul 28 2019 20:26:16 GMT+0800",
-    "dateModified": "Sun Jul 28 2019 23:40:58 GMT+0800",
+    "dateModified": "Mon Jul 29 2019 21:43:16 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "FWZ",
@@ -505,9 +505,19 @@
 </ul>
 <h4 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h4><h3 id="S-NAT"><a href="#S-NAT" class="headerlink" title="S_NAT"></a>S_NAT</h3><p>数据包过路由器时，修改源的IP地址。</p>
 <h3 id="D-NAT"><a href="#D-NAT" class="headerlink" title="D_NAT"></a>D_NAT</h3><p>数据包过路由器时，修改目标的IP地址。</p>
-<pre class="mermaid">sequenceDiagram
-    Alice->>+John: Hello John, how are you?
-    John-->>-Alice: Great!</pre>
+<pre><code class="mermaid">sequenceDiagram
+
+participant clients
+participant director
+participant servers
+
+clients -&gt;&gt; director: CIP=&gt;VIP
+director -&gt;&gt; servers: DIP=&gt;RIP
+servers --&gt;&gt; director: DIP&lt;=RIP
+director --&gt;&gt; clients: CIP&lt;=VIP
+</code></pre>
+<p>client 请求server的过程为DNAT，server回复client的过程为SNAT。</p>
+
         
     
 
@@ -793,14 +803,6 @@ It will not impact the appearance and can give developers a lot of support :)
     
 </footer>
 
-
-    <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
-    <script>
-        console.log(window.mermaid);
-        if (window.mermaid) {
-            mermaid.initialize({ startOnLoad: true});
-        }
-    </script>
 
 
                     <!-- Import JS File -->
