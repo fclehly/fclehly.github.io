@@ -30,6 +30,15 @@ category:
 
 ```mermaid
 sequenceDiagram
-    Alice->>+John: Hello John, how are you?
-    John-->>-Alice: Great!
+
+participant clients
+participant director
+participant servers
+
+clients ->> director: CIP=>VIP
+director ->> servers: DIP=>RIP
+servers -->> director: DIP<=RIP
+director -->> clients: CIP<=VIP
 ```
+
+client 请求server的过程为DNAT，server回复client的过程为SNAT。
