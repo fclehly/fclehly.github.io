@@ -244,7 +244,7 @@
 
     
         <meta property="article:published_time" content="Sun Jul 28 2019 20:26:16 GMT+0800">
-        <meta property="article:modified_time" content="Mon Jul 29 2019 21:43:16 GMT+0800">
+        <meta property="article:modified_time" content="Tue Jul 30 2019 21:32:17 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -267,7 +267,7 @@
     "mainEntityOfPage": "https://fclehly.github.io/2019/07/28/LVS/index.html",
     "headline": "LVS",
     "datePublished": "Sun Jul 28 2019 20:26:16 GMT+0800",
-    "dateModified": "Mon Jul 29 2019 21:43:16 GMT+0800",
+    "dateModified": "Tue Jul 30 2019 21:32:17 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "FWZ",
@@ -351,7 +351,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基于LB的集群"><span class="post-toc-number">1.</span> <span class="post-toc-text">基于LB的集群</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简单拓扑"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">简单拓扑</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#NAT"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">NAT</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#S-NAT"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">S_NAT</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#D-NAT"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">D_NAT</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#LVS"><span class="post-toc-number">1.</span> <span class="post-toc-text">LVS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基于LB的集群"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">基于LB的集群</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简单拓扑"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">简单拓扑</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#NAT"><span class="post-toc-number">1.1.1.1.</span> <span class="post-toc-text">NAT</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#S-NAT"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">S_NAT</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#D-NAT"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">D_NAT</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DR"><span class="post-toc-number">1.1.3.1.</span> <span class="post-toc-text">DR</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TUN"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">TUN</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#调度"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">调度</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#静态调度："><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">静态调度：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#动态调度"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">动态调度</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ipvsadm"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">ipvsadm</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -495,7 +495,7 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h2 id="基于LB的集群"><a href="#基于LB的集群" class="headerlink" title="基于LB的集群"></a>基于LB的集群</h2><h3 id="简单拓扑"><a href="#简单拓扑" class="headerlink" title="简单拓扑"></a>简单拓扑</h3><p><img src="ip-topo.001.png" alt="ip-topo.001.png"></p>
+        <h1 id="LVS"><a href="#LVS" class="headerlink" title="LVS"></a>LVS</h1><h2 id="基于LB的集群"><a href="#基于LB的集群" class="headerlink" title="基于LB的集群"></a>基于LB的集群</h2><h3 id="简单拓扑"><a href="#简单拓扑" class="headerlink" title="简单拓扑"></a>简单拓扑</h3><p><img src="ip-topo.001.png" alt="ip-topo.001.png"></p>
 <ul>
 <li>LB: 负载均衡器；IP；转发，不做三次握手；保证三次握手到四次分手不可分割；</li>
 <li>CIP: Client IP;</li>
@@ -507,17 +507,61 @@
 <h3 id="D-NAT"><a href="#D-NAT" class="headerlink" title="D_NAT"></a>D_NAT</h3><p>数据包过路由器时，修改目标的IP地址。</p>
 <pre><code class="mermaid">sequenceDiagram
 
+participant client
+participant director
+participant server
+
+client -&gt;&gt; director: CIP-VIP
+director -&gt;&gt; server: DIP-RIP
+server --&gt;&gt; director: DIP-RIP
+director --&gt;&gt; client: CIP-VIP
+</code></pre>
+<p>client 请求server的过程为DNAT，server回复client的过程为SNAT。</p>
+<p>基于网络层</p>
+<p>I/O 瓶颈：带宽是不对称的，下行的速度是大于上行的速度的。(请求往往比较小，通常可能只包含几十k的请求头，而返回通常数据量比较大，包含多媒体数据)。</p>
+<h4 id="DR"><a href="#DR" class="headerlink" title="DR"></a>DR</h4><p>直接路由模型</p>
+<p>LB只处理上行数据，分发给real-server，real-server处理完数据后直接返回给客户端，以解决LB上NAT的I/O瓶颈问题。</p>
+<pre><code class="mermaid">sequenceDiagram
+
 participant clients
 participant director
 participant servers
 
-clients -&gt;&gt; director: CIP=&gt;VIP
-director -&gt;&gt; servers: DIP=&gt;RIP
-servers --&gt;&gt; director: DIP&lt;=RIP
-director --&gt;&gt; clients: CIP&lt;=VIP
-</code></pre>
-<p>client 请求server的过程为DNAT，server回复client的过程为SNAT。</p>
+client -&gt;&gt; director: CIP-VIP
+director -&gt;&gt; server: (RIP&#39;s MAC)CIP-VIP
+server --&gt;&gt; client: CIP-VIP
 
+</code></pre>
+<p>改MAC地址的行为要求LB和real-server在同一网段下，否则如果超过一跳，则会导致修改的MAC地址被替换。这是基于MAC地址的欺骗。类似于网关的方式。</p>
+<p>这里要求real-server默认网关指向运营商（ISP），且拥有公网IP地址PIP。</p>
+<h3 id="TUN"><a href="#TUN" class="headerlink" title="TUN"></a>TUN</h3><p>tunnel，隧道；点对点的方式。类似于VPN。</p>
+<pre><code class="mermaid">sequenceDiagram
+
+participant client
+participant director
+participant server
+
+client -&gt;&gt; director: CIP-VIP
+director -&gt;&gt; server: (DIP-RIP(CIP-VIP))
+server --&gt;&gt; director: (RIP-DIP(VIP-RIP))
+director --&gt;&gt; client: VIP-CIP
+</code></pre>
+<h2 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h2><h3 id="静态调度："><a href="#静态调度：" class="headerlink" title="静态调度："></a>静态调度：</h3><ul>
+<li>rr</li>
+<li>wrr</li>
+<li>sh</li>
+<li>dh</li>
+</ul>
+<h3 id="动态调度"><a href="#动态调度" class="headerlink" title="动态调度"></a>动态调度</h3><ul>
+<li>lc： 最少连接</li>
+<li>wlc： 加权最少连接；</li>
+<li>sed： 最短期望延迟；</li>
+<li>nq： never queue；</li>
+<li>LBLC：基于本地的最少连接</li>
+<li>DH：</li>
+<li>LBLCR：</li>
+</ul>
+<h2 id="ipvsadm"><a href="#ipvsadm" class="headerlink" title="ipvsadm"></a>ipvsadm</h2>
         
     
 
