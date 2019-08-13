@@ -244,7 +244,7 @@
 
     
         <meta property="article:published_time" content="Tue Aug 06 2019 22:18:47 GMT+0800">
-        <meta property="article:modified_time" content="Tue Aug 06 2019 22:58:13 GMT+0800">
+        <meta property="article:modified_time" content="Sun Aug 11 2019 15:48:27 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -267,7 +267,7 @@
     "mainEntityOfPage": "https://fclehly.github.io/2019/08/06/HDFS/index.html",
     "headline": "HDFS",
     "datePublished": "Tue Aug 06 2019 22:18:47 GMT+0800",
-    "dateModified": "Tue Aug 06 2019 22:58:13 GMT+0800",
+    "dateModified": "Sun Aug 11 2019 15:48:27 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "FWZ",
@@ -351,7 +351,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#HDFS"><span class="post-toc-number">1.</span> <span class="post-toc-text">HDFS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#存储模型"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">存储模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#架构模型"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">架构模型</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#HDFS"><span class="post-toc-number">1.</span> <span class="post-toc-text">HDFS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#存储模型"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">存储模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#架构模型"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">架构模型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NameNode"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">NameNode</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NameNode持久化"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">NameNode持久化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DataNode"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">DataNode</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HDFS优点"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">HDFS优点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HDFS缺点"><span class="post-toc-number">1.2.5.</span> <span class="post-toc-text">HDFS缺点</span></a></li></ol></li></ol></li></ol>
     </ul>
     
 
@@ -506,10 +506,71 @@
 <li>NameNode节点保存文件元数据：单节点，维护一个虚拟目录树，映射到DataNode的文件系统的Block。</li>
 <li>DataNode节点保存文件block数据：多节点；</li>
 </ul>
+<p><img src="http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/images/hdfsarchitecture.png" alt="hdfs-architecture"></p>
 <p>DataNode和NameNode保持心跳，提交block列表；</p>
 <p>HdfsClient和NameNode交互元数据信息；</p>
 <p>HdfsClient和DataNode交互文件Block信息。</p>
 <p>HdfsClient与NameNode交互后，向DataNode交互，NameNode起到了一定的负载均衡作用。</p>
+<h3 id="NameNode"><a href="#NameNode" class="headerlink" title="NameNode"></a>NameNode</h3><p>基于内存存储，不会和磁盘发生交换。数据只存在内存中，但会通过快照或增量日志做持久化策略。</p>
+<p>主要功能：</p>
+<ul>
+<li>接受客户端的读写服务；</li>
+<li>收集DataNode汇报的Block列表信息。</li>
+</ul>
+<p>其保存的metadata信息包括：</p>
+<ul>
+<li>文件ownership， permissions；</li>
+<li>文件大小，时间</li>
+<li>block列表，block偏移量，位置信息；</li>
+<li>block每个副本的位置（由DataNode上报）</li>
+</ul>
+<h3 id="NameNode持久化"><a href="#NameNode持久化" class="headerlink" title="NameNode持久化"></a>NameNode持久化</h3><p>NameNode的metadata在启动后会加载到内存；</p>
+<p>metadata存储到磁盘的文件名为fsimage；</p>
+<p>block的位置信息不会保存到fsimage；</p>
+<p>edits记录对metadata的操作记录；</p>
+<h3 id="DataNode"><a href="#DataNode" class="headerlink" title="DataNode"></a>DataNode</h3><p>本地磁盘目录存储数据block，使文件形式，同时存储block的元数据信息文件幂md5；</p>
+<p>启动datanode时会向namenode汇报block信息；</p>
+<p>通过向nanenode发送心跳保持与其联系（3秒1次），如果namenode在10分钟内没有收到datanode的信息，则认为其已经lost，并copy其上的block（从其他节点的副本拷贝扩散，保证副本数一致）到其他datanode。</p>
+<h3 id="HDFS优点"><a href="#HDFS优点" class="headerlink" title="HDFS优点"></a>HDFS优点</h3><ul>
+<li>高容错性：<ul>
+<li>数据自动保存多个副本；</li>
+<li>副本数据丢失，则会自动回复；</li>
+</ul>
+</li>
+<li>适合批处理<ul>
+<li>移动计算程序而不是数据；</li>
+<li>数据位置暴露给计算框架；</li>
+</ul>
+</li>
+<li>适合大数据处理<ul>
+<li>GB、TB、PB</li>
+<li>百万规模以上的文件数量</li>
+<li>10k+节点</li>
+</ul>
+</li>
+<li>可构建在廉价机器上（可靠性越高的机器越贵）<ul>
+<li>通过多副本提高可靠性；</li>
+<li>提供了容错和恢复机制；</li>
+</ul>
+</li>
+</ul>
+<h3 id="HDFS缺点"><a href="#HDFS缺点" class="headerlink" title="HDFS缺点"></a>HDFS缺点</h3><ul>
+<li>低延迟数据访问<ul>
+<li>毫秒级随机访问</li>
+<li>低延迟与高吞吐率</li>
+</ul>
+</li>
+<li>小文件存取<ul>
+<li>占用NameNode大量内存</li>
+<li>寻道时间超过读取时间</li>
+</ul>
+</li>
+<li>并发写入、文件随机修改<ul>
+<li>一个文件只能有一个写者</li>
+<li>仅支持append</li>
+</ul>
+</li>
+</ul>
 
         
     
