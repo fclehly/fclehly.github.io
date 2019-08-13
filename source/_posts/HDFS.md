@@ -90,3 +90,19 @@ edits记录对metadata的操作记录；
 - 并发写入、文件随机修改
   - 一个文件只能有一个写者
   - 仅支持append
+
+
+### SecondaryNameNode    
+
+
+SNN不是NN的备份（但是可以做备份），其主要工作是帮助NN合并edits log，减少NN的启动时间。
+SNN执行合并时间：
+- 根据配置文件设置的时间间隔`fs.checkpoint.period`，默认为3600s；
+- 根据配置文件设置edits log大小`fs.checkpoint.size`规定edits log文件的最大值默认是64MB
+
+### 安全模式
+- namenode启动时，首先将映像文件fsimage载入内存，并执行编辑日志（edits）中的各项操作。
+- 一旦在内存中成功建立文件系统元数据的映射，则创建一个新的fsimage文件（这个操作不需要SecondaryNameNode）和一个空的编辑日志，这里也是namenode唯一一次创建fsimage。
+- 此刻namenode运行在安全模式。即namenode的文件系统对于客户端来说只是只读的。（显示目录、文件内容等。写、删除、重命名等操作都会失败）
+- 在此阶段Namenode收集各个datanode的报告，当书记块达到最小副本数以上时，会被认为是"安全"的，在一定比例（可设置）的数据块被确定为"安全"后，再过若干时间，安全模式结束。
+- 当检测到副本数不足的数据块是，该快会被复制到达到最小副本数，系统中数据块大的位置并不是由namenode维护的，而是以块列表形式存储在datanode中。
