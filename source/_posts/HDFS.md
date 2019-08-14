@@ -106,3 +106,66 @@ SNN执行合并时间：
 - 此刻namenode运行在安全模式。即namenode的文件系统对于客户端来说只是只读的。（显示目录、文件内容等。写、删除、重命名等操作都会失败）
 - 在此阶段Namenode收集各个datanode的报告，当书记块达到最小副本数以上时，会被认为是"安全"的，在一定比例（可设置）的数据块被确定为"安全"后，再过若干时间，安全模式结束。
 - 当检测到副本数不足的数据块是，该快会被复制到达到最小副本数，系统中数据块大的位置并不是由namenode维护的，而是以块列表形式存储在datanode中。
+
+### Block的副本防置策略
+- 第一个副本：防置在上传的DN；如果是集群外提交，则随机挑选一台磁盘不是太满，CPU不太忙的节点；
+- 第二个副本：防置在于第一个副本不同的机架（Rack）的节点上。
+- 第三个副本：与第二个副本相同机架的节点。
+- 更多副本：随机节点。
+
+### HDFS写流程
+
+图
+
+流水线
+
+距离优先
+
+### HDFS读流程
+
+### HDFS文件权限 POSIX
+- 与Linux文件权限类似
+  - r:read; w:write; x:execute
+  - 权限x对于文件忽略，对于文件夹表示十分允许访问其内容
+
+- 如果Linux系统用户A使用hadoop命令创建一个文件，那么这个文件在HDFS中的owner就是A；
+
+- HDFS的权限目的：组织好人做错事，而不是阻止坏人做坏事。HDFS
+相信，你告诉我你是谁，我就认为你是谁。
+
+## Hadoop2
+
+### Hadoop2产生背景
+Hadoop1中HDFS和MapReduce在高可用、扩展性等方面存在问题
+
+- NameNode单点故障，难以应用于在线场景， HA
+- NameNode压力过大，且内存首先，影响扩展性， F
+MapReduce存在的问题：
+- JobTracker访问压力大，影响系统扩展性
+- 难以支持出MapReduce之外的计算框架，比如spark、Storm等
+
+Hadoop2.x由HDFS、MapReduce和YARN三个分支构成。
+- HDFS： NN Federation（联邦）、HA；2.x只支持2个节点HA
+，3.0实现一主多从；
+- MapReduce： 运行在YARN上的MR；离线计算，基于磁盘I/O计算
+- YARN：资源管理系统
+
+### HDFS2
+解决HDFS1中单点故障和内存受限的问题
+
+解决单点故障：
+- HDFS HA ：通过贮备NameNode解决
+- 如果中NameNode发生故障，则切换到备NameNode上；
+
+解决内存受限问题
+- HDFS Federation 联邦
+- 水平扩展，支持多个NameNode；
+  - 每个NameNode分管一部分目录；
+  - 所有NameNode共享所有DataNode存储资源；
+HDFS2仅是架构上发生了变化，使用方式不变，对HDFS使用者透明，HDFS1中的命令和API仍可以使用。
+
+图
+
+Linux NFS
+JournalNodes
+最终一致性
