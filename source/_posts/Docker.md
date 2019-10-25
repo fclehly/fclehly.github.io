@@ -158,6 +158,54 @@ cgroups主要负责容器相关的以下内容：
 - 网络隔离： 容器间的虚拟网络接口和IP地址都是分离的；
 - 资源隔离和分组： cgroups将CPU和内存等资源独立分配给每个不同的Docker容器。
 
+### 容器的状态
+- 运行
+- 已暂停
+- 重新启动
+- 已退出
+
+## Command
+
+```bash
+$ docker help
+
+$ docker help cp
+```
+
+
+
+```bash
+$ docker run --detach --interactive --tty --name web busybox:latest /bin/bash
+
+$ docker run -d -name wp3 --link wpdb:mysql -p 80 -v /run/lock/apache2 -v /run/apache2 --read-only wordpress:4
+
+$ docker run -d --rm --name wp --env MY_ENVIRONMENT_VAR="test" --read-only wordpress:4
+
+$ docker inspect --format "{{.State.Running}}" wp
+
+$ docker ps
+
+$ docker top web
+
+$ docker run --it
+
+$ docker restart web
+
+$ docker logs web
+
+$ docker exec web ps
+
+$ docker stop xxxx
+
+$ docker search postgres
+
+$ docker save -o myfile.tar busybox:latest
+
+$ docker load -i myfile.tar
+
+$ docker rmi busybox
+```
+
 ## Dockerfile指令
 
 
