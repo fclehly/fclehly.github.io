@@ -22,11 +22,11 @@ categories:
 - G: 绿光
 - B: 蓝光
 
-每个RGB分量用8bit表示；(256个色度)
+每个RGB分量可以用8bit表示；(256个色度)，例如：
 
-#FF0000 = 红色
+- `#FF0000` = 红色
 
-#FFFFFF = 白色
+- `#FFFFFF` = 白色
 
 也有使用10bit表示的
 
@@ -152,7 +152,7 @@ B帧则需要参考其前一个I帧或者P帧及其后面的一个P帧来生成�
 |<--  GOP  -->|
 ```
 
-#### 常用视频压缩算法
+## 常用视频压缩算法
 
 - MPEG2 (MPEG)
 - H264  (MPEG)
@@ -161,12 +161,18 @@ B帧则需要参考其前一个I帧或者P帧及其后面的一个P帧来生成�
 - VP8   (Google)
 - VP9   (Google)
 
-#### H264
+### H264
 
-Elecard streameye tools
+视频编码分析工具：Elecard streameye tools
+
+#### NALU
+TODO
+#### 帧内预测
+TODO
+#### 帧间预测
 TODO
 
-#### HEVC
+### HEVC
 TODO
 
 ## 音频基础
@@ -292,23 +298,58 @@ video
 TODO
 
 ### HLS
+苹果推出的视频传输协议
+
+https://developer.apple.com/streaming/
+
+[HTTP Live Streaming](https://tools.ietf.org/html/rfc8216)
+
 TODO
+
 #### m3u8
+按一定格式编写的文本文件，m3u8 = m3u + utf8
 TODO
 
 ### RTSP
+
+[RFC 2326 - Real Time Streaming Protocol](https://tools.ietf.org/html/rfc2326)
+
+类http文本
+
+#### 方法定义
+##### Options
+##### Describe
+##### Announce
+##### Setup
+##### Play
+##### Pause
+##### Teardown
+
 TODO
 #### RTCP
+[Real Time Control Protocol (RTCP) attribute in Session Description Protocol (SDP)](https://tools.ietf.org/html/rfc3605)
 TODO
 #### RTP
+
+[RFC 3550 - RTP: A Transport Protocol for Real-Time Application](https://tools.ietf.org/html/rfc3550)
+
 TODO
 
+### SDP
+会话描述协议
+TODO
+
+## WebRTC
+
+TODO
 
 ### 音视频同步基础
 
 #### DTS
+Decoding Time Stamp
 
 #### PTS
+Presentation Time Stamp
 
 #### 音视频同步方式
 
@@ -331,21 +372,28 @@ E --> F[YUV420p]
 F --> G[RGB显示]
 ```
 
-
-### WebRTC
-
-TODO
-
+## 开源项目
 
 ### ffmpeg
 http://ffmpeg.org
 
 TODO
 
+#### avpacket
+#### mpegts
+
+#### avfilter
+
+......
+TODO
+
 ### librtmp
 TODO
 
 ### srs
+
+simple rtmp server
+
 https://github.com/ossrs/srs
 
 TODO
@@ -356,9 +404,12 @@ https://github.com/arut/nginx-rtmp-module
 TODO
 
 ### janus
+https://github.com/meetecho/janus-gateway
+
 TODO
 
 ### live555
+http://www.live555.com
 
 TODO
 
@@ -367,7 +418,18 @@ https://github.com/Bilibili/ijkplayer
 
 
 
+## 参考资料
+
+### 书籍
+
+1. WebRTC权威指南
+2. 音视频开发进阶指南:基于Android和iOS平台的实践
+3. FFmpeg从入门到精通
+4. 新一代视频压缩编码标准:H.264/AVC
 
 
+### 博客
+
+1. https://blog.csdn.net/leixiaohua1020
 
 
