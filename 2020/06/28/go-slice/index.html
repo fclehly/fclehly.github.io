@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+
+  
+  <title>go slice | fengweizan&#39;s BLOG</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Go 切片：用法和本质2011&#x2F;01&#x2F;05 引言Go的切片类型为处理同类型数据序列提供一个方便而高效的方式。 切片有些类似于其他语言中的数组，但是有一些不同寻常的特性。 本文将深入切片的本质，并讲解它的用法。 数组Go的切片是在数组之上的抽象数据类型，因此在了解切片之前必须要先理解数组。 数组类型定义了长度和元素类型。例如， [4]int 类型表示一个四个整数的数组。 数组的长度是固定的，长度是数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go slice">
+<meta property="og:url" content="https://fclehly.github.io/2020/06/28/go-slice/index.html">
+<meta property="og:site_name" content="fengweizan&#39;s BLOG">
+<meta property="og:description" content="Go 切片：用法和本质2011&#x2F;01&#x2F;05 引言Go的切片类型为处理同类型数据序列提供一个方便而高效的方式。 切片有些类似于其他语言中的数组，但是有一些不同寻常的特性。 本文将深入切片的本质，并讲解它的用法。 数组Go的切片是在数组之上的抽象数据类型，因此在了解切片之前必须要先理解数组。 数组类型定义了长度和元素类型。例如， [4]int 类型表示一个四个整数的数组。 数组的长度是固定的，长度是数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.go-zh.org/go-slices-usage-and-internals_slice-array.png">
+<meta property="og:image" content="https://blog.go-zh.org/go-slices-usage-and-internals_slice-struct.png">
+<meta property="og:image" content="https://blog.go-zh.org/go-slices-usage-and-internals_slice-1.png">
+<meta property="og:image" content="https://blog.go-zh.org/go-slices-usage-and-internals_slice-2.png">
+<meta property="og:image" content="https://blog.go-zh.org/go-slices-usage-and-internals_slice-3.png">
+<meta property="article:published_time" content="2020-06-28T12:34:56.000Z">
+<meta property="article:modified_time" content="2020-06-28T12:36:46.679Z">
+<meta property="article:author" content="FWZ">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.go-zh.org/go-slices-usage-and-internals_slice-array.png">
+  
+    <link rel="alternate" href="/atom.xml" title="fengweizan&#39;s BLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">fengweizan&#39;s BLOG</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fclehly.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-go-slice" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/28/go-slice/" class="article-date">
+  <time datetime="2020-06-28T12:34:56.000Z" itemprop="datePublished">2020-06-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      go slice
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Go-切片：用法和本质"><a href="#Go-切片：用法和本质" class="headerlink" title="Go 切片：用法和本质"></a><a href="https://blog.go-zh.org/go-slices-usage-and-internals">Go 切片：用法和本质</a></h3><p>2011/01/05</p>
+<h4 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h4><p>Go的切片类型为处理同类型数据序列提供一个方便而高效的方式。 切片有些类似于其他语言中的数组，但是有一些不同寻常的特性。 本文将深入切片的本质，并讲解它的用法。</p>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>Go的切片是在数组之上的抽象数据类型，因此在了解切片之前必须要先理解数组。</p>
+<p>数组类型定义了长度和元素类型。例如， <code>[4]int</code> 类型表示一个四个整数的数组。 数组的长度是固定的，长度是数组类型的一部分（ <code>[4]int</code> 和 <code>[5]int</code> 是完全不同的类型）。 数组可以以常规的索引方式访问，表达式 <code>s[n]</code> 访问数组的第 n 个元素。</p>
+<pre><code>var a [4]int
+a[0] = 1
+i := a[0]
+// i == 1
+</code></pre>
+<p>数组不需要显式的初始化；数组的零值是可以直接使用的，数组元素会自动初始化为其对应类型的零值：</p>
+<pre><code>// a[2] == 0, int 类型的零值
+</code></pre>
+<p>类型 <code>[4]int</code> 对应内存中四个连续的整数：</p>
+<p><img src="https://blog.go-zh.org/go-slices-usage-and-internals_slice-array.png" alt="img"></p>
+<p>Go的数组是值语义。一个数组变量表示整个数组，它不是指向第一个元素的指针（不像 C 语言的数组）。 当一个数组变量被赋值或者被传递的时候，实际上会复制整个数组。 （为了避免复制数组，你可以传递一个指向数组的指针，但是数组指针并不是数组。） 可以将数组看作一个特殊的struct，结构的字段名对应数组的索引，同时成员的数目固定。</p>
+<p>数组的字面值像这样：</p>
+<pre><code>b := [2]string&#123;&quot;Penn&quot;, &quot;Teller&quot;&#125;
+</code></pre>
+<p>当然，也可以让编译器统计数组字面值中元素的数目：</p>
+<pre><code>b := [...]string&#123;&quot;Penn&quot;, &quot;Teller&quot;&#125;
+</code></pre>
+<p>这两种写法， <code>b</code> 都是对应 <code>[2]string</code> 类型。</p>
+<h4 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h4><p>数组虽然有适用它们的地方，但是数组不够灵活，因此在Go代码中数组使用的并不多。 但是，切片则使用得相当广泛。切片基于数组构建，但是提供更强的功能和便利。</p>
+<p>切片类型的写法是 <code>[]T</code> ， <code>T</code> 是切片元素的类型。和数组不同的是，切片类型并没有给定固定的长度。</p>
+<p>切片的字面值和数组字面值很像，不过切片没有指定元素个数：</p>
+<pre><code>letters := []string&#123;&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;&#125;
+</code></pre>
+<p>切片可以使用内置函数 <code>make</code> 创建，函数签名为：</p>
+<pre><code>func make([]T, len, cap) []T
+</code></pre>
+<p>其中T代表被创建的切片元素的类型。函数 <code>make</code> 接受一个类型、一个长度和一个可选的容量参数。 调用 <code>make</code> 时，内部会分配一个数组，然后返回数组对应的切片。</p>
+<pre><code>var s []byte
+s = make([]byte, 5, 5)
+// s == []byte&#123;0, 0, 0, 0, 0&#125;
+</code></pre>
+<p>当容量参数被忽略时，它默认为指定的长度。下面是简洁的写法：</p>
+<pre><code>s := make([]byte, 5)
+</code></pre>
+<p>可以使用内置函数 <code>len</code> 和 <code>cap</code> 获取切片的长度和容量信息。</p>
+<pre><code>len(s) == 5
+cap(s) == 5
+</code></pre>
+<p>接下来的两个小节将讨论长度和容量之间的关系。</p>
+<p>切片的零值为 <code>nil</code> 。对于切片的零值， <code>len</code> 和 <code>cap</code> 都将返回0。</p>
+<p>切片也可以基于现有的切片或数组生成。切分的范围由两个由冒号分割的索引对应的半开区间指定。 例如，表达式 <code>b[1:4]</code>创建的切片引用数组 <code>b</code> 的第1到3个元素空间（对应切片的索引为0到2）。</p>
+<pre><code>b := []byte&#123;&#39;g&#39;, &#39;o&#39;, &#39;l&#39;, &#39;a&#39;, &#39;n&#39;, &#39;g&#39;&#125;
+// b[1:4] == []byte&#123;&#39;o&#39;, &#39;l&#39;, &#39;a&#39;&#125;, sharing the same storage as b
+</code></pre>
+<p>切片的开始和结束的索引都是可选的；它们分别默认为零和数组的长度。</p>
+<pre><code>// b[:2] == []byte&#123;&#39;g&#39;, &#39;o&#39;&#125;
+// b[2:] == []byte&#123;&#39;l&#39;, &#39;a&#39;, &#39;n&#39;, &#39;g&#39;&#125;
+// b[:] == b
+</code></pre>
+<p>下面语法也是基于数组创建一个切片：</p>
+<pre><code>x := [3]string&#123;&quot;Лайка&quot;, &quot;Белка&quot;, &quot;Стрелка&quot;&#125;
+s := x[:] // a slice referencing the storage of x
+</code></pre>
+<h4 id="切片的内幕"><a href="#切片的内幕" class="headerlink" title="切片的内幕"></a>切片的内幕</h4><p>一个切片是一个数组片段的描述。它包含了指向数组的指针，片段的长度， 和容量（片段的最大长度）。</p>
+<p><img src="https://blog.go-zh.org/go-slices-usage-and-internals_slice-struct.png" alt="img"></p>
+<p>前面使用 <code>make([]byte, 5)</code> 创建的切片变量 <code>s</code> 的结构如下：</p>
+<p><img src="https://blog.go-zh.org/go-slices-usage-and-internals_slice-1.png" alt="img"></p>
+<p>长度是切片引用的元素数目。容量是底层数组的元素数目（从切片指针开始）。 关于长度和容量和区域将在下一个例子说明。</p>
+<p>我们继续对 <code>s</code> 进行切片，观察切片的数据结构和它引用的底层数组：</p>
+<pre><code>s = s[2:4]
+</code></pre>
+<p><img src="https://blog.go-zh.org/go-slices-usage-and-internals_slice-2.png" alt="img"></p>
+<p>切片操作并不复制切片指向的元素。它创建一个新的切片并复用原来切片的底层数组。 这使得切片操作和数组索引一样高效。因此，通过一个新切片修改元素会影响到原始切片的对应元素。</p>
+<pre><code>d := []byte&#123;&#39;r&#39;, &#39;o&#39;, &#39;a&#39;, &#39;d&#39;&#125;
+e := d[2:]
+// e == []byte&#123;&#39;a&#39;, &#39;d&#39;&#125;
+e[1] = &#39;m&#39;
+// e == []byte&#123;&#39;a&#39;, &#39;m&#39;&#125;
+// d == []byte&#123;&#39;r&#39;, &#39;o&#39;, &#39;a&#39;, &#39;m&#39;&#125;
+</code></pre>
+<p>前面创建的切片 <code>s</code> 长度小于它的容量。我们可以增长切片的长度为它的容量：</p>
+<pre><code>s = s[:cap(s)]
+</code></pre>
+<p><img src="https://blog.go-zh.org/go-slices-usage-and-internals_slice-3.png" alt="img"></p>
+<p>切片增长不能超出其容量。增长超出切片容量将会导致运行时异常，就像切片或数组的索引超 出范围引起异常一样。同样，不能使用小于零的索引去访问切片之前的元素。</p>
+<h4 id="切片的生长（copy-and-append-函数）"><a href="#切片的生长（copy-and-append-函数）" class="headerlink" title="切片的生长（copy and append 函数）"></a>切片的生长（copy and append 函数）</h4><p>要增加切片的容量必须创建一个新的、更大容量的切片，然后将原有切片的内容复制到新的切片。 整个技术是一些支持动态数组语言的常见实现。下面的例子将切片 <code>s</code> 容量翻倍，先创建一个2倍 容量的新切片 <code>t</code> ，复制 <code>s</code> 的元素到 <code>t</code> ，然后将 <code>t</code>赋值给 <code>s</code> ：</p>
+<pre><code>t := make([]byte, len(s), (cap(s)+1)*2) // +1 in case cap(s) == 0
+for i := range s &#123;
+        t[i] = s[i]
+&#125;
+s = t
+</code></pre>
+<p>循环中复制的操作可以由 copy 内置函数替代。copy 函数将源切片的元素复制到目的切片。 它返回复制元素的数目。</p>
+<pre><code>func copy(dst, src []T) int
+</code></pre>
+<p><code>copy</code> 函数支持不同长度的切片之间的复制（它只复制较短切片的长度个元素）。 此外， <code>copy</code> 函数可以正确处理源和目的切片有重叠的情况。</p>
+<p>使用 <code>copy</code> 函数，我们可以简化上面的代码片段：</p>
+<pre><code>t := make([]byte, len(s), (cap(s)+1)*2)
+copy(t, s)
+s = t
+</code></pre>
+<p>一个常见的操作是将数据追加到切片的尾部。下面的函数将元素追加到切片尾部， 必要的话会增加切片的容量，最后返回更新的切片：</p>
+<pre><code>func AppendByte(slice []byte, data ...byte) []byte &#123;
+    m := len(slice)
+    n := m + len(data)
+    if n &gt; cap(slice) &#123; // if necessary, reallocate
+        // allocate double what&#39;s needed, for future growth.
+        newSlice := make([]byte, (n+1)*2)
+        copy(newSlice, slice)
+        slice = newSlice
+    &#125;
+    slice = slice[0:n]
+    copy(slice[m:n], data)
+    return slice
+&#125;
+</code></pre>
+<p>下面是 <code>AppendByte</code> 的一种用法：</p>
+<pre><code>p := []byte&#123;2, 3, 5&#125;
+p = AppendByte(p, 7, 11, 13)
+// p == []byte&#123;2, 3, 5, 7, 11, 13&#125;
+</code></pre>
+<p>类似 <code>AppendByte</code> 的函数比较实用，因为它提供了切片容量增长的完全控制。 根据程序的特点，可能希望分配较小的活较大的块，或则是超过某个大小再分配。</p>
+<p>但大多数程序不需要完全的控制，因此Go提供了一个内置函数 <code>append</code> ， 用于大多数场合；它的函数签名：</p>
+<pre><code>func append(s []T, x ...T) []T
+</code></pre>
+<p><code>append</code> 函数将 <code>x</code> 追加到切片 <code>s</code> 的末尾，并且在必要的时候增加容量。</p>
+<pre><code>a := make([]int, 1)
+// a == []int&#123;0&#125;
+a = append(a, 1, 2, 3)
+// a == []int&#123;0, 1, 2, 3&#125;
+</code></pre>
+<p>如果是要将一个切片追加到另一个切片尾部，需要使用 <code>...</code> 语法将第2个参数展开为参数列表。</p>
+<pre><code>a := []string&#123;&quot;John&quot;, &quot;Paul&quot;&#125;
+b := []string&#123;&quot;George&quot;, &quot;Ringo&quot;, &quot;Pete&quot;&#125;
+a = append(a, b...) // equivalent to &quot;append(a, b[0], b[1], b[2])&quot;
+// a == []string&#123;&quot;John&quot;, &quot;Paul&quot;, &quot;George&quot;, &quot;Ringo&quot;, &quot;Pete&quot;&#125;
+</code></pre>
+<p>由于切片的零值 <code>nil</code> 用起来就像一个长度为零的切片，我们可以声明一个切片变量然后在循环 中向它追加数据：</p>
+<pre><code>// Filter returns a new slice holding only
+// the elements of s that satisfy fn()
+func Filter(s []int, fn func(int) bool) []int &#123;
+    var p []int // == nil
+    for _, v := range s &#123;
+        if fn(v) &#123;
+            p = append(p, v)
+        &#125;
+    &#125;
+    return p
+&#125;
+</code></pre>
+<h4 id="可能的“陷阱”"><a href="#可能的“陷阱”" class="headerlink" title="可能的“陷阱”"></a>可能的“陷阱”</h4><p>正如前面所说，切片操作并不会复制底层的数组。整个数组将被保存在内存中，直到它不再被引用。 有时候可能会因为一个小的内存引用导致保存所有的数据。</p>
+<p>例如， <code>FindDigits</code> 函数加载整个文件到内存，然后搜索第一个连续的数字，最后结果以切片方式返回。</p>
+<pre><code>var digitRegexp = regexp.MustCompile(&quot;[0-9]+&quot;)
+
+func FindDigits(filename string) []byte &#123;
+    b, _ := ioutil.ReadFile(filename)
+    return digitRegexp.Find(b)
+&#125;
+</code></pre>
+<p>这段代码的行为和描述类似，返回的 <code>[]byte</code> 指向保存整个文件的数组。因为切片引用了原始的数组， 导致 GC 不能释放数组的空间；只用到少数几个字节却导致整个文件的内容都一直保存在内存里。</p>
+<p>要修复整个问题，可以将感兴趣的数据复制到一个新的切片中：</p>
+<pre><code>func CopyDigits(filename string) []byte &#123;
+    b, _ := ioutil.ReadFile(filename)
+    b = digitRegexp.Find(b)
+    c := make([]byte, len(b))
+    copy(c, b)
+    return c
+&#125;
+</code></pre>
+<p>可以使用 <code>append</code> 实现一个更简洁的版本。这留给读者作为练习。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fclehly.github.io/2020/06/28/go-slice/" data-id="ckogykb1l0017w50t9mqv040e" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/05/05/Media-Basic/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Media-Basic
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/10/07/homebrew/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">homebrew</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Blog/">Blog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Note/">Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notes/">Notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Paper/">Paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Turtorial/">Turtorial</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/media/">media</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/os/">os</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLM/" rel="tag">NLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Paper/" rel="tag">Paper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/audio/" rel="tag">audio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devops/" rel="tag">devops</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/" rel="tag">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loadbalance/" rel="tag">loadbalance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs/" rel="tag">lvs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/media/" rel="tag">media</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reading/" rel="tag">reading</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serverless/" rel="tag">serverless</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/video/" rel="tag">video</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Deep-Learning/" style="font-size: 20px;">Deep Learning</a> <a href="/tags/NLM/" style="font-size: 10px;">NLM</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/Paper/" style="font-size: 10px;">Paper</a> <a href="/tags/audio/" style="font-size: 10px;">audio</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/loadbalance/" style="font-size: 10px;">loadbalance</a> <a href="/tags/lvs/" style="font-size: 10px;">lvs</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/media/" style="font-size: 10px;">media</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/reading/" style="font-size: 10px;">reading</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/serverless/" style="font-size: 10px;">serverless</a> <a href="/tags/video/" style="font-size: 10px;">video</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/05/05/Media-Basic/">Media-Basic</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/28/go-slice/">go slice</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/07/homebrew/">homebrew</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/28/Django/">Django</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/06/HDFS/">HDFS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 FWZ<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

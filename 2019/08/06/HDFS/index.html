@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+
+  
+  <title>HDFS | fengweizan&#39;s BLOG</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HDFS存储模型文件线性切割成块（block），每个block可以根据其字节内容在原文件中的偏移量offset确定，即第一个block的第一个字节的offset为0、第二个block的第一个字节的offset为block_size。block分散存储到集群节点当中，单一文件的block大小一致，不同文件之间的block大小可以不一样。block可以设置副本数，block的副本分散在不同节点中（即副">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDFS">
+<meta property="og:url" content="https://fclehly.github.io/2019/08/06/HDFS/index.html">
+<meta property="og:site_name" content="fengweizan&#39;s BLOG">
+<meta property="og:description" content="HDFS存储模型文件线性切割成块（block），每个block可以根据其字节内容在原文件中的偏移量offset确定，即第一个block的第一个字节的offset为0、第二个block的第一个字节的offset为block_size。block分散存储到集群节点当中，单一文件的block大小一致，不同文件之间的block大小可以不一样。block可以设置副本数，block的副本分散在不同节点中（即副">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/images/hdfsarchitecture.png">
+<meta property="article:published_time" content="2019-08-06T14:18:47.000Z">
+<meta property="article:modified_time" content="2019-08-14T15:31:30.338Z">
+<meta property="article:author" content="FWZ">
+<meta property="article:tag" content="hadoop">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/images/hdfsarchitecture.png">
+  
+    <link rel="alternate" href="/atom.xml" title="fengweizan&#39;s BLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">fengweizan&#39;s BLOG</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fclehly.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-HDFS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/06/HDFS/" class="article-date">
+  <time datetime="2019-08-06T14:18:47.000Z" itemprop="datePublished">2019-08-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/note/">note</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HDFS
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h1><h2 id="存储模型"><a href="#存储模型" class="headerlink" title="存储模型"></a>存储模型</h2><p>文件线性切割成块（block），每个block可以根据其字节内容在原文件中的偏移量offset确定，即第一个block的第一个字节的offset为0、第二个block的第一个字节的offset为block_size。block分散存储到集群节点当中，单一文件的block大小一致，不同文件之间的block大小可以不一样。block可以设置副本数，block的副本分散在不同节点中（即副本不会出现在同一节点中），这样可以很好地支持多个程序处理文件，但副本数不能超过节点数量。文件上传可以设置block的大小和副本数，且已上传的文件block副本数可以调整，但是大小不能改变。只支持一次写入多次读取，同一时刻只有一个写入者。可以append追加数据，但不可以修改block。</p>
+<h2 id="架构模型"><a href="#架构模型" class="headerlink" title="架构模型"></a>架构模型</h2><p>文件组成分为：</p>
+<ul>
+<li>元数据metadata，</li>
+<li>文件数据</li>
+</ul>
+<p>主从架构：</p>
+<ul>
+<li>NameNode节点保存文件元数据：单节点，维护一个虚拟目录树，映射到DataNode的文件系统的Block。</li>
+<li>DataNode节点保存文件block数据：多节点；</li>
+</ul>
+<p><img src="http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/images/hdfsarchitecture.png" alt="hdfs-architecture"></p>
+<p>DataNode和NameNode保持心跳，提交block列表；</p>
+<p>HdfsClient和NameNode交互元数据信息；</p>
+<p>HdfsClient和DataNode交互文件Block信息。</p>
+<p>HdfsClient与NameNode交互后，向DataNode交互，NameNode起到了一定的负载均衡作用。</p>
+<h3 id="NameNode"><a href="#NameNode" class="headerlink" title="NameNode"></a>NameNode</h3><p>基于内存存储，不会和磁盘发生交换。数据只存在内存中，但会通过快照或增量日志做持久化策略。</p>
+<p>主要功能：</p>
+<ul>
+<li>接受客户端的读写服务；</li>
+<li>收集DataNode汇报的Block列表信息。</li>
+</ul>
+<p>其保存的metadata信息包括：</p>
+<ul>
+<li>文件ownership， permissions；</li>
+<li>文件大小，时间</li>
+<li>block列表，block偏移量，位置信息；</li>
+<li>block每个副本的位置（由DataNode上报）</li>
+</ul>
+<h3 id="NameNode持久化"><a href="#NameNode持久化" class="headerlink" title="NameNode持久化"></a>NameNode持久化</h3><p>NameNode的metadata在启动后会加载到内存；</p>
+<p>metadata存储到磁盘的文件名为fsimage；</p>
+<p>block的位置信息不会保存到fsimage；</p>
+<p>edits记录对metadata的操作记录；</p>
+<h3 id="DataNode"><a href="#DataNode" class="headerlink" title="DataNode"></a>DataNode</h3><p>本地磁盘目录存储数据block，使文件形式，同时存储block的元数据信息文件幂md5；</p>
+<p>启动datanode时会向namenode汇报block信息；</p>
+<p>通过向nanenode发送心跳保持与其联系（3秒1次），如果namenode在10分钟内没有收到datanode的信息，则认为其已经lost，并copy其上的block（从其他节点的副本拷贝扩散，保证副本数一致）到其他datanode。</p>
+<h3 id="HDFS优点"><a href="#HDFS优点" class="headerlink" title="HDFS优点"></a>HDFS优点</h3><ul>
+<li>高容错性：<ul>
+<li>数据自动保存多个副本；</li>
+<li>副本数据丢失，则会自动回复；</li>
+</ul>
+</li>
+<li>适合批处理<ul>
+<li>移动计算程序而不是数据；</li>
+<li>数据位置暴露给计算框架；</li>
+</ul>
+</li>
+<li>适合大数据处理<ul>
+<li>GB、TB、PB</li>
+<li>百万规模以上的文件数量</li>
+<li>10k+节点</li>
+</ul>
+</li>
+<li>可构建在廉价机器上（可靠性越高的机器越贵）<ul>
+<li>通过多副本提高可靠性；</li>
+<li>提供了容错和恢复机制；</li>
+</ul>
+</li>
+</ul>
+<h3 id="HDFS缺点"><a href="#HDFS缺点" class="headerlink" title="HDFS缺点"></a>HDFS缺点</h3><ul>
+<li>低延迟数据访问<ul>
+<li>毫秒级随机访问</li>
+<li>低延迟与高吞吐率</li>
+</ul>
+</li>
+<li>小文件存取<ul>
+<li>占用NameNode大量内存</li>
+<li>寻道时间超过读取时间</li>
+</ul>
+</li>
+<li>并发写入、文件随机修改<ul>
+<li>一个文件只能有一个写者</li>
+<li>仅支持append</li>
+</ul>
+</li>
+</ul>
+<h3 id="SecondaryNameNode"><a href="#SecondaryNameNode" class="headerlink" title="SecondaryNameNode"></a>SecondaryNameNode</h3><p>SNN不是NN的备份（但是可以做备份），其主要工作是帮助NN合并edits log，减少NN的启动时间。<br>SNN执行合并时间：</p>
+<ul>
+<li>根据配置文件设置的时间间隔<code>fs.checkpoint.period</code>，默认为3600s；</li>
+<li>根据配置文件设置edits log大小<code>fs.checkpoint.size</code>规定edits log文件的最大值默认是64MB</li>
+</ul>
+<h3 id="安全模式"><a href="#安全模式" class="headerlink" title="安全模式"></a>安全模式</h3><ul>
+<li>namenode启动时，首先将映像文件fsimage载入内存，并执行编辑日志（edits）中的各项操作。</li>
+<li>一旦在内存中成功建立文件系统元数据的映射，则创建一个新的fsimage文件（这个操作不需要SecondaryNameNode）和一个空的编辑日志，这里也是namenode唯一一次创建fsimage。</li>
+<li>此刻namenode运行在安全模式。即namenode的文件系统对于客户端来说只是只读的。（显示目录、文件内容等。写、删除、重命名等操作都会失败）</li>
+<li>在此阶段Namenode收集各个datanode的报告，当书记块达到最小副本数以上时，会被认为是”安全”的，在一定比例（可设置）的数据块被确定为”安全”后，再过若干时间，安全模式结束。</li>
+<li>当检测到副本数不足的数据块是，该快会被复制到达到最小副本数，系统中数据块大的位置并不是由namenode维护的，而是以块列表形式存储在datanode中。</li>
+</ul>
+<h3 id="Block的副本防置策略"><a href="#Block的副本防置策略" class="headerlink" title="Block的副本防置策略"></a>Block的副本防置策略</h3><ul>
+<li>第一个副本：防置在上传的DN；如果是集群外提交，则随机挑选一台磁盘不是太满，CPU不太忙的节点；</li>
+<li>第二个副本：防置在于第一个副本不同的机架（Rack）的节点上。</li>
+<li>第三个副本：与第二个副本相同机架的节点。</li>
+<li>更多副本：随机节点。</li>
+</ul>
+<h3 id="HDFS写流程"><a href="#HDFS写流程" class="headerlink" title="HDFS写流程"></a>HDFS写流程</h3><p>图</p>
+<p>流水线</p>
+<p>距离优先</p>
+<h3 id="HDFS读流程"><a href="#HDFS读流程" class="headerlink" title="HDFS读流程"></a>HDFS读流程</h3><h3 id="HDFS文件权限-POSIX"><a href="#HDFS文件权限-POSIX" class="headerlink" title="HDFS文件权限 POSIX"></a>HDFS文件权限 POSIX</h3><ul>
+<li><p>与Linux文件权限类似</p>
+<ul>
+<li>r:read; w:write; x:execute</li>
+<li>权限x对于文件忽略，对于文件夹表示十分允许访问其内容</li>
+</ul>
+</li>
+<li><p>如果Linux系统用户A使用hadoop命令创建一个文件，那么这个文件在HDFS中的owner就是A；</p>
+</li>
+<li><p>HDFS的权限目的：组织好人做错事，而不是阻止坏人做坏事。HDFS<br>相信，你告诉我你是谁，我就认为你是谁。</p>
+</li>
+</ul>
+<h2 id="Hadoop2"><a href="#Hadoop2" class="headerlink" title="Hadoop2"></a>Hadoop2</h2><h3 id="Hadoop2产生背景"><a href="#Hadoop2产生背景" class="headerlink" title="Hadoop2产生背景"></a>Hadoop2产生背景</h3><p>Hadoop1中HDFS和MapReduce在高可用、扩展性等方面存在问题</p>
+<ul>
+<li>NameNode单点故障，难以应用于在线场景， HA</li>
+<li>NameNode压力过大，且内存首先，影响扩展性， F<br>MapReduce存在的问题：</li>
+<li>JobTracker访问压力大，影响系统扩展性</li>
+<li>难以支持出MapReduce之外的计算框架，比如spark、Storm等</li>
+</ul>
+<p>Hadoop2.x由HDFS、MapReduce和YARN三个分支构成。</p>
+<ul>
+<li>HDFS： NN Federation（联邦）、HA；2.x只支持2个节点HA<br>，3.0实现一主多从；</li>
+<li>MapReduce： 运行在YARN上的MR；离线计算，基于磁盘I/O计算</li>
+<li>YARN：资源管理系统</li>
+</ul>
+<h3 id="HDFS2"><a href="#HDFS2" class="headerlink" title="HDFS2"></a>HDFS2</h3><p>解决HDFS1中单点故障和内存受限的问题</p>
+<p>解决单点故障：</p>
+<ul>
+<li>HDFS HA ：通过贮备NameNode解决</li>
+<li>如果中NameNode发生故障，则切换到备NameNode上；</li>
+</ul>
+<p>解决内存受限问题</p>
+<ul>
+<li>HDFS Federation 联邦</li>
+<li>水平扩展，支持多个NameNode；<ul>
+<li>每个NameNode分管一部分目录；</li>
+<li>所有NameNode共享所有DataNode存储资源；<br>HDFS2仅是架构上发生了变化，使用方式不变，对HDFS使用者透明，HDFS1中的命令和API仍可以使用。</li>
+</ul>
+</li>
+</ul>
+<p>图</p>
+<p>Linux NFS<br>JournalNodes<br>最终一致性</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fclehly.github.io/2019/08/06/HDFS/" data-id="ckogykb120007w50t2okzc723" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/09/28/Django/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Django
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/04/Redis-Notes/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Redis Notes</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Blog/">Blog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Note/">Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notes/">Notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Paper/">Paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Turtorial/">Turtorial</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/media/">media</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/os/">os</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLM/" rel="tag">NLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Paper/" rel="tag">Paper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/audio/" rel="tag">audio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devops/" rel="tag">devops</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/" rel="tag">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loadbalance/" rel="tag">loadbalance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs/" rel="tag">lvs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/media/" rel="tag">media</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reading/" rel="tag">reading</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serverless/" rel="tag">serverless</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/video/" rel="tag">video</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Deep-Learning/" style="font-size: 20px;">Deep Learning</a> <a href="/tags/NLM/" style="font-size: 10px;">NLM</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/Paper/" style="font-size: 10px;">Paper</a> <a href="/tags/audio/" style="font-size: 10px;">audio</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/loadbalance/" style="font-size: 10px;">loadbalance</a> <a href="/tags/lvs/" style="font-size: 10px;">lvs</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/media/" style="font-size: 10px;">media</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/reading/" style="font-size: 10px;">reading</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/serverless/" style="font-size: 10px;">serverless</a> <a href="/tags/video/" style="font-size: 10px;">video</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/05/05/Media-Basic/">Media-Basic</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/28/go-slice/">go slice</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/07/homebrew/">homebrew</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/28/Django/">Django</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/06/HDFS/">HDFS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 FWZ<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

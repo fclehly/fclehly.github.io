@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+
+  
+  <title>fengweizan&#39;s BLOG</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="my blog with material design">
+<meta property="og:type" content="website">
+<meta property="og:title" content="fengweizan&#39;s BLOG">
+<meta property="og:url" content="https://fclehly.github.io/page/3/index.html">
+<meta property="og:site_name" content="fengweizan&#39;s BLOG">
+<meta property="og:description" content="my blog with material design">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="FWZ">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="fengweizan&#39;s BLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">fengweizan&#39;s BLOG</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fclehly.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-c-primer笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/30/c-primer%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2018-06-30T07:02:00.000Z" itemprop="datePublished">2018-06-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Note/">Note</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/30/c-primer%E7%AC%94%E8%AE%B0/">c++primer笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="阅读c-primer"><a href="#阅读c-primer" class="headerlink" title="阅读c++ primer"></a>阅读c++ primer</h1><p><a href="http://www.cplusplus.com/">C++手册</a></p>
+<h2 id="Chapter-1-开始"><a href="#Chapter-1-开始" class="headerlink" title="Chapter 1 开始"></a>Chapter 1 开始</h2><p>执行完程序可以通过echo命令获得返回值：<br>Linux:<br><code>echo $?</code></p>
+<p>Windows:<br><code>echo %ERRORLEVEL%</code></p>
+<p><strong>cerr</strong> 输出警告和错误信息，ostream对象，写到cerr的数据不缓冲。<br><strong>clog</strong> 输出一般性信息，ostream对象，写到clog的数据缓冲，存入日志文件。</p>
+<h2 id="Chapter-2-变量和基本类型"><a href="#Chapter-2-变量和基本类型" class="headerlink" title="Chapter 2 变量和基本类型"></a>Chapter 2 变量和基本类型</h2><h3 id="变量声明和定义"><a href="#变量声明和定义" class="headerlink" title="变量声明和定义"></a>变量声明和定义</h3><p>变量能且只能被定义一次，但是可以被多次声明。  </p>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>引用并非对象，它只是为一个已存在的对象所起的另外一个名字。</p>
+<h3 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h3><p><strong>nullptr</strong> 是一种特殊类型的字面值，它可以被转换成任意其他的指针类型。<br><strong>NULL</strong>的值就是0，在**cstdlib__**中定义。  </p>
+<blockquote>
+<p>建议： 初始化所有指针</p>
+</blockquote>
+<p><strong>void</strong>*是一种特殊的指针类型，可用于存放任意对象的地址，我们对该地址中到底是个什么类型的对象并不了解。</p>
+<h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>顶层const(top-level const)表示指针本身是个常量；<br>底层const(low-level const)表示指针所指的对象是一个常量；</p>
+<h3 id="常量表达式"><a href="#常量表达式" class="headerlink" title="常量表达式"></a>常量表达式</h3><p>如果认定变量是一个常量表达式，那就把它声明为constexpr类型；</p>
+<p>一个<strong>constexpr</strong>指针的初始值必须是<strong>nullptr</strong>或0，或存储于摸个固定地址中的对象；</p>
+<pre><code class="cpp">constexpr int mf = 20;
+const int limit = mf + 1;
+constexpr int sz = size(); //size是一个constexpr函数
+</code></pre>
+<h3 id="类型别名"><a href="#类型别名" class="headerlink" title="类型别名"></a>类型别名</h3><ol>
+<li>关键字 <strong>typedef</strong>：</li>
+</ol>
+<pre><code class="cpp">typedef double base, \*p;
+</code></pre>
+<ol start="2">
+<li>别名声明(c++11):</li>
+</ol>
+<pre><code class="cpp">using SI = Sales_item;
+</code></pre>
+<h3 id="auto类型说明符"><a href="#auto类型说明符" class="headerlink" title="auto类型说明符"></a>auto类型说明符</h3><p><strong>auto</strong> 一般会忽略顶层const，同时底层const会保留下来：</p>
+<pre><code class="cpp">int i = 0;
+const int ci = i, &amp;cr = ci;
+auto b = ci;  //b是int
+auto c = cr;  //c是int
+auto d = &amp;i;  //d是int*
+auto e = &amp;ci; //e是const int*
+</code></pre>
+<p>如果希望推断出的auto类型是一个顶层const，需要明确指出：</p>
+<pre><code class="cpp">const auto f = ci;
+</code></pre>
+<h3 id="decltype类型指示符"><a href="#decltype类型指示符" class="headerlink" title="decltype类型指示符"></a>decltype类型指示符</h3><pre><code class="cpp">decltype (f()) sum = x; //sum的类型就是函数f的返回类型，编译器并不实际调用函数f，而是使用当调用发生时f的返回值作为sum的类型。
+</code></pre>
+<p><strong>decltype</strong> 处理顶层const：如果decltype使用的表达式是一个变量，则decltype返回该变量的类型（包括顶层const和引用）：</p>
+<pre><code class="cpp">const int ci = 0, &amp;cj = ci;
+decltype(ci) x = 0; //x的类型是const int
+decltype(cj) y = x; //y的类型是const int&amp;，y绑定到变量x
+decltype(cj) z; //错误：z是一个引用，必须初始化
+</code></pre>
+<blockquote>
+<p>切记：decltype((variable))的结果永远是引用，而decltype(variable)结果只用当variable本身是一个引用时才是引用；</p>
+</blockquote>
+<h2 id="Chapter-3-字符串、向量和数组"><a href="#Chapter-3-字符串、向量和数组" class="headerlink" title="Chapter 3 字符串、向量和数组"></a>Chapter 3 字符串、向量和数组</h2><h3 id="命名空间的using声明"><a href="#命名空间的using声明" class="headerlink" title="命名空间的using声明"></a>命名空间的using声明</h3><pre><code class="cpp">//...
+using std:cin;
+//....
+cin &gt;&gt; i;
+</code></pre>
+<blockquote>
+<p>头文件不应该包含using声明</p>
+</blockquote>
+<h3 id="size-type类型"><a href="#size-type类型" class="headerlink" title="size_type类型"></a>size_type类型</h3><p>string:size()、vector:size()等函数返回size_type类型，无符号整数，与机器无关。</p>
+<h3 id="size-t类型"><a href="#size-t类型" class="headerlink" title="size_t类型"></a>size_t类型</h3><p>使用数组下标时，通常定义为size_t类型，size_t类型时一种机器相关的无符号类型，它被设计得足够大以便能表示内存中任意对象的大小。</p>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p><strong>const_iterator</strong> 只能读元素，不能写元素；<br>(c++11)cbegin()和cend()返回const_iterator;</p>
+<h2 id="Chapter-4-表达式"><a href="#Chapter-4-表达式" class="headerlink" title="Chapter 4 表达式"></a>Chapter 4 表达式</h2><h3 id="命名的强制类型转换"><a href="#命名的强制类型转换" class="headerlink" title="命名的强制类型转换"></a>命名的强制类型转换</h3><ol>
+<li><strong>static_cast</strong>：<br>任何具有明确定义的类型转换，只要不包含底层const，都可以使用static_cast。将较大的算术类型赋值给较小的类型。</li>
+<li><strong>const_cast</strong>:<br>const_cast智能改变运算对象的底层const；将常量对象转换为非常量对象或逆操作；常用于函数重载的上下文中。</li>
+<li><strong>reinterpret_cast</strong>:<br>reinterpret_cast通常为运算对象的位模式提供较低层次上的重新解释；</li>
+</ol>
+<h2 id="Chapter-5-语句"><a href="#Chapter-5-语句" class="headerlink" title="Chapter 5 语句"></a>Chapter 5 语句</h2><h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><pre><code class="cpp">throw runtime_error(&quot;....&quot;);
+</code></pre>
+<p>类型runtime_error定义在 <strong>stdexcept</strong> 头文件中；<br>stdexcept头文件中定义的异常类有：</p>
+<ul>
+<li>exception,</li>
+<li>runtime_error,</li>
+<li>range_error,</li>
+<li>underflow_error,</li>
+<li>overflow_error,</li>
+<li>logic_error,</li>
+<li>domain_error,</li>
+<li>invalid_argument,</li>
+<li>length_error,</li>
+<li>out_of_range;</li>
+</ul>
+<h2 id="Chapter-6-函数"><a href="#Chapter-6-函数" class="headerlink" title="Chapter 6 函数"></a>Chapter 6 函数</h2><p>形参尽量使用常量引用；</p>
+<h3 id="可变形参"><a href="#可变形参" class="headerlink" title="可变形参"></a>可变形参</h3><p><strong>initializer_list</strong> 形参:initializer_list是一种模板类型；</p>
+<pre><code class="cpp">void error_msg(initializer_list&lt;string&gt; il) &#123;&#125;
+</code></pre>
+<h3 id="引用返回左值"><a href="#引用返回左值" class="headerlink" title="引用返回左值"></a>引用返回左值</h3><p>调用一个返回引用的函数得到左值，其他返回类型得到右值。</p>
+<h3 id="列表初始化返回值"><a href="#列表初始化返回值" class="headerlink" title="列表初始化返回值"></a>列表初始化返回值</h3><p>C++11：函数可以返回花括号包围的值的列表。</p>
+<pre><code class="cpp">vector&lt;string&gt; f() &#123;
+  //...
+  return &#123;&quot;1&quot;, &quot;s2&quot;&#125;;
+&#125;
+</code></pre>
+<h3 id="主函数main的返回值"><a href="#主函数main的返回值" class="headerlink" title="主函数main的返回值"></a>主函数main的返回值</h3><p>定义在 <strong>cstdlib</strong> 头文件中：<br><strong>EXIT_FAILURE</strong>, <strong>EXI_SUCCESS</strong>;</p>
+<h3 id="声明一个返回数组指针的函数"><a href="#声明一个返回数组指针的函数" class="headerlink" title="声明一个返回数组指针的函数"></a>声明一个返回数组指针的函数</h3><p><code>Type (*function(parameter_list))[dimension]</code><br>例如：<br><code>int (*func(int i))[10];</code></p>
+<h3 id="使用尾置返回类型"><a href="#使用尾置返回类型" class="headerlink" title="使用尾置返回类型"></a>使用尾置返回类型</h3><p>C++11：tailing return type：<br><code>auto func(int i) -&gt; int(*)[10];</code></p>
+<h3 id="默认实参"><a href="#默认实参" class="headerlink" title="默认实参"></a>默认实参</h3><p><code>string f(string, string, char = &#39;*&#39;)</code></p>
+<h3 id="constexpr函数"><a href="#constexpr函数" class="headerlink" title="constexpr函数"></a>constexpr函数</h3><p>constexpr函数的返回类型和所有形参都得是字面值类型，函数体中有且只有一条return语句;<br><code>constexpr int sz() &#123;return 1;&#125;</code><br>内联函数和constexpr函数通常定义在头文件中。</p>
+<h3 id="调试帮助"><a href="#调试帮助" class="headerlink" title="调试帮助"></a>调试帮助</h3><p>如果定义了NDEBUG，那么assert什么也不做；<br><code>CC -D NDEBUG main.cpp</code></p>
+<ul>
+<li><code>__func__</code>：当前函数的名字</li>
+<li><code>__FILE__</code>：存放文件名的字符串字面值。</li>
+<li><code>__LINE__</code>：存放当前行号的整形字面值。</li>
+<li><code>__TIME__</code>：存放文件编译时间的字符串字面值。</li>
+<li><code>__DATE__</code>：存放文件便宜日期的字符串字面值。</li>
+</ul>
+<h3 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h3><p><code>bool (*pf)(int, int)</code></p>
+<h2 id="Chapter-7-类"><a href="#Chapter-7-类" class="headerlink" title="Chapter 7 类"></a>Chapter 7 类</h2><h3 id="default"><a href="#default" class="headerlink" title="=default"></a>=default</h3><p>C++11：如果我们需要默认的行为，那么可以通过在参数列表后写 <strong>= default</strong> 来要求编译器生成构造函数。</p>
+<h3 id="可变数据成员"><a href="#可变数据成员" class="headerlink" title="可变数据成员"></a>可变数据成员</h3><pre><code class="cpp">class Screen &#123;
+public:
+  void some_member() const;
+  //...
+private:
+  mutable size_t access_ctr;  //即使在一个const对象中也能被修改
+&#125;;
+void Screen::some_member() const &#123;
+  ++access_ctr;
+  //...
+&#125;
+</code></pre>
+<h3 id="返回-this"><a href="#返回-this" class="headerlink" title="返回*this"></a>返回*this</h3><pre><code class="cpp">class Screen &#123;
+public:
+  Screen &amp;set(char);
+  Screen &amp;set(pos, pos, char);
+  //...
+&#125;;
+
+inline Screen &amp;Screen::set(char c) &#123;
+  //...
+  return *this; //将this对象作为左值返回
+&#125;
+
+inline Screen &amp;Screen::set(pos r, pos l, char c) &#123;
+  //...
+  return *this;
+&#125;
+
+myScreen.set(&#39;#&#39;).set(1, 2, &#39;*&#39;);
+</code></pre>
+<p>一个const成员函数如果以引用的形式返回*this，那么它的返回类型将是常量引用；</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fclehly.github.io/2018/06/30/c-primer%E7%AC%94%E8%AE%B0/" data-id="ckogykb1k0015w50tebrg5gsh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reading/" rel="tag">reading</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/01/hello-world/" class="article-date">
+  <time datetime="2018-05-31T16:00:00.000Z" itemprop="datePublished">2018-06-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Turtorial/">Turtorial</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/01/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate [options]
+# -d generate and deloy
+# -w watch file&#39;s changes
+</code></pre>
+<p>or simplely</p>
+<pre><code class="bash">$ hexo g
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
+</code></pre>
+<p>or simplely</p>
+<pre><code class="bash">$ hexo d
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+<h3 id="Clean"><a href="#Clean" class="headerlink" title="Clean"></a>Clean</h3><pre><code class="bash">$ hexo clean
+</code></pre>
+<p>remove cache(<code>db.json</code>) and generated static file(<code>public</code>)</p>
+<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><pre><code class="bash">$ hexo list &lt;type&gt;
+</code></pre>
+<p>List website info</p>
+<h3 id="Version"><a href="#Version" class="headerlink" title="Version"></a>Version</h3><pre><code class="bash">$ hexo version
+</code></pre>
+<p>show version of hexo</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fclehly.github.io/2018/06/01/hello-world/" data-id="ckogykb1m0019w50te46yaoif" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-论文阅读-ResNet-Deep-Residual-Learning-for-Image-Recognition" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ResNet-Deep-Residual-Learning-for-Image-Recognition/" class="article-date">
+  <time datetime="2018-05-29T13:54:21.000Z" itemprop="datePublished">2018-05-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Paper/">Paper</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ResNet-Deep-Residual-Learning-for-Image-Recognition/">论文阅读: ResNet-Deep Residual Learning for Image Recognition</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="t01a73567f957034c8c.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fclehly.github.io/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ResNet-Deep-Residual-Learning-for-Image-Recognition/" data-id="ckogykb1q001lw50t14y14scu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Paper/" rel="tag">Paper</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-论文阅读-MatchPyramid-Text-Matching-as-Image-Recognition" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-MatchPyramid-Text-Matching-as-Image-Recognition/" class="article-date">
+  <time datetime="2018-05-29T13:07:40.000Z" itemprop="datePublished">2018-05-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Paper/">Paper</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-MatchPyramid-Text-Matching-as-Image-Recognition/">论文阅读: MatchPyramid: Text Matching as Image Recognition</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script></p>
+<h2 id="论文信息"><a href="#论文信息" class="headerlink" title="论文信息"></a>论文信息</h2><p>题目： Text Matching as Image Recognition<br>作者： Liang Pang, Yanyan Lan, Jiafeng Guo, Jun Xu, Shengxian Wan, and Xueqi Cheng<br>会议： AAAI2016</p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>匹配两个文本是许多自然语言处理任务中的一个基本问题。 一种有效的方法是从单词，短语和句子中提取有意义的匹配模式以产生匹配的分数。 受卷积神经网络在图像识别中的成功启发，神经元可以基于提取出的基本视觉模式（如定向边和角）捕捉许多复杂图案，我们建议将文本匹配建模为图像识别问题。 首先，构造一个匹配矩阵，其条目表示词语之间的相似性，并将其视为图像。 然后利用卷积神经网络以逐层方式捕获丰富的匹配模式。 实验表明，通过类似图像识别模式的组成层次，我们的模型可以成功识别显着信号，例如n-gram和n-term匹配。 实验结果证明了它相对于baseline的优越性。</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>问题定义如下：<br>$$Match(\boldsymbol{T_1}, \boldsymbol{T_2})=F(\Phi(\boldsymbol{T_1}), \Phi(\boldsymbol{T_2}))$$<br>\(T_1 = (w_1, w_2, …, w_m)\) 和 \(T_2 = (v_1, v_2, …, v_n) \)是两个文本，\(\Phi \)是一个将文本映射到向量的函数。<br>本文贡献：   </p>
+<ol>
+<li>一个关于使用图像识别做文本匹配的新的视角；</li>
+<li>一个新的深度网络结构MatchPyramid，基于匹配矩阵（它能在词，短语到整个句子这些不同层次上提取信息）；</li>
+<li>在不同任务上展现了这个结构强大的能力；</li>
+</ol>
+<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p><img src="motivation.png" alt="motivation"><br>作者认为两个句子的匹配和图像识别任务有很多的相似处，比如上图中的两个句子词、短语、句子层面的匹配可以类比到图像识别中的边、角、模式、部分等层次的特征提取，如下图。<br><img src="relationship.png" alt="relationship"></p>
+<h2 id="网络简介"><a href="#网络简介" class="headerlink" title="网络简介"></a>网络简介</h2><p>网络结构如下所示：</p>
+<p><img src="model_overview.png" alt="模型预览"></p>
+<h3 id="匹配矩阵"><a href="#匹配矩阵" class="headerlink" title="匹配矩阵"></a>匹配矩阵</h3><p>这个匹配矩阵是这篇paper的关键所在，它将句子语义匹配与图像识别联系了起来。</p>
+<p>paper中介绍了三种构建匹配矩阵的方法：</p>
+<ol>
+<li><strong>Indicator</strong>:<br>就是判断两个句子中的词是否分别相同<br><img src="indicator.png"></li>
+<li><strong>Cosine</strong>:<br>两个句子进行词嵌入编码后，每个词向量分别计算余弦值；<br><img src="cosine.png"></li>
+<li><strong>Dot Product</strong>:<br>两个句子进行词嵌入编码后，每个词向量分别点积即可，其实就是一个句子表征矩阵乘以另一个句子表征矩阵的转置；<br><img src="dot_product.png"></li>
+</ol>
+<p>例子如下：<br><img src="indicator_and_dot_product.png"></p>
+<h3 id="其他一些细节"><a href="#其他一些细节" class="headerlink" title="其他一些细节"></a>其他一些细节</h3><p>因为句子长度可能不一致，所以每次生成的匹配矩阵的size就可能不一样，因此作者采用了Hierarchical Convolution解决这个问题。<br><img src="hierarchical_convolution.png"></p>
+<ul>
+<li>第一层卷积的pooling使用dynamic pooling生成一个一定size的feature map；</li>
+<li>第二层的卷积求和算。   </li>
+<li>激活函数是ReLU；</li>
+<li>2层MLP，softmax输出预测结果；</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fclehly.github.io/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-MatchPyramid-Text-Matching-as-Image-Recognition/" data-id="ckogykb1p001hw50t7h8b4wrn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLM/" rel="tag">NLM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vimrc" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/28/vimrc/" class="article-date">
+  <time datetime="2018-05-28T07:53:49.000Z" itemprop="datePublished">2018-05-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Note/">Note</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/28/vimrc/">vimrc</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>setlocal noswapfile &quot; 不要生成swap文件
+set bufhidden=hide &quot; 当buffer被丢弃的时候隐藏它
+colorscheme evening &quot; 设定配色方案
+set number &quot; 显示行号
+set cursorline &quot; 突出显示当前行
+set ruler &quot; 打开状态栏标尺
+set shiftwidth=4 &quot; 设定 &lt;&lt; 和 &gt;&gt; 命令移动时的宽度为 4
+set softtabstop=4 &quot; 使得按退格键时可以一次删掉 4 个空格
+set tabstop=4 &quot; 设定 tab 长度为 4
+set nobackup &quot; 覆盖文件时不备份
+set autochdir &quot; 自动切换当前目录为当前文件所在的目录
+set backupcopy=yes &quot; 设置备份时的行为为覆盖
+set hlsearch &quot; 搜索时高亮显示被找到的文本
+set noerrorbells &quot; 关闭错误信息响铃
+set novisualbell &quot; 关闭使用可视响铃代替呼叫
+set t_vb= &quot; 置空错误铃声的终端代码
+set matchtime=2 &quot; 短暂跳转到匹配括号的时间
+set magic &quot; 设置魔术
+set smartindent &quot; 开启新行时使用智能自动缩进
+set backspace=indent,eol,start &quot; 不设定在插入状态无法用退格键和 Delete 键删除回车符
+set cmdheight=1 &quot; 设定命令行的行数为 1
+set laststatus=2 &quot; 显示状态栏 (默认值为 1, 无法显示状态栏)
+set statusline=\ %&lt;%F[%1*%M%*%n%R%H]%=\ %y\ %0(%&#123;&amp;fileformat&#125;\ %&#123;&amp;encoding&#125;\ Ln\ %l,\ Col\ %c/%L%) &quot; 设置在状态行显示的信息
+set foldenable &quot; 开始折叠
+set foldmethod=syntax &quot; 设置语法折叠
+set foldcolumn=0 &quot; 设置折叠区域的宽度
+setlocal foldlevel=1 &quot; 设置折叠层数为 1
+nnoremap &lt;space&gt; @=((foldclosed(line(&#39;.&#39;)) &lt; 0) ? &#39;zc&#39; : &#39;zo&#39;)&lt;CR&gt; &quot; 用空格键来开关折叠
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fclehly.github.io/2018/05/28/vimrc/" data-id="ckogykb1o001dw50t6c240wkq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/" rel="tag">vim</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Blog/">Blog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Note/">Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notes/">Notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Paper/">Paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Turtorial/">Turtorial</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/media/">media</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/os/">os</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLM/" rel="tag">NLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Paper/" rel="tag">Paper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/audio/" rel="tag">audio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devops/" rel="tag">devops</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/" rel="tag">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loadbalance/" rel="tag">loadbalance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs/" rel="tag">lvs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/media/" rel="tag">media</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reading/" rel="tag">reading</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serverless/" rel="tag">serverless</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/video/" rel="tag">video</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Deep-Learning/" style="font-size: 20px;">Deep Learning</a> <a href="/tags/NLM/" style="font-size: 10px;">NLM</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/Paper/" style="font-size: 10px;">Paper</a> <a href="/tags/audio/" style="font-size: 10px;">audio</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/loadbalance/" style="font-size: 10px;">loadbalance</a> <a href="/tags/lvs/" style="font-size: 10px;">lvs</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/media/" style="font-size: 10px;">media</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/reading/" style="font-size: 10px;">reading</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/serverless/" style="font-size: 10px;">serverless</a> <a href="/tags/video/" style="font-size: 10px;">video</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/05/05/Media-Basic/">Media-Basic</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/28/go-slice/">go slice</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/07/homebrew/">homebrew</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/28/Django/">Django</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/06/HDFS/">HDFS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 FWZ<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

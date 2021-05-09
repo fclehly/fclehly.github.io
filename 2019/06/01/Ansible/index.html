@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+
+  
+  <title>Ansible | fengweizan&#39;s BLOG</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="ANSIBLE [TOC]  场景为了操作远程主机，我们通常是ssh登录到对应的机子上并输入命令执行，安装软件、修改配置、等等。如果只有单台主机，这么做是完全OK的，顶多是把一些常用操作变成脚本减少重复操作。但是当有了两台主机甚至更多主机之后，同样的命令在另一台主机还要敲一遍，这样的操作就有点枯燥繁琐了。有的人觉得仅仅是多一台主机还好，那如果多10台主机呢，比如需求是在10台机子上配置redis集">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible">
+<meta property="og:url" content="https://fclehly.github.io/2019/06/01/Ansible/index.html">
+<meta property="og:site_name" content="fengweizan&#39;s BLOG">
+<meta property="og:description" content="ANSIBLE [TOC]  场景为了操作远程主机，我们通常是ssh登录到对应的机子上并输入命令执行，安装软件、修改配置、等等。如果只有单台主机，这么做是完全OK的，顶多是把一些常用操作变成脚本减少重复操作。但是当有了两台主机甚至更多主机之后，同样的命令在另一台主机还要敲一遍，这样的操作就有点枯燥繁琐了。有的人觉得仅仅是多一台主机还好，那如果多10台主机呢，比如需求是在10台机子上配置redis集">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-06-01T13:48:11.000Z">
+<meta property="article:modified_time" content="2019-06-01T13:57:28.008Z">
+<meta property="article:author" content="FWZ">
+<meta property="article:tag" content="devops">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="fengweizan&#39;s BLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">fengweizan&#39;s BLOG</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fclehly.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Ansible" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/01/Ansible/" class="article-date">
+  <time datetime="2019-06-01T13:48:11.000Z" itemprop="datePublished">2019-06-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Ansible
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ANSIBLE"><a href="#ANSIBLE" class="headerlink" title="ANSIBLE"></a>ANSIBLE</h1><hr>
+<p>[TOC]</p>
+<hr>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>为了操作远程主机，我们通常是ssh登录到对应的机子上并输入命令执行，安装软件、修改配置、等等。如果只有单台主机，这么做是完全OK的，顶多是把一些常用操作变成脚本减少重复操作。但是当有了两台主机甚至更多主机之后，同样的命令在另一台主机还要敲一遍，这样的操作就有点枯燥繁琐了。有的人觉得仅仅是多一台主机还好，那如果多10台主机呢，比如需求是在10台机子上配置redis集群，那么ssh登录到每台机子上进行操作是一件很sb的事。</p>
+<p>一个简单的解决方案是：使用pssh。pssh可以通过ssh的方式批量发送命令到多台主机并执行，pscp可以批量拷贝文件到多台主机。但是pssh的缺点也很明显，就是功能太少。如果想要通过pssh进行复杂的操作，那就比较困难了。</p>
+<p>多主机的配置管理是常见的场景，前人已经造好了轮子，也就是一些自动化运维工具，我们直接使用就行了。比较著名的也是国内用的最多的就是Ansible。</p>
+<p>其实本质上Ansible或者说大部分运维工具主要解决以下自动化运维场景：</p>
+<ul>
+<li>文件传输</li>
+<li>应用部署</li>
+<li>配置管理</li>
+<li>任务流编排</li>
+</ul>
+<h2 id="常用自动化运维工具"><a href="#常用自动化运维工具" class="headerlink" title="常用自动化运维工具"></a>常用自动化运维工具</h2><p>自动化运维工具主要可以分为两大类：</p>
+<ol>
+<li>需要装代理的；</li>
+<li>不需要装代理的；</li>
+</ol>
+<p>第一种方式是指我们需要预先在目标主机上安装代理软件（在被控端上放个内鬼，就可以交易了），然后主控端通过通知代理软件来操纵被控端。</p>
+<p>第二种方式是不需要在被控端安装代理软件，主要是通过ssh连接到被控主机进行控制操作，主控端需要提前得到被控主机的授权（比如秘钥对）才能进行相应的操作。</p>
+<p>当前主流的自动化运维工具有：</p>
+<ul>
+<li>ansible：使用python编写，agentless，适用于中小型应用环境；</li>
+<li>saltstack： 使用python编写，需要在每台机子上安装agent，执行效率更高；</li>
+<li>puppet： 使用ruby编写，功能强大，配置复杂，重型，适合大型环境；</li>
+<li>fabric：使用python编写，agentless，功能比较简单；</li>
+</ul>
+<p>由于puppet是使用ruby编写的，国内ruby玩家的数量远少于python，因此saltstack和ansible的使用者相对来说就比较多。fabric由于功能太少，完全能被ansible替代，所以企业用户很少使用fabric做复杂的任务流编排。</p>
+<h2 id="Ansible"><a href="#Ansible" class="headerlink" title="Ansible"></a>Ansible</h2><h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><p>这里简单说一下ansible的主要特性：</p>
+<ul>
+<li>模块化：调用特定的模块，完成特定的任务，比如说rabbitmq模块特定用于部署rabbitmq，redis模块特定用户部署redis等；</li>
+<li>有paramiko，pyyaml，jinja2三个关键模块，分别的功能是ssh连接并操作，解析yaml文件，jinjia2模板引擎；</li>
+<li>支持自定义模块；</li>
+<li>基于python实现；</li>
+<li>部署简单，基于python和ssh，agentless；</li>
+<li>安全，基于openssh；</li>
+<li>支持playbook编排任务；</li>
+<li>幂等性，第一次执行某个ansible的操作和第n次执行同样的ansible操作对主机状态的改变结果是一样的；</li>
+<li>无需代理不依赖pki；</li>
+<li>可使用任何语言写模块；</li>
+<li>yaml格式，编排任务，支持丰富的数据结构；</li>
+<li>较强大的多层解决方案；</li>
+</ul>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>只要用pip安装即可。</p>
+<pre><code class="shell">&gt; pip install ansible
+</code></pre>
+<p>或者</p>
+<pre><code>&gt; pip3 install ansible
+</code></pre>
+<p>完成。</p>
+<p>配置文件主要在：</p>
+<ol>
+<li><code>/etc/ansible/ansible.cfg</code>，ansible工具本身的配置。</li>
+<li><code>/etc/ansible/hosts</code>，静态主机清单（Inventory）配置。</li>
+<li><code>/etc/ansible/roles/</code>，ansible-roles可以放在这。</li>
+</ol>
+<h3 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h3><h4 id="Inventory"><a href="#Inventory" class="headerlink" title="Inventory"></a>Inventory</h4><p>主机清单。对于批量主机操作，为了便捷的使用其中的部分主机，可以在inventory file中将其分组命名，默认的inventory file为<code>/etc/ansible/hosts</code>，inventory file可以有多个，且也可以通过Dynamic Inventory来动态生成。inventory文件的格式符合<code>INI</code>文件风格，中括号中的字符为组名。可以将同一个主机同时归并到多个不同的组中；如果目标主机使用非默认的SSH端口，还可以在主机名称之后使用冒号加端口号来表明。举个例子：</p>
+<pre><code>[webserver]
+172.1.1.40:2222
+10.2.2.2
+www.bbb.com
+
+# 主机机名遵循相似的命名模式，还可使用列表的方式标识个主机
+[mysqlserver]
+db[01:10].dddd.com
+
+[redisserver]
+rds-[a:f].cloud.com
+
+# 在inventory中定义主机时为其添加主机变量以便于在playbook中使用
+[appserver]
+10.3.3.3 maxMemoryUsage=60
+10.4.4.4 servicePort=8099
+
+# 定义指定组内所有主机上的在playbook中可用变量
+[appsever:vars]
+config-center=172.3.4.5
+enable-water=true
+</code></pre>
+<h4 id="AD-Hoc"><a href="#AD-Hoc" class="headerlink" title="AD-Hoc"></a>AD-Hoc</h4><p>命令行模式使用ansible。</p>
+<p>使用<code>ansible --help</code>可查看如何使用</p>
+<pre><code class="shell">fwz@fwz-mbp ~/Workspace&gt; ansible --help
+Usage: ansible &lt;host-pattern&gt; [options]
+
+Define and run a single task &#39;playbook&#39; against a set of hosts
+
+Options:
+  -a MODULE_ARGS, --args=MODULE_ARGS
+                        module arguments
+  --ask-vault-pass      ask for vault password
+  -B SECONDS, --background=SECONDS
+                        run asynchronously, failing after X seconds
+                        (default=N/A)
+  -C, --check           don&#39;t make any changes; instead, try to predict some
+                        of the changes that may occur
+  -D, --diff            when changing (small) files and templates, show the
+                        differences in those files; works great with --check
+......
+......
+</code></pre>
+<p>简单的说，语法就是<code>ansible &lt;host-pattern&gt; [-f forks] [-m module_name] [-a args]</code></p>
+<p>本质上，就是调用相应的ansible模块，并传入相应的参数。</p>
+<p>举几个例子:</p>
+<p>ping所有主机（使用ping模块）：</p>
+<pre><code class="shell">&gt; ansible all -a ping --ask-pass
+ansible all -m ping --ask-pass
+SSH password:
+xx.xx.xx.xxx | SUCCESS =&gt; &#123;
+    &quot;changed&quot;: false,
+    &quot;ping&quot;: &quot;pong&quot;
+&#125;
+</code></pre>
+<p>改变文件属性（使用file模块）:</p>
+<pre><code class="shell">&gt; ansible mysql-server -m file -a &#39;owner=mysql group=mysql mode=644 path=/tmp/fstab.ansible&#39;
+</code></pre>
+<p>拷贝文件（使用copy模块）:</p>
+<pre><code class="shell">&gt; ansible storageIndex-server -m copy -a &#39;src=/home/devops/cloud-relay-1.2.4-SNAPSHOT.tar.gz dest=/root/cloud-storageIndex/cloud-relay-1.2.4.tar.gz&#39;
+</code></pre>
+<p>配置Rabbitmq（使用rabbitmq_user模块）:</p>
+<pre><code class="shell">&gt; ansible rabbitmq-server -m rabbitmq_user -a &#39;user=new_user password=root tags=administrator vhost=/ state=present&#39;
+</code></pre>
+<p>执行linux的命令（使用shell模块）：</p>
+<pre><code class="shell">&gt; ansible webserver -m shell -a &#39;netstat -nutlp &gt; netstat_temp.txt&#39;
+</code></pre>
+<h4 id="Playbook"><a href="#Playbook" class="headerlink" title="Playbook"></a>Playbook</h4><p>剧本。虽然可以在命令行中使用ansible，但是明显功能有限，无法支持复杂环境的配置管理工作。首先，命令行一次只能执行一条命令，其次，由于通常是手敲命令，因此不好重复。类似于linux中的shell脚本，ansible提供了playbook，翻译为剧本，用于组织基于多个ansible模块交互的工作流编排。</p>
+<p>linux的脚本文件是<code>.sh</code>文件，ansible-playbook则是<code>.yaml</code>文件，即使用YAML语法。YAML的语法和其他高阶语言类似，并且可以简单表达清单、散列表、标量等数据结构。</p>
+<p>直接举个例子：</p>
+<pre><code class="yaml">---
+# This playbook will install mysql and create db user and give permissions.
+- hosts: $servername
+  remote_user: root
+  - name: Install Mysql package
+    yum: name=&#123;&#123; item &#125;&#125; state=installed
+    with_items:
+     - mysql-server
+     - MySQL-python
+     - libselinux-python
+     - libsemanage-python
+
+  - name: Configure SELinux to start mysql on any port
+    seboolean: name=mysql_connect_any state=true persistent=yes
+    when: sestatus.rc != 0
+
+  - name: Create Mysql configuration file
+    template: src=my.cnf.j2 dest=/etc/my.cnf
+    notify:
+    - restart mysql
+
+  - name: Start Mysql Service
+    service: name=mysqld state=started enabled=yes
+
+  - name: insert iptables rule
+    lineinfile: dest=/etc/sysconfig/iptables state=present regexp=&quot;&#123;&#123; mysql_port &#125;&#125;&quot;
+                insertafter=&quot;^:OUTPUT &quot; line=&quot;-A INPUT -p tcp  --dport &#123;&#123; mysql_port &#125;&#125; -j  ACCEPT&quot;
+    notify: restart iptables
+
+  - name: Create Application Database
+    mysql_db: name=&#123;&#123; dbname &#125;&#125; state=present
+
+  - name: Create Application DB User
+    mysql_user: name=&#123;&#123; dbuser &#125;&#125; password=&#123;&#123; upassword &#125;&#125; priv=*.*:ALL host=&#39;%&#39; state=present
+</code></pre>
+<p>例子很好理解，首先是定义了这个playbook在哪个主机组中执行，以及对应的用户，接着是一组task，分别调用了yum、seboolean、template、service、lineinfile、mysql_db、mysql_user模块。其中使用了notify作handler。</p>
+<p>hosts：playbook中的每一个play的目的都是为了让某个或某些主机以某个指定的用户身份执行任务。hosts用于指定要执行指定任务的主机，其可以使一个或多个由冒号分隔主机组；</p>
+<p>remote_user: remote_user也可用于各task中，也可以通过指定其通过sudo的方式在远程主机上执行任务，其可用于play全局或其任务；此外，甚至可以在sudo时使用sudo_user指定sudo时切换的用户。</p>
+<p>task：play的主题部分是task list。task list中的各任务按次序逐个在hosts中指定的所有主机上执行，即在所有主机上完成第一个任务后再开始第二个。在运行自上而下某playbook时，如果中途发生错误，所有已执行任务都可能回滚，在更正playbook后重新执行一次即可。</p>
+<p>taks的目的是使用指定的参数执行模块，而在模块参数中可以使用变量。模块执行是幂等的。这意味着多次执行是安全的，因为其结果均一致。</p>
+<p>每个task都应该有其name，用于playbook的执行结果输出，建议其内容尽可能清晰地描述任务执行步骤，如果为提供name，则action的结果将用于输出。</p>
+<p>定义task可以使用”action: module options”或”module：options“的格式推荐使用后者以实现向后兼容。如果action一行的内容过多，也中使用在行首使用几个空白字符进行换行。</p>
+<pre><code class="yaml">tasks:
+ - name:make sure apache is running
+   service: name=httpd state=started
+</code></pre>
+<p>在众多的模块中，只有command和shell模块仅需要给定一个列表而无需使用”key=value”格式</p>
+<pre><code class="yaml">tasks:
+ - name: run this command and ignore the result
+   shell: /usr/bin/somecommand || /bin/true
+</code></pre>
+<p>Handler: 用于当关注的资源发生变化时采取一定的操作。</p>
+<p>“notify”这个action可用于在每个play的最后被触发，这样可以避免多次有改变发生时每次都执行执行的操作，取而代之，仅在所有的变化发生完成后一次性地执行指定操作，在notify中列出的操作称为handlers，也即notify中调用handlers中定义的操作。</p>
+<pre><code class="yaml">- name: template configuration file
+ template: src=template.j2 dest=/etc/foo.conf
+ notify:
+   - restart memcached
+   - restart apache
+</code></pre>
+<h4 id="Roles"><a href="#Roles" class="headerlink" title="Roles"></a>Roles</h4><p>ansible自1.2版本引入的新特性，用于层次性、结构化地组织playbook。roles能够根据层次型结构自动转载变量文件、tasks以及handlers等。要使用roles只需要在playbook中使用include指令即可。简单来讲，roles就是通过分别将变量、文件、任务、模板以及处理器放置于单独的目录中，并可以便捷地include他们的一种机制。角色一般用于基于主机构建服务的场景中，但也可以使用于构建守护进程的场景中。</p>
+<p>一个常用的role结构：</p>
+<pre><code class="shell">site.yml
+webserver.yml
+fooserver.yml
+roles/
+   common/
+       files/
+       templates/
+       tasks/
+       handlers/
+       vars/
+       meta/
+   webserver/
+       files/
+       templates/
+       tasks/
+       handlers/
+       vars/
+       meta/
+</code></pre>
+<p>在ansible-playbook中可以这么使用role：</p>
+<pre><code class="yaml">- hosts: webserver
+ roles:
+   - common  
+   - webserver
+</code></pre>
+<p>向role中传递参数：</p>
+<pre><code class="yaml">- hosts: webserver
+ roles:
+   - common
+   - &#123; role: foo_app_instance, dir:&#39;/opt/a&#39;,port:5000&#125;
+   - &#123; role: foo_app_instance, dir:&#39;/opt/b&#39;,port:5001&#125;
+</code></pre>
+<ul>
+<li>task目录：至少应该包含一个为main.yml的文件，其定义了此角色的任务列表；此文件可以使用include包含其它的位于此目录中的task文件；</li>
+<li>file目录：存放由copy或script等模板块调用的文件；</li>
+<li>template目录：template模块会自动在此目录中寻找jinja2模板文件；</li>
+<li>handlers目录：此目录中应当包含一个main.yml文件，用于定义此角色用到的各handlers，在handler中使用inclnude包含的其它的handlers文件也应该位于此目录中；</li>
+<li>vars目录：应当包含一个main.yml文件，用于定义此角色用到的变量</li>
+<li>meta目录：应当包含一个main.yml文件，用于定义此角色的特殊设定及其依赖关系；ansible1.3及其以后的版本才支持；</li>
+<li>default目录：应当包含一个main.yml文件,用于为当前角色设定默认变量时使用此目录；</li>
+</ul>
+<p>官方提供了很多ansible-roles的例子：<a href="https://github.com/ansible">ansible/<strong>ansible-examples</strong></a></p>
+<h4 id="Galaxy"><a href="#Galaxy" class="headerlink" title="Galaxy"></a>Galaxy</h4><p>用于分享和下载ansible-role的平台，类似于同性交友网站github。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fclehly.github.io/2019/06/01/Ansible/" data-id="ckogykb0s0000w50tai1n3ziv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/devops/" rel="tag">devops</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/06/18/Config-Center-Apollo/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Config Center: Apollo
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/01/01/Points-on-Serverless/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Points on Serverless</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Blog/">Blog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Note/">Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notes/">Notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Paper/">Paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Turtorial/">Turtorial</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/media/">media</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/os/">os</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLM/" rel="tag">NLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Paper/" rel="tag">Paper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/audio/" rel="tag">audio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devops/" rel="tag">devops</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/" rel="tag">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loadbalance/" rel="tag">loadbalance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs/" rel="tag">lvs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/media/" rel="tag">media</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reading/" rel="tag">reading</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serverless/" rel="tag">serverless</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/video/" rel="tag">video</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Deep-Learning/" style="font-size: 20px;">Deep Learning</a> <a href="/tags/NLM/" style="font-size: 10px;">NLM</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/Paper/" style="font-size: 10px;">Paper</a> <a href="/tags/audio/" style="font-size: 10px;">audio</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/loadbalance/" style="font-size: 10px;">loadbalance</a> <a href="/tags/lvs/" style="font-size: 10px;">lvs</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/media/" style="font-size: 10px;">media</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/reading/" style="font-size: 10px;">reading</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/serverless/" style="font-size: 10px;">serverless</a> <a href="/tags/video/" style="font-size: 10px;">video</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/05/05/Media-Basic/">Media-Basic</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/28/go-slice/">go slice</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/07/homebrew/">homebrew</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/28/Django/">Django</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/06/HDFS/">HDFS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 FWZ<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

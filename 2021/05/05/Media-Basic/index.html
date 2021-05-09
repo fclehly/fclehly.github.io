@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+
+  
+  <title>Media-Basic | fengweizan&#39;s BLOG</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC] 音视频基础知识视频基础RGB数字图像使用RGB表示  R: 红光 G: 绿光 B: 蓝光  每个RGB分量可以用8bit表示；(256个色度)，例如：  #FF0000 &#x3D; 红色  #FFFFFF &#x3D; 白色   也有使用10bit表示的  RGBA_8888: RGBA分量各占8bit（A表示alpha不透明度参数） RGB_565: R分量5bit，G分量6bit，B分量5bit R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Media-Basic">
+<meta property="og:url" content="https://fclehly.github.io/2021/05/05/Media-Basic/index.html">
+<meta property="og:site_name" content="fengweizan&#39;s BLOG">
+<meta property="og:description" content="[TOC] 音视频基础知识视频基础RGB数字图像使用RGB表示  R: 红光 G: 绿光 B: 蓝光  每个RGB分量可以用8bit表示；(256个色度)，例如：  #FF0000 &#x3D; 红色  #FFFFFF &#x3D; 白色   也有使用10bit表示的  RGBA_8888: RGBA分量各占8bit（A表示alpha不透明度参数） RGB_565: R分量5bit，G分量6bit，B分量5bit R">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-05T07:49:50.000Z">
+<meta property="article:modified_time" content="2021-05-05T14:43:10.598Z">
+<meta property="article:author" content="FWZ">
+<meta property="article:tag" content="media">
+<meta property="article:tag" content="audio">
+<meta property="article:tag" content="video">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="fengweizan&#39;s BLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">fengweizan&#39;s BLOG</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fclehly.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Media-Basic" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/05/05/Media-Basic/" class="article-date">
+  <time datetime="2021-05-05T07:49:50.000Z" itemprop="datePublished">2021-05-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/media/">media</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Media-Basic
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h1 id="音视频基础知识"><a href="#音视频基础知识" class="headerlink" title="音视频基础知识"></a>音视频基础知识</h1><h2 id="视频基础"><a href="#视频基础" class="headerlink" title="视频基础"></a>视频基础</h2><h3 id="RGB"><a href="#RGB" class="headerlink" title="RGB"></a>RGB</h3><p>数字图像使用RGB表示</p>
+<ul>
+<li>R: 红光</li>
+<li>G: 绿光</li>
+<li>B: 蓝光</li>
+</ul>
+<p>每个RGB分量可以用8bit表示；(256个色度)，例如：</p>
+<ul>
+<li><p><code>#FF0000</code> = 红色</p>
+</li>
+<li><p><code>#FFFFFF</code> = 白色</p>
+</li>
+</ul>
+<p>也有使用10bit表示的</p>
+<ul>
+<li>RGBA_8888: RGBA分量各占8bit（A表示alpha不透明度参数）</li>
+<li>RGB_565: R分量5bit，G分量6bit，B分量5bit</li>
+<li>RGB_888：RGB分量各8bit</li>
+</ul>
+<p>720的RGB_888图像的大小：</p>
+<pre><code>1280 * 720 * 3 = 2.637MB
+</code></pre>
+<p>如果是90分钟电影，每秒25帧，则大小：</p>
+<pre><code>2.637MB * 90 * 15 = 347.651MB
+</code></pre>
+<p>因此需要压缩；</p>
+<ul>
+<li>图像压缩：jpeg, png…</li>
+<li>视频压缩: h264, h265…</li>
+</ul>
+<h3 id="YUV"><a href="#YUV" class="headerlink" title="YUV"></a>YUV</h3><p>YUV主要应用于优化彩色视频信号的传输，使其向后兼容老式黑白电视。</p>
+<p>“Y”表示明亮度（Luminance或Luma），也称灰阶值；而“U”和“V”表示的则是色度（Chrominance或Chroma），它们的作用是描述影像的色彩及饱和度，用于指定像素的颜色。</p>
+<p>YUV格式有两大类: planar和packed</p>
+<ul>
+<li>planar: 先连续存储所有像素点的Y，接着存储所有像素点的U，随后是所有像素点的V；<pre><code>YYYYYYYYYYYY
+YYYYYYYYYYYY
+UUUUUUUUUUUU
+UUUUUUUUUUUU
+VVVVVVVVVVVV
+VVVVVVVVVVVV
+</code></pre>
+<pre><code>YUVYUVYUVYUV
+YUVYUVYUVYUV
+YUVYUVYUVYUV
+YUVYUVYUVYUV
+</code></pre>
+</li>
+<li>packed：每个像素点的Y、U、V是连续交替存储的；<pre><code>YUVYUVYUVYUV
+YUVYUVYUVYUV
+YUVYUVYUVYUV
+YUVYUVYUVYUV
+</code></pre>
+YUV存在多种格式，不同的YUV格式的数据在存储时的排列顺序不一样。开发时不注意会导致画面不正常，如：花屏、绿屏等</li>
+<li>YUV 4:4:4  每一个Y分量对应一组UV分量</li>
+<li>YUV 4:2:2  每两个Y分量共用一组UV分量</li>
+<li>YUV 4:2:0  每四个Y分量共用一组UV分量</li>
+</ul>
+<p>YUV420p</p>
+<pre><code>YYYYYYYY
+YYYYYYYY
+YYYYYYYY
+YYYYYYYY
+UUUUUUUU
+VVVVVVVV
+</code></pre>
+<p>YUV420sp</p>
+<pre><code>YYYYYYYY
+YYYYYYYY
+YYYYYYYY
+YYYYYYYY
+UVUVUVUV
+UVUVUVUV
+</code></pre>
+<p>相较于RGB，我们可以计算一帧为1280×720的视频帧，用YUV420P的格式来表示，其数据量的大小如下</p>
+<pre><code>1280*720*1+1280*720*0.5 = 1.318MB
+</code></pre>
+<p>如果fps（1秒的视频帧数目）是25，按照一般电影的长度90分钟来计算，那么这部电影用YUV420P的数据格式来表示的话，其数据量的大小就是：</p>
+<pre><code>1.318MB*25fps*90min*60s = 173.76GB
+</code></pre>
+<p>libyuv: google开源的实现各种YUV和RGB之间相互转换、旋转、缩放、裁剪的库。</p>
+<h3 id="主要概念"><a href="#主要概念" class="headerlink" title="主要概念"></a>主要概念</h3><ul>
+<li>视频码率：kb/s, 视频文件在单位时间内使用的数据流量，也叫码流率。码率越大，说明单位时间内采样率越大，数据流精度就越高；</li>
+<li>视频帧率：fps，单位时间内的视频帧数，准率越高，给人的视觉越流畅。</li>
+</ul>
+<h3 id="帧"><a href="#帧" class="headerlink" title="帧"></a>帧</h3><h4 id="I帧"><a href="#I帧" class="headerlink" title="I帧"></a>I帧</h4><p>Infra coded frames</p>
+<p>I帧通常是每个GOP（MPEG所使用的一种视频压缩技术）的第一个帧，经过适度地压缩，作为随机访问的参考点，可以当成静态图像。I帧可以看作一个图像经过压缩后的产物，I帧压缩可以得到6：1的压缩比而不会产生任何可觉察的模糊现象。</p>
+<p>I帧自身可以通过视频解压算法解压成一张单独的完整视频画面，所以I帧去掉的是视频帧在空间维度上的冗余信息。</p>
+<h4 id="P帧"><a href="#P帧" class="headerlink" title="P帧"></a>P帧</h4><p>前向预测编码帧（predictiveframe），通过将图像序列中前面已编码帧的时间冗余信息充分去除来压缩传输数据量的编码图像，也称为预测帧。</p>
+<p>P帧需要参考其前面的一个I帧或者P帧来解码成一张完整的视频画面。</p>
+<h4 id="B帧"><a href="#B帧" class="headerlink" title="B帧"></a>B帧</h4><p>双向预测内插编码帧（bidirectionalinterpolatedpredictionframe），既考虑源图像序列前面的已编码帧，又顾及源图像序列后面的已编码帧之间的时间冗余信息，来压缩传输数据量的编码图像，也称为双向预测帧。</p>
+<p>B帧则需要参考其前一个I帧或者P帧及其后面的一个P帧来生成一张完整的视频画面，所以P帧与B帧去掉的是视频帧在时间维度上的冗余信息。</p>
+<h4 id="GOP"><a href="#GOP" class="headerlink" title="GOP"></a>GOP</h4><p>两个I帧之间形成的一组图片，就是GOP（Group Of Picture）的概念。</p>
+<pre><code>|I|P|B|B|P|B|B|I|B|B|B|......
+|&lt;--  GOP  --&gt;|
+</code></pre>
+<h2 id="常用视频压缩算法"><a href="#常用视频压缩算法" class="headerlink" title="常用视频压缩算法"></a>常用视频压缩算法</h2><ul>
+<li>MPEG2 (MPEG)</li>
+<li>H264  (MPEG)</li>
+<li>H265  (MPEG)</li>
+<li>AVS   （中国）</li>
+<li>VP8   (Google)</li>
+<li>VP9   (Google)</li>
+</ul>
+<h3 id="H264"><a href="#H264" class="headerlink" title="H264"></a>H264</h3><p>视频编码分析工具：Elecard streameye tools</p>
+<h4 id="NALU"><a href="#NALU" class="headerlink" title="NALU"></a>NALU</h4><p>TODO</p>
+<h4 id="帧内预测"><a href="#帧内预测" class="headerlink" title="帧内预测"></a>帧内预测</h4><p>TODO</p>
+<h4 id="帧间预测"><a href="#帧间预测" class="headerlink" title="帧间预测"></a>帧间预测</h4><p>TODO</p>
+<h3 id="HEVC"><a href="#HEVC" class="headerlink" title="HEVC"></a>HEVC</h3><p>TODO</p>
+<h2 id="音频基础"><a href="#音频基础" class="headerlink" title="音频基础"></a>音频基础</h2><h3 id="物理特性"><a href="#物理特性" class="headerlink" title="物理特性"></a>物理特性</h3><p>声音是由物体振动而产生的</p>
+<ul>
+<li><p>频率：频率（过零率）越高，波长就越短。低频声响的波长则较长，所以其可以更容易地绕过障碍物，因此能量衰减就小，声音就会传得远，反之则会得到完全相反的结论。</p>
+</li>
+<li><p>响度：响度其实就是能量大小的反映，用不同的力度敲击桌子，声音的大小势必也会不同。在生活中，分贝常用于描述响度的大小。声音超过一定的分贝，人类的耳朵就会受不了。</p>
+</li>
+<li><p>音色：音色其实也不难理解，在同样的音调（频率）和响度（振幅）下，钢琴和小提琴的声音听起来是完全不相同的，因为它们的音色不同。波的形状决定了其所代表声音的音色，钢琴和小提琴的音色不同就是因为它们的介质所产生的波形不同。</p>
+</li>
+</ul>
+<h3 id="音频主要概念"><a href="#音频主要概念" class="headerlink" title="音频主要概念"></a>音频主要概念</h3><ul>
+<li>比特率： 每秒传输的bit数，单位为bps，是简介衡量声音质量的一个标准。没有压缩的音频数据采样率=采样频率<em>采样精度</em>通道数</li>
+<li>码率：压缩后的音频数据比特率。常见的码率：<ul>
+<li>96kbps：FM质量</li>
+<li>28-160kbps：一般质量音频</li>
+<li>192kbps： CD质量</li>
+<li>256-320kbps：高质量音频<br>码率越大，压缩效率越低，音质越好，压缩后数据越大；<br>码率=音频文件大小/时长</li>
+</ul>
+</li>
+</ul>
+<h3 id="音频帧"><a href="#音频帧" class="headerlink" title="音频帧"></a>音频帧</h3><p>音频的帧的概念没有视频帧那么清晰。</p>
+<p>音频压缩单位：一帧多少个采样点</p>
+<ul>
+<li>aac: 通常1024，有时2048（16khz）</li>
+<li>mp3: 通常1152</li>
+</ul>
+<p>帧长：</p>
+<ul>
+<li>可以指每帧采样数播放的时间，如：mp3 48k, 1152个采样点，每帧则为24ms；aac则是每帧1024个采样点。攒够一帧的数据才送去编码。</li>
+<li>也可以指压缩后每帧的数据长度。<br>所以讲到帧的时候要注意其适用的场合。</li>
+</ul>
+<p>每帧的持续时间=每帧的采样点数/采样频率(HZ)</p>
+<p>交错模式：数据音频信号的存储方式。数据以连续帧的方式存放，即首先记录帧1的左声道样本和右声道样本，再开始帧2的记录…</p>
+<pre><code>1024个采样点一帧为例
+|0 |1 |2 |3 |...|1023
+|LR|LR|LR|LR|...|LR|......
+</code></pre>
+<p>非交错模式:首先记录的是一个周期内所有帧的左声道样本，再记录所有右声道样本。</p>
+<pre><code>1024个采样点一帧为例
+0......1023
+LLLLLL...L
+RRRRR....R
+LLLLLL...L
+RRRRR....R
+</code></pre>
+<h3 id="PCM"><a href="#PCM" class="headerlink" title="PCM"></a>PCM</h3><p>TODO</p>
+<h3 id="AAC"><a href="#AAC" class="headerlink" title="AAC"></a>AAC</h3><p>TODO</p>
+<h3 id="OGG"><a href="#OGG" class="headerlink" title="OGG"></a>OGG</h3><p>TODO</p>
+<h2 id="封装格式基础"><a href="#封装格式基础" class="headerlink" title="封装格式基础"></a>封装格式基础</h2><p>封装格式(也叫容器)就是将已经编码压缩好的视频流、音频流、字幕按照一定方案放到一个文件中，便于播放软件播放。一般来说，视频文件的后缀名，就是它的封装格式。</p>
+<p>封装格式不一样，后缀名也就不一样。</p>
+<h3 id="FLV"><a href="#FLV" class="headerlink" title="FLV"></a>FLV</h3><p>流式</p>
+<pre><code>------
+Header
+------
+Audio
+------
+Video
+------
+Audio
+------
+Video
+------
+......
+</code></pre>
+<p>适合直播</p>
+<p>TODO</p>
+<h3 id="MP4"><a href="#MP4" class="headerlink" title="MP4"></a>MP4</h3><p>索引</p>
+<pre><code>-----------
+Header
+-----------
+audio index
+-----------
+video index
+-----------
+audio index
+-----------
+video index
+-----------
+......
+-----------
+audio
+-----------
+video
+-----------
+audio
+-----------
+video
+-----------
+</code></pre>
+<p>适合本地播放</p>
+<h2 id="传输协议基础"><a href="#传输协议基础" class="headerlink" title="传输协议基础"></a>传输协议基础</h2><h3 id="RTMP"><a href="#RTMP" class="headerlink" title="RTMP"></a>RTMP</h3><p>TODO</p>
+<h3 id="HLS"><a href="#HLS" class="headerlink" title="HLS"></a>HLS</h3><p>苹果推出的视频传输协议</p>
+<p><a href="https://developer.apple.com/streaming/">https://developer.apple.com/streaming/</a></p>
+<p><a href="https://tools.ietf.org/html/rfc8216">HTTP Live Streaming</a></p>
+<p>TODO</p>
+<h4 id="m3u8"><a href="#m3u8" class="headerlink" title="m3u8"></a>m3u8</h4><p>按一定格式编写的文本文件，m3u8 = m3u + utf8<br>TODO</p>
+<h3 id="RTSP"><a href="#RTSP" class="headerlink" title="RTSP"></a>RTSP</h3><p><a href="https://tools.ietf.org/html/rfc2326">RFC 2326 - Real Time Streaming Protocol</a></p>
+<p>类http文本</p>
+<h4 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h4><h5 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h5><h5 id="Describe"><a href="#Describe" class="headerlink" title="Describe"></a>Describe</h5><h5 id="Announce"><a href="#Announce" class="headerlink" title="Announce"></a>Announce</h5><h5 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h5><h5 id="Play"><a href="#Play" class="headerlink" title="Play"></a>Play</h5><h5 id="Pause"><a href="#Pause" class="headerlink" title="Pause"></a>Pause</h5><h5 id="Teardown"><a href="#Teardown" class="headerlink" title="Teardown"></a>Teardown</h5><p>TODO</p>
+<h4 id="RTCP"><a href="#RTCP" class="headerlink" title="RTCP"></a>RTCP</h4><p><a href="https://tools.ietf.org/html/rfc3605">Real Time Control Protocol (RTCP) attribute in Session Description Protocol (SDP)</a><br>TODO</p>
+<h4 id="RTP"><a href="#RTP" class="headerlink" title="RTP"></a>RTP</h4><p><a href="https://tools.ietf.org/html/rfc3550">RFC 3550 - RTP: A Transport Protocol for Real-Time Application</a></p>
+<p>TODO</p>
+<h3 id="SDP"><a href="#SDP" class="headerlink" title="SDP"></a>SDP</h3><p>会话描述协议<br>TODO</p>
+<h2 id="WebRTC"><a href="#WebRTC" class="headerlink" title="WebRTC"></a>WebRTC</h2><p>TODO</p>
+<h3 id="音视频同步基础"><a href="#音视频同步基础" class="headerlink" title="音视频同步基础"></a>音视频同步基础</h3><h4 id="DTS"><a href="#DTS" class="headerlink" title="DTS"></a>DTS</h4><p>Decoding Time Stamp</p>
+<h4 id="PTS"><a href="#PTS" class="headerlink" title="PTS"></a>PTS</h4><p>Presentation Time Stamp</p>
+<h4 id="音视频同步方式"><a href="#音视频同步方式" class="headerlink" title="音视频同步方式"></a>音视频同步方式</h4><ul>
+<li>Audio Master: 同步视频到音频</li>
+<li>Video Master: 同步音频到视频</li>
+<li>External Clock Master: 同步音频和视频到外部时钟</li>
+</ul>
+<p>一般情况下：<br>Audio Master &gt; Video Master &gt; External Clock Master</p>
+<h3 id="直播简要流程"><a href="#直播简要流程" class="headerlink" title="直播简要流程"></a>直播简要流程</h3><pre><code class="mermaid">graph LR
+A[摄像头采集]--&gt;B[YUV420P]
+B --&gt; C[H264压缩]
+C --&gt; D[RTMP传输]
+D --&gt; E[H264解码]
+E --&gt; F[YUV420p]
+F --&gt; G[RGB显示]
+</code></pre>
+<h2 id="开源项目"><a href="#开源项目" class="headerlink" title="开源项目"></a>开源项目</h2><h3 id="ffmpeg"><a href="#ffmpeg" class="headerlink" title="ffmpeg"></a>ffmpeg</h3><p><a href="http://ffmpeg.org/">http://ffmpeg.org</a></p>
+<p>TODO</p>
+<h4 id="avpacket"><a href="#avpacket" class="headerlink" title="avpacket"></a>avpacket</h4><h4 id="mpegts"><a href="#mpegts" class="headerlink" title="mpegts"></a>mpegts</h4><h4 id="avfilter"><a href="#avfilter" class="headerlink" title="avfilter"></a>avfilter</h4><p>……<br>TODO</p>
+<h3 id="librtmp"><a href="#librtmp" class="headerlink" title="librtmp"></a>librtmp</h3><p>TODO</p>
+<h3 id="srs"><a href="#srs" class="headerlink" title="srs"></a>srs</h3><p>simple rtmp server</p>
+<p><a href="https://github.com/ossrs/srs">https://github.com/ossrs/srs</a></p>
+<p>TODO</p>
+<h3 id="nginx-rtmp-module"><a href="#nginx-rtmp-module" class="headerlink" title="nginx-rtmp-module"></a>nginx-rtmp-module</h3><p><a href="https://github.com/arut/nginx-rtmp-module">https://github.com/arut/nginx-rtmp-module</a></p>
+<p>TODO</p>
+<h3 id="janus"><a href="#janus" class="headerlink" title="janus"></a>janus</h3><p><a href="https://github.com/meetecho/janus-gateway">https://github.com/meetecho/janus-gateway</a></p>
+<p>TODO</p>
+<h3 id="live555"><a href="#live555" class="headerlink" title="live555"></a>live555</h3><p><a href="http://www.live555.com/">http://www.live555.com</a></p>
+<p>TODO</p>
+<h3 id="ijkplayer"><a href="#ijkplayer" class="headerlink" title="ijkplayer"></a>ijkplayer</h3><p><a href="https://github.com/Bilibili/ijkplayer">https://github.com/Bilibili/ijkplayer</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><h3 id="书籍"><a href="#书籍" class="headerlink" title="书籍"></a>书籍</h3><ol>
+<li>WebRTC权威指南</li>
+<li>音视频开发进阶指南:基于Android和iOS平台的实践</li>
+<li>FFmpeg从入门到精通</li>
+<li>新一代视频压缩编码标准:H.264/AVC</li>
+</ol>
+<h3 id="博客"><a href="#博客" class="headerlink" title="博客"></a>博客</h3><ol>
+<li><a href="https://blog.csdn.net/leixiaohua1020">https://blog.csdn.net/leixiaohua1020</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fclehly.github.io/2021/05/05/Media-Basic/" data-id="ckogykb17000cw50td1or7edr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/audio/" rel="tag">audio</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/media/" rel="tag">media</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/video/" rel="tag">video</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/06/28/go-slice/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">go slice</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Blog/">Blog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Note/">Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notes/">Notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Paper/">Paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Turtorial/">Turtorial</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/media/">media</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/os/">os</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLM/" rel="tag">NLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Paper/" rel="tag">Paper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/audio/" rel="tag">audio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devops/" rel="tag">devops</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/" rel="tag">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loadbalance/" rel="tag">loadbalance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs/" rel="tag">lvs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/media/" rel="tag">media</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reading/" rel="tag">reading</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serverless/" rel="tag">serverless</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/video/" rel="tag">video</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Deep-Learning/" style="font-size: 20px;">Deep Learning</a> <a href="/tags/NLM/" style="font-size: 10px;">NLM</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/Paper/" style="font-size: 10px;">Paper</a> <a href="/tags/audio/" style="font-size: 10px;">audio</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/loadbalance/" style="font-size: 10px;">loadbalance</a> <a href="/tags/lvs/" style="font-size: 10px;">lvs</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/media/" style="font-size: 10px;">media</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/reading/" style="font-size: 10px;">reading</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/serverless/" style="font-size: 10px;">serverless</a> <a href="/tags/video/" style="font-size: 10px;">video</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/05/05/Media-Basic/">Media-Basic</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/28/go-slice/">go slice</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/07/homebrew/">homebrew</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/28/Django/">Django</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/06/HDFS/">HDFS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 FWZ<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

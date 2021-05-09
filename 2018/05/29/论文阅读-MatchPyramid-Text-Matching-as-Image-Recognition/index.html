@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+
+  
+  <title>论文阅读: MatchPyramid: Text Matching as Image Recognition | fengweizan&#39;s BLOG</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="# 论文信息题目： Text Matching as Image Recognition作者： Liang Pang, Yanyan Lan, Jiafeng Guo, Jun Xu, Shengxian Wan, and Xueqi Cheng会议： AAAI2016 Abstract匹配两个文本是许多自然语言处理任务中的一个基本问题。 一种有效的方法是从单词，短语和句子中提取有意义的匹配模式以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文阅读: MatchPyramid: Text Matching as Image Recognition">
+<meta property="og:url" content="https://fclehly.github.io/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-MatchPyramid-Text-Matching-as-Image-Recognition/index.html">
+<meta property="og:site_name" content="fengweizan&#39;s BLOG">
+<meta property="og:description" content="# 论文信息题目： Text Matching as Image Recognition作者： Liang Pang, Yanyan Lan, Jiafeng Guo, Jun Xu, Shengxian Wan, and Xueqi Cheng会议： AAAI2016 Abstract匹配两个文本是许多自然语言处理任务中的一个基本问题。 一种有效的方法是从单词，短语和句子中提取有意义的匹配模式以">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fclehly.github.io/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-MatchPyramid-Text-Matching-as-Image-Recognition/motivation.png">
+<meta property="og:image" content="https://fclehly.github.io/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-MatchPyramid-Text-Matching-as-Image-Recognition/relationship.png">
+<meta property="og:image" content="https://fclehly.github.io/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-MatchPyramid-Text-Matching-as-Image-Recognition/model_overview.png">
+<meta property="og:image" content="https://fclehly.github.io/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-MatchPyramid-Text-Matching-as-Image-Recognition/indicator.png">
+<meta property="og:image" content="https://fclehly.github.io/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-MatchPyramid-Text-Matching-as-Image-Recognition/cosine.png">
+<meta property="og:image" content="https://fclehly.github.io/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-MatchPyramid-Text-Matching-as-Image-Recognition/dot_product.png">
+<meta property="og:image" content="https://fclehly.github.io/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-MatchPyramid-Text-Matching-as-Image-Recognition/indicator_and_dot_product.png">
+<meta property="og:image" content="https://fclehly.github.io/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-MatchPyramid-Text-Matching-as-Image-Recognition/hierarchical_convolution.png">
+<meta property="article:published_time" content="2018-05-29T13:07:40.000Z">
+<meta property="article:modified_time" content="2019-01-19T15:38:27.761Z">
+<meta property="article:author" content="FWZ">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="NLM">
+<meta property="article:tag" content="Deep Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fclehly.github.io/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-MatchPyramid-Text-Matching-as-Image-Recognition/motivation.png">
+  
+    <link rel="alternate" href="/atom.xml" title="fengweizan&#39;s BLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">fengweizan&#39;s BLOG</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fclehly.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-论文阅读-MatchPyramid-Text-Matching-as-Image-Recognition" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-MatchPyramid-Text-Matching-as-Image-Recognition/" class="article-date">
+  <time datetime="2018-05-29T13:07:40.000Z" itemprop="datePublished">2018-05-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Paper/">Paper</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      论文阅读: MatchPyramid: Text Matching as Image Recognition
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script></p>
+<h2 id="论文信息"><a href="#论文信息" class="headerlink" title="论文信息"></a>论文信息</h2><p>题目： Text Matching as Image Recognition<br>作者： Liang Pang, Yanyan Lan, Jiafeng Guo, Jun Xu, Shengxian Wan, and Xueqi Cheng<br>会议： AAAI2016</p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>匹配两个文本是许多自然语言处理任务中的一个基本问题。 一种有效的方法是从单词，短语和句子中提取有意义的匹配模式以产生匹配的分数。 受卷积神经网络在图像识别中的成功启发，神经元可以基于提取出的基本视觉模式（如定向边和角）捕捉许多复杂图案，我们建议将文本匹配建模为图像识别问题。 首先，构造一个匹配矩阵，其条目表示词语之间的相似性，并将其视为图像。 然后利用卷积神经网络以逐层方式捕获丰富的匹配模式。 实验表明，通过类似图像识别模式的组成层次，我们的模型可以成功识别显着信号，例如n-gram和n-term匹配。 实验结果证明了它相对于baseline的优越性。</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>问题定义如下：<br>$$Match(\boldsymbol{T_1}, \boldsymbol{T_2})=F(\Phi(\boldsymbol{T_1}), \Phi(\boldsymbol{T_2}))$$<br>\(T_1 = (w_1, w_2, …, w_m)\) 和 \(T_2 = (v_1, v_2, …, v_n) \)是两个文本，\(\Phi \)是一个将文本映射到向量的函数。<br>本文贡献：   </p>
+<ol>
+<li>一个关于使用图像识别做文本匹配的新的视角；</li>
+<li>一个新的深度网络结构MatchPyramid，基于匹配矩阵（它能在词，短语到整个句子这些不同层次上提取信息）；</li>
+<li>在不同任务上展现了这个结构强大的能力；</li>
+</ol>
+<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p><img src="motivation.png" alt="motivation"><br>作者认为两个句子的匹配和图像识别任务有很多的相似处，比如上图中的两个句子词、短语、句子层面的匹配可以类比到图像识别中的边、角、模式、部分等层次的特征提取，如下图。<br><img src="relationship.png" alt="relationship"></p>
+<h2 id="网络简介"><a href="#网络简介" class="headerlink" title="网络简介"></a>网络简介</h2><p>网络结构如下所示：</p>
+<p><img src="model_overview.png" alt="模型预览"></p>
+<h3 id="匹配矩阵"><a href="#匹配矩阵" class="headerlink" title="匹配矩阵"></a>匹配矩阵</h3><p>这个匹配矩阵是这篇paper的关键所在，它将句子语义匹配与图像识别联系了起来。</p>
+<p>paper中介绍了三种构建匹配矩阵的方法：</p>
+<ol>
+<li><strong>Indicator</strong>:<br>就是判断两个句子中的词是否分别相同<br><img src="indicator.png"></li>
+<li><strong>Cosine</strong>:<br>两个句子进行词嵌入编码后，每个词向量分别计算余弦值；<br><img src="cosine.png"></li>
+<li><strong>Dot Product</strong>:<br>两个句子进行词嵌入编码后，每个词向量分别点积即可，其实就是一个句子表征矩阵乘以另一个句子表征矩阵的转置；<br><img src="dot_product.png"></li>
+</ol>
+<p>例子如下：<br><img src="indicator_and_dot_product.png"></p>
+<h3 id="其他一些细节"><a href="#其他一些细节" class="headerlink" title="其他一些细节"></a>其他一些细节</h3><p>因为句子长度可能不一致，所以每次生成的匹配矩阵的size就可能不一样，因此作者采用了Hierarchical Convolution解决这个问题。<br><img src="hierarchical_convolution.png"></p>
+<ul>
+<li>第一层卷积的pooling使用dynamic pooling生成一个一定size的feature map；</li>
+<li>第二层的卷积求和算。   </li>
+<li>激活函数是ReLU；</li>
+<li>2层MLP，softmax输出预测结果；</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fclehly.github.io/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-MatchPyramid-Text-Matching-as-Image-Recognition/" data-id="ckogykb1p001hw50t7h8b4wrn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLM/" rel="tag">NLM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/05/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-ResNet-Deep-Residual-Learning-for-Image-Recognition/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          论文阅读: ResNet-Deep Residual Learning for Image Recognition
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/28/vimrc/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">vimrc</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Blog/">Blog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Note/">Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notes/">Notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Paper/">Paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Turtorial/">Turtorial</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/media/">media</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/os/">os</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLM/" rel="tag">NLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Paper/" rel="tag">Paper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/audio/" rel="tag">audio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devops/" rel="tag">devops</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/" rel="tag">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loadbalance/" rel="tag">loadbalance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs/" rel="tag">lvs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/media/" rel="tag">media</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reading/" rel="tag">reading</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serverless/" rel="tag">serverless</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/video/" rel="tag">video</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Deep-Learning/" style="font-size: 20px;">Deep Learning</a> <a href="/tags/NLM/" style="font-size: 10px;">NLM</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/Paper/" style="font-size: 10px;">Paper</a> <a href="/tags/audio/" style="font-size: 10px;">audio</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/loadbalance/" style="font-size: 10px;">loadbalance</a> <a href="/tags/lvs/" style="font-size: 10px;">lvs</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/media/" style="font-size: 10px;">media</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/reading/" style="font-size: 10px;">reading</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/serverless/" style="font-size: 10px;">serverless</a> <a href="/tags/video/" style="font-size: 10px;">video</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/05/05/Media-Basic/">Media-Basic</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/28/go-slice/">go slice</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/07/homebrew/">homebrew</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/28/Django/">Django</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/06/HDFS/">HDFS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 FWZ<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

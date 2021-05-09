@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+
+  
+  <title>Docker | fengweizan&#39;s BLOG</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="AbstractDocker是一个开源的容器引擎，可以将应用软件和应用所需的依赖打包在一起，形成一个标准化单元，类似于Java基于jvm的write once, run anywhere， docker可以实现build once, run anywhere。最近几年，微服务架构火热，而在大型企业中，微服务的运维由于服务的数量比较多而进展困难，容器化服务势在必行。服务容器化使应用程序能够从组件快速">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker">
+<meta property="og:url" content="https://fclehly.github.io/2019/06/19/Docker/index.html">
+<meta property="og:site_name" content="fengweizan&#39;s BLOG">
+<meta property="og:description" content="AbstractDocker是一个开源的容器引擎，可以将应用软件和应用所需的依赖打包在一起，形成一个标准化单元，类似于Java基于jvm的write once, run anywhere， docker可以实现build once, run anywhere。最近几年，微服务架构火热，而在大型企业中，微服务的运维由于服务的数量比较多而进展困难，容器化服务势在必行。服务容器化使应用程序能够从组件快速">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-06-19T14:50:57.000Z">
+<meta property="article:modified_time" content="2019-10-19T06:20:34.353Z">
+<meta property="article:author" content="FWZ">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="fengweizan&#39;s BLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">fengweizan&#39;s BLOG</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fclehly.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Docker" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/19/Docker/" class="article-date">
+  <time datetime="2019-06-19T14:50:57.000Z" itemprop="datePublished">2019-06-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Docker
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>Docker是一个开源的容器引擎，可以将应用软件和应用所需的依赖打包在一起，形成一个标准化单元，类似于Java基于jvm的<em>write once, run anywhere</em>， docker可以实现<em>build once, run anywhere</em>。最近几年，微服务架构火热，而在大型企业中，微服务的运维由于服务的数量比较多而进展困难，容器化服务势在必行。服务容器化使应用程序能够从组件快速组装到发布，消除了开发和QS和IT的摩擦。容器是微服务的基石，没有容器化的微服务是没有灵魂的。docker让容器化操作变得简单，docker的出现让大型的微服务架构得以流行，而微服务的火热又促进了docker发展。</p>
+<h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><h3 id="一致的运行环境"><a href="#一致的运行环境" class="headerlink" title="一致的运行环境"></a>一致的运行环境</h3><blockquote>
+<p>开发过程中一个常见的问题是环境一致性问题。由于开发环境、测试环境、生产环境不一致，导致有些 bug 并未在开发过程中被发现。而 Docker 的镜像提供了除内核外完整的运行时环境，确保了应用运行环境一致性，从而不会再出现 「这段代码在我机器上没问题啊」 这类问题。</p>
+</blockquote>
+<h3 id="持续交付和部署"><a href="#持续交付和部署" class="headerlink" title="持续交付和部署"></a>持续交付和部署</h3><blockquote>
+<p>对开发和运维（DevOps）人员来说，最希望的就是一次创建或配置，可以在任意地方正常运行。<br>使用 Docker 可以通过定制应用镜像来实现持续集成、持续交付、部署。开发人员可以通过 Dockerfile 来进行镜像构建，并结合 持续集成(Continuous Integration) 系统进行集成测试，而运维人员则可以直接在生产环境中快速部署该镜像，甚至结合 持续部署(Continuous Delivery/Deployment) 系统进行自动部署。<br>而且使用 Dockerfile 使镜像构建透明化，不仅仅开发团队可以理解应用运行环境，也方便运维团队理解应用运行所需条件，帮助更好的生产环境中部署该镜像。</p>
+</blockquote>
+<h3 id="更轻松的迁移"><a href="#更轻松的迁移" class="headerlink" title="更轻松的迁移"></a>更轻松的迁移</h3><blockquote>
+<p>由于 Docker 确保了执行环境的一致性，使得应用的迁移更加容易。Docker 可以在很多平台上运行，无论是物理机、虚拟机、公有云、私有云，甚至是笔记本，其运行结果是一致的。因此用户可以很轻易的将在一个平台上运行的应用，迁移到另一个平台上，而不用担心运行环境的变化导致应用无法正常运行的情况。</p>
+</blockquote>
+<h3 id="更轻松的维护和扩展"><a href="#更轻松的维护和扩展" class="headerlink" title="更轻松的维护和扩展"></a>更轻松的维护和扩展</h3><blockquote>
+<p>Docker 使用的分层存储以及镜像的技术，使得应用重复部分的复用更为容易，也使得应用的维护更新更加简单，基于基础镜像进一步扩展镜像也变得非常简单。此外，Docker 团队同各个开源项目团队一起维护了一大批高质量的 官方镜像，既可以直接在生产环境使用，又可以作为基础进一步定制，大大的降低了应用服务的镜像制作成本。</p>
+</blockquote>
+<h2 id="VM-Vagrant-Docker"><a href="#VM-Vagrant-Docker" class="headerlink" title="VM, Vagrant, Docker"></a>VM, Vagrant, Docker</h2><p>最开始，大家就想着直接把整个系统打包再部署，即虚拟机技术，保证了系统和环境的稳定，减少了大量手工操作。但是，缺点也是有的，那就是无法自动化打包过程，于是<a href="https://www.vagrantup.com/">Vargrant</a>被做了出来，Vargrant使用了vargrantfile文件给开发者提供了定义自动化构建VM镜像的功能。但是，还是有缺点，首先，打包出来的镜像太大，包含了过多不需要使用的依赖；其次，服务启动必须等得VM的系统启动完成后才能启动服务。<br>为了解决VM的缺点，Docker被开发了出来，它提供了系统上的进程级别的虚拟化技术。与VM需要虚拟化整个硬件和操作系统不同，Docker是直接基于宿主机的操作系统进行虚拟化，性能几乎没有损耗。具体结构差异如下：</p>
+<pre><code>虚拟机：
+    +------------+-------------+
+    | App A      |  App B      |
+    +------------+-------------+
+    | Libs       |  Libs       |
+    +------------+-------------+
+    |Guest OS    |  Guest OS   |
+    +------------+-------------+
+    |       Hypervisor         |
+    +--------------------------+
+    |        HOST OS           |
+    +--------------------------+
+    |         SERVER           |
+    +--------------------------+
+
+Docker：
+    +------------+-------------+
+    | App A      |  App B      |
+    +------------+-------------+
+    | Libs       |  Libs       |
+    +------------+-------------+
+    |       Docker Engine      |
+    +--------------------------+
+    |        HOST OS           |
+    +--------------------------+
+    |         SERVER           |
+    +--------------------------+
+</code></pre>
+<h2 id="Docker的组成"><a href="#Docker的组成" class="headerlink" title="Docker的组成"></a>Docker的组成</h2><p>docker主要由以下组件组成：</p>
+<ul>
+<li>docker client</li>
+<li>docker daemon</li>
+<li>docker image</li>
+<li>docker container</li>
+<li>docker registry</li>
+</ul>
+<p>Docker本身是C/S架构，C端是docker client，S端是docker daemon，docker daemon管理者docker image和docker container，docker index提供镜像索引以及用户认证的功能，docker registry在远程存放镜像，大致架构如下：</p>
+<pre><code>
+
+                           +-----------------+
+                           | Docker Daemon   |
+        ,---.              |  -------------- |                )------------------(
+       /     \             |  Container1     |                |                  |
+      / Docker\            |                 |--------------- |  Docker Registry |
+     (  Client )---------- |  Container2     |                |                  |
+      \       /            |                 |                )------------------(
+       \     /             |  Container3     |                          |
+        `---&#39;              |                 |                          |
+     docker pull           |  .......        |                          |
+     docker run            |                 |                          |
+     docker build          +-----------------+                          |
+     docker ...                     |                                   |
+                                    |                                   |
+                            +----------------+                          |
+                            |  Docker Index  |--------------------------+
+                            +----------------+
+</code></pre>
+<h3 id="Docker-Image"><a href="#Docker-Image" class="headerlink" title="Docker Image"></a>Docker Image</h3><p>docker image是docker容器的基石，保存了docker启动的各种条件，docker container的启动必须基于一个docker image。Docker image位于docker生命周期的构建和打包阶段。<br>docker使用了union mount的方式构建镜像，采用了ufs的模型。就是docker一次性加载多个文件系统形成一个文件系统层叠的形式，但是在外部看来容器只有一个文件系统可用，docker将这样的文件系统称为docker image。<br>docker image是一个层层叠加的只读文件系统。最底部是bootfs，即引导文件系统，当容器启动后，引导文件系统将会被卸载。bootfs之上是rootfs，rootfs可以是ubuntu/centos/debian/fedora，与虚拟机启动后由只读状态变为读写状态不同，docker的rootfs永远是只读。</p>
+<pre><code>Docker的UFS示例：
+ +---------------+
+ |  add django   |
+ +---------------+
+ |  add python3  |
+ +---------------+
+ |rootfs(ubuntu) |
+ +---------------+
+ |     bootfs    |
+ +---------------+
+</code></pre>
+<h3 id="Docker-Container"><a href="#Docker-Container" class="headerlink" title="Docker Container"></a>Docker Container</h3><p>Docker Container是Docker的执行单元，通过镜像来启动。Docker container位于docker生命周期的启动和执行阶段。<br>Docker Container基于镜像启动时，会在镜像构建出的ufs上再添加一个writable layer，一个可写层。当容器刚启动时，该读写层是空的，当容器状态发生改变时，读写层才会有变化。比如当需要修改一个文件时，docker把改文件从下层的只读文件系统中复制到读写层，再进行修改，该文件的只读版本仍然存在，但是已经被读写层上的副本隐藏起来了。这就是Docker中重要的技术<strong>Copy on Write</strong>（中文翻译为写时复制），每个只读镜像层永远都是只读的，不会变化，当创建出一个新容器时，docker会构建出一个镜像栈，在栈的顶层增加读写层，并与底下的只读层和一些数据就构成了一个容器。容器的分层框架能够使我们快速的构建镜像并发布应用程序。</p>
+<pre><code>Docker container创建的镜像栈
+
+ +---------------+
+ | add my app    |  读写层(copy on write)
+ +---------------+
+ |  add django   |  Read Only
+ +---------------+
+ |  add python3  |  Read Only
+ +---------------+
+ |rootfs(ubuntu) |  Read Only
+ +---------------+
+ |     bootfs    |  Read Only
+ +---------------+
+</code></pre>
+<h3 id="Docker-Registry"><a href="#Docker-Registry" class="headerlink" title="Docker Registry"></a>Docker Registry</h3><p>Docker仓库分为公有和私有，放着一些已有的镜像，官方的docker registry是<a href="https://www.docker.com/products/docker-hub">Docker Hub</a>。</p>
+<h3 id="Namespaces"><a href="#Namespaces" class="headerlink" title="Namespaces"></a>Namespaces</h3><p>C++中有namespace这个概念，它实现了代码块的封装，更重要的是代码的隔离，使得不同namespace下可以有相同的变量名但意义不同。在linux里，namespace是一个重要的特性，提供了系统资源的隔离，包括进程/网络/文件系统等。linux实现namespace的重要目的就是为了实现轻量级的虚拟化，也就是容器（linux里的lxc了解一下）。在同一namespace下的进程可以感知彼此的变化，而不能发现其他进程，从而使得一个namespace下的进程认为自身处于一个独立的系统中，便达到了独立和隔离的目的。<br>Docker目前用到了以下几种namespace进行资源隔离。</p>
+<ul>
+<li>PID， Process ID, 进程隔离；</li>
+<li>NET， Network， 网络隔离；</li>
+<li>IPC， InterProcess Communication， 跨进程通信访问隔离；</li>
+<li>MNT， Mount， 挂载点隔离；</li>
+<li>UTS， Unix Timesharing System， 内核和版本标识隔离；</li>
+<li>USER, 用户和组隔离；</li>
+</ul>
+<p>而隔离资源的管理就需要用到Control Groups</p>
+<h3 id="Control-Groups"><a href="#Control-Groups" class="headerlink" title="Control Groups"></a>Control Groups</h3><p>Control groups是linux提供的限制/记录/隔离主机物理资源的机制，简称cgroups，为了更好的管理容器，cgroups在2007年并入到linux kernel中。没有cgroups，就没有容器。<br>cgroups主要负责容器相关的以下内容：</p>
+<ul>
+<li>资源限制，比如为进程组设置一个内存使用的上限；</li>
+<li>优先级设定，比如为某些进程组设定更大的cpu和内存资源。</li>
+<li>资源计量，比如计算进程组使用了多少系统资源。</li>
+<li>资源控制，比如将进程组挂起和恢复。</li>
+</ul>
+<p>正是因为namespaces和cgroups，Docker的容器才拥有了以下能力：</p>
+<ul>
+<li>文件系统隔离：每个容器都有自己的rootfs；</li>
+<li>进程隔离： 每个容器都运行在自己的进程环境中；</li>
+<li>网络隔离： 容器间的虚拟网络接口和IP地址都是分离的；</li>
+<li>资源隔离和分组： cgroups将CPU和内存等资源独立分配给每个不同的Docker容器。</li>
+</ul>
+<h3 id="容器的状态"><a href="#容器的状态" class="headerlink" title="容器的状态"></a>容器的状态</h3><ul>
+<li>运行</li>
+<li>已暂停</li>
+<li>重新启动</li>
+<li>已退出</li>
+</ul>
+<h2 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h2><pre><code class="bash">$ docker help
+
+$ docker help cp
+</code></pre>
+<pre><code class="bash">$ docker run --detach --interactive --tty --name web busybox:latest /bin/bash
+
+$ docker run -d -name wp3 --link wpdb:mysql -p 80 -v /run/lock/apache2 -v /run/apache2 --read-only wordpress:4
+
+$ docker run -d --rm --name wp --env MY_ENVIRONMENT_VAR=&quot;test&quot; --read-only wordpress:4
+
+$ docker inspect --format &quot;&#123;&#123;.State.Running&#125;&#125;&quot; wp
+
+$ docker ps
+
+$ docker top web
+
+$ docker run --it
+
+$ docker restart web
+
+$ docker logs web
+
+$ docker exec web ps
+
+$ docker stop xxxx
+
+$ docker search postgres
+
+$ docker save -o myfile.tar busybox:latest
+
+$ docker load -i myfile.tar
+
+$ docker rmi busybox
+</code></pre>
+<h2 id="Dockerfile指令"><a href="#Dockerfile指令" class="headerlink" title="Dockerfile指令"></a>Dockerfile指令</h2><p>类似于Makefile， Docker可以根据Dockerfile来构建镜像。Dockerfile是一个文本文件，每一行都是一个Dockerfile指令。接着使用docker build命令就可以构建出一个docker镜像了。Dockerfile是自动化运维的关键。</p>
+<h3 id="指令格式"><a href="#指令格式" class="headerlink" title="指令格式"></a>指令格式</h3><p>注释</p>
+<pre><code># Comment 这是注释
+</code></pre>
+<p>指令</p>
+<pre><code>INSTRUCTION arguments
+</code></pre>
+<p>样例</p>
+<pre><code>FROM ubuntu:16:04
+LABEL author=fwz version=1.0.1
+WORKDIR /root/myapp
+COPY myapp .
+RUN apt update \
+    &amp;&amp; apt install -y python3 python3-pip
+    &amp;&amp; pip3 install -r requirement.txt
+EXPOSE 8000
+ENTRYPOINT [&quot;/usr/bin/python3&quot;, &quot;/root/app/manage.py&quot;, &quot;runserver&quot;]
+</code></pre>
+<h3 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h3><p>FROM指令指定了一个基础镜像，接下来的指令都是基于这个基础镜像进行构建。每个Dockerfile都必须包含FROM指令。如果FROM指定的基础镜像不在本地，则会从Dockerhub上拉取。</p>
+<pre><code>FROM ubuntu:16:04
+</code></pre>
+<pre><code>FROM python:3.7
+</code></pre>
+<h3 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h3><p>RUN指令是构建时执行的指令，。格式是<code>RUN &lt;command&gt;</code>或者<code>RUN [&#39;executable&#39;, &#39;param1&#39;, &#39;param2&#39;, ...]</code>，RUN指令默认使用shell执行命令，即<code>/bin/sh -c</code>执行命令，如果想使用不同的shell，比如<code>bash</code>，那么可以像这么写：</p>
+<pre><code>RUN [&#39;/bin/bash&#39;, &#39;-c&#39; &#39;python3 bootstrap.py&#39;]
+</code></pre>
+<p>而且最好RUN指令的内容都写在同一行，防止ufs的层数过多。</p>
+<h3 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h3><p>CMD指令是容器启动时执行的指令，可以包含参数，比如：</p>
+<pre><code>CMD [&quot;python3&quot;, &quot;manage.py&quot;, &quot;runserver&quot;, &quot;0.0.0.0:8000&quot;]
+</code></pre>
+<h3 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h3><p>用于指定容器监听的内部端口号，不过可以在<code>docker run</code>的时候更改端口映射；</p>
+<pre><code>EXPOSE 27017
+</code></pre>
+<h3 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h3><p>把文件从本地复制到容器中</p>
+<pre><code>COPY application.yml /app/
+</code></pre>
+<h3 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h3><p>和CMD类似，也是容器启动时执行的命令，不过可以在容器启动即<code>docker run</code>时提供参数</p>
+<pre><code>ENTRYPOINT [&quot;java&quot;, &quot;app.jar&quot;]
+</code></pre>
+<h3 id="LABEL"><a href="#LABEL" class="headerlink" title="LABEL"></a>LABEL</h3><p>记录容器相关的变量，<code>docker inspect</code>时可以看到</p>
+<pre><code>LABEL author=&quot;菜徐坤&quot; version=&quot;7.7.7&quot;
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fclehly.github.io/2019/06/19/Docker/" data-id="ckogykb110004w50tf2qcb6pv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/05/Netty/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Netty
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/06/18/Config-Center-Apollo/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Config Center: Apollo</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Blog/">Blog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Note/">Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notes/">Notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Paper/">Paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Turtorial/">Turtorial</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/media/">media</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/os/">os</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLM/" rel="tag">NLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Paper/" rel="tag">Paper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/audio/" rel="tag">audio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devops/" rel="tag">devops</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/" rel="tag">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loadbalance/" rel="tag">loadbalance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs/" rel="tag">lvs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/media/" rel="tag">media</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reading/" rel="tag">reading</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serverless/" rel="tag">serverless</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/video/" rel="tag">video</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Deep-Learning/" style="font-size: 20px;">Deep Learning</a> <a href="/tags/NLM/" style="font-size: 10px;">NLM</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/Paper/" style="font-size: 10px;">Paper</a> <a href="/tags/audio/" style="font-size: 10px;">audio</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/loadbalance/" style="font-size: 10px;">loadbalance</a> <a href="/tags/lvs/" style="font-size: 10px;">lvs</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/media/" style="font-size: 10px;">media</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/reading/" style="font-size: 10px;">reading</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/serverless/" style="font-size: 10px;">serverless</a> <a href="/tags/video/" style="font-size: 10px;">video</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/05/05/Media-Basic/">Media-Basic</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/28/go-slice/">go slice</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/07/homebrew/">homebrew</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/28/Django/">Django</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/06/HDFS/">HDFS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 FWZ<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

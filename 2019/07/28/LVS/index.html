@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+
+  
+  <title>LVS | fengweizan&#39;s BLOG</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="LVS基于LB的集群简单拓扑  LB: 负载均衡器；IP；转发，不做三次握手；保证三次握手到四次分手不可分割； CIP: Client IP; VIP: Vitual IP; DIP: Director’s IP; RIP: Real IP;  NATS_NAT数据包过路由器时，修改源的IP地址。 D_NAT数据包过路由器时，修改目标的IP地址。 sequenceDiagram  particip">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LVS">
+<meta property="og:url" content="https://fclehly.github.io/2019/07/28/LVS/index.html">
+<meta property="og:site_name" content="fengweizan&#39;s BLOG">
+<meta property="og:description" content="LVS基于LB的集群简单拓扑  LB: 负载均衡器；IP；转发，不做三次握手；保证三次握手到四次分手不可分割； CIP: Client IP; VIP: Vitual IP; DIP: Director’s IP; RIP: Real IP;  NATS_NAT数据包过路由器时，修改源的IP地址。 D_NAT数据包过路由器时，修改目标的IP地址。 sequenceDiagram  particip">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fclehly.github.io/2019/07/28/LVS/ip-topo.001.png">
+<meta property="article:published_time" content="2019-07-28T12:26:16.000Z">
+<meta property="article:modified_time" content="2019-07-30T13:32:17.723Z">
+<meta property="article:author" content="FWZ">
+<meta property="article:tag" content="lvs">
+<meta property="article:tag" content="loadbalance">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fclehly.github.io/2019/07/28/LVS/ip-topo.001.png">
+  
+    <link rel="alternate" href="/atom.xml" title="fengweizan&#39;s BLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">fengweizan&#39;s BLOG</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fclehly.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-LVS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/28/LVS/" class="article-date">
+  <time datetime="2019-07-28T12:26:16.000Z" itemprop="datePublished">2019-07-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/server/">server</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LVS
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="LVS"><a href="#LVS" class="headerlink" title="LVS"></a>LVS</h1><h2 id="基于LB的集群"><a href="#基于LB的集群" class="headerlink" title="基于LB的集群"></a>基于LB的集群</h2><h3 id="简单拓扑"><a href="#简单拓扑" class="headerlink" title="简单拓扑"></a>简单拓扑</h3><p><img src="ip-topo.001.png" alt="ip-topo.001.png"></p>
+<ul>
+<li>LB: 负载均衡器；IP；转发，不做三次握手；保证三次握手到四次分手不可分割；</li>
+<li>CIP: Client IP;</li>
+<li>VIP: Vitual IP;</li>
+<li>DIP: Director’s IP;</li>
+<li>RIP: Real IP;</li>
+</ul>
+<h4 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h4><h3 id="S-NAT"><a href="#S-NAT" class="headerlink" title="S_NAT"></a>S_NAT</h3><p>数据包过路由器时，修改源的IP地址。</p>
+<h3 id="D-NAT"><a href="#D-NAT" class="headerlink" title="D_NAT"></a>D_NAT</h3><p>数据包过路由器时，修改目标的IP地址。</p>
+<pre><code class="mermaid">sequenceDiagram
+
+participant client
+participant director
+participant server
+
+client -&gt;&gt; director: CIP-VIP
+director -&gt;&gt; server: DIP-RIP
+server --&gt;&gt; director: DIP-RIP
+director --&gt;&gt; client: CIP-VIP
+</code></pre>
+<p>client 请求server的过程为DNAT，server回复client的过程为SNAT。</p>
+<p>基于网络层</p>
+<p>I/O 瓶颈：带宽是不对称的，下行的速度是大于上行的速度的。(请求往往比较小，通常可能只包含几十k的请求头，而返回通常数据量比较大，包含多媒体数据)。</p>
+<h4 id="DR"><a href="#DR" class="headerlink" title="DR"></a>DR</h4><p>直接路由模型</p>
+<p>LB只处理上行数据，分发给real-server，real-server处理完数据后直接返回给客户端，以解决LB上NAT的I/O瓶颈问题。</p>
+<pre><code class="mermaid">sequenceDiagram
+
+participant clients
+participant director
+participant servers
+
+client -&gt;&gt; director: CIP-VIP
+director -&gt;&gt; server: (RIP&#39;s MAC)CIP-VIP
+server --&gt;&gt; client: CIP-VIP
+</code></pre>
+<p>改MAC地址的行为要求LB和real-server在同一网段下，否则如果超过一跳，则会导致修改的MAC地址被替换。这是基于MAC地址的欺骗。类似于网关的方式。</p>
+<p>这里要求real-server默认网关指向运营商（ISP），且拥有公网IP地址PIP。</p>
+<h3 id="TUN"><a href="#TUN" class="headerlink" title="TUN"></a>TUN</h3><p>tunnel，隧道；点对点的方式。类似于VPN。</p>
+<pre><code class="mermaid">sequenceDiagram
+
+participant client
+participant director
+participant server
+
+client -&gt;&gt; director: CIP-VIP
+director -&gt;&gt; server: (DIP-RIP(CIP-VIP))
+server --&gt;&gt; director: (RIP-DIP(VIP-RIP))
+director --&gt;&gt; client: VIP-CIP
+</code></pre>
+<h2 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h2><h3 id="静态调度："><a href="#静态调度：" class="headerlink" title="静态调度："></a>静态调度：</h3><ul>
+<li>rr</li>
+<li>wrr</li>
+<li>sh</li>
+<li>dh</li>
+</ul>
+<h3 id="动态调度"><a href="#动态调度" class="headerlink" title="动态调度"></a>动态调度</h3><ul>
+<li>lc： 最少连接</li>
+<li>wlc： 加权最少连接；</li>
+<li>sed： 最短期望延迟；</li>
+<li>nq： never queue；</li>
+<li>LBLC：基于本地的最少连接</li>
+<li>DH：</li>
+<li>LBLCR：</li>
+</ul>
+<h2 id="ipvsadm"><a href="#ipvsadm" class="headerlink" title="ipvsadm"></a>ipvsadm</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fclehly.github.io/2019/07/28/LVS/" data-id="ckogykb16000bw50t63dl11uv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/loadbalance/" rel="tag">loadbalance</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lvs/" rel="tag">lvs</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/02/Ubuntu-Notes/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Ubuntu Notes
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/27/Spring-Cloud/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Spring Cloud</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Blog/">Blog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Note/">Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notes/">Notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Paper/">Paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Turtorial/">Turtorial</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/media/">media</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/os/">os</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLM/" rel="tag">NLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Paper/" rel="tag">Paper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/audio/" rel="tag">audio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devops/" rel="tag">devops</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/django/" rel="tag">django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/" rel="tag">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/" rel="tag">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loadbalance/" rel="tag">loadbalance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs/" rel="tag">lvs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/media/" rel="tag">media</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reading/" rel="tag">reading</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serverless/" rel="tag">serverless</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/video/" rel="tag">video</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Deep-Learning/" style="font-size: 20px;">Deep Learning</a> <a href="/tags/NLM/" style="font-size: 10px;">NLM</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/Paper/" style="font-size: 10px;">Paper</a> <a href="/tags/audio/" style="font-size: 10px;">audio</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/django/" style="font-size: 10px;">django</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/loadbalance/" style="font-size: 10px;">loadbalance</a> <a href="/tags/lvs/" style="font-size: 10px;">lvs</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/media/" style="font-size: 10px;">media</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/reading/" style="font-size: 10px;">reading</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/serverless/" style="font-size: 10px;">serverless</a> <a href="/tags/video/" style="font-size: 10px;">video</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/05/05/Media-Basic/">Media-Basic</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/28/go-slice/">go slice</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/07/homebrew/">homebrew</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/28/Django/">Django</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/06/HDFS/">HDFS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 FWZ<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
