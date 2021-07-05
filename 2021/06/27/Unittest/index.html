@@ -7,15 +7,15 @@
   
   <title>Unittest | fengweizan&#39;s BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="golangtestingfunc TestAdd(t *testing.T) &amp;#123;     got :&#x3D; Add(10)     if got &#x3D;&#x3D; 11 &amp;#123;         t.Errorf(&quot;wrong result of Add(10)&quot;)     &amp;#125; &amp;#125;   每个test文件必须import一个testing  test文件文件下">
+  <meta name="description" content="单元测试基本原则宏观上，单元测试要符合AIR原则；微观上，单元测试的代码层面要符合BCDE原则 AIR 原则单元测试的价值在业务代码线上运行时，难以感觉到器测试用例的存在和价值，但在代码质量的保障上，却是非常关键的。新增代码应该同步增加测试用例，修改代码逻辑是也应该同步保证测试用例成功执行。 AIR原则具体包括：  A: 自动化 Automatic I: 独立性 Independent R: 可重">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Unittest">
 <meta property="og:url" content="https://fclehly.github.io/2021/06/27/Unittest/index.html">
 <meta property="og:site_name" content="fengweizan&#39;s BLOG">
-<meta property="og:description" content="golangtestingfunc TestAdd(t *testing.T) &amp;#123;     got :&#x3D; Add(10)     if got &#x3D;&#x3D; 11 &amp;#123;         t.Errorf(&quot;wrong result of Add(10)&quot;)     &amp;#125; &amp;#125;   每个test文件必须import一个testing  test文件文件下">
+<meta property="og:description" content="单元测试基本原则宏观上，单元测试要符合AIR原则；微观上，单元测试的代码层面要符合BCDE原则 AIR 原则单元测试的价值在业务代码线上运行时，难以感觉到器测试用例的存在和价值，但在代码质量的保障上，却是非常关键的。新增代码应该同步增加测试用例，修改代码逻辑是也应该同步保证测试用例成功执行。 AIR原则具体包括：  A: 自动化 Automatic I: 独立性 Independent R: 可重">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-27T13:28:59.000Z">
-<meta property="article:modified_time" content="2021-06-27T15:37:03.636Z">
+<meta property="article:modified_time" content="2021-07-05T17:17:19.103Z">
 <meta property="article:author" content="FWZ">
 <meta name="twitter:card" content="summary">
   
@@ -86,7 +86,47 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="golang"><a href="#golang" class="headerlink" title="golang"></a>golang</h2><h3 id="testing"><a href="#testing" class="headerlink" title="testing"></a>testing</h3><pre><code class="go">func TestAdd(t *testing.T) &#123;
+        <h2 id="单元测试基本原则"><a href="#单元测试基本原则" class="headerlink" title="单元测试基本原则"></a>单元测试基本原则</h2><p>宏观上，单元测试要符合AIR原则；微观上，单元测试的代码层面要符合BCDE原则</p>
+<h3 id="AIR-原则"><a href="#AIR-原则" class="headerlink" title="AIR 原则"></a>AIR 原则</h3><p>单元测试的价值在业务代码线上运行时，难以感觉到器测试用例的存在和价值，但在代码质量的保障上，却是非常关键的。新增代码应该同步增加测试用例，修改代码逻辑是也应该同步保证测试用例成功执行。 AIR原则具体包括：</p>
+<ul>
+<li>A: 自动化 Automatic</li>
+<li>I: 独立性 Independent</li>
+<li>R: 可重复 Repeatable</li>
+</ul>
+<p>单元测试应该是全自动执行的。测试用例通常会被频繁的触发执行，执行过程必须完全自动化才有意义。如果单元测试的输出结果需要人工介入检查，那么它一定是不合格的。单元测试中不允许使用控制台输出来进行人工验证，而必须使用断言来验证。</p>
+<p>为了保证单元测试稳定可靠且便于维护，需要保证其独立性。用例之间不允许相互调用，也不允许出现执行次序的先后依赖。 如: testFunc2()需要调用testFunc1()，在执行testFunc2时会重复执行验证testFunc1，导致运行效率降低，且testFun1的验证失败会影响testFun2的执行。通常主流的测试框架中，测试用例的执行顺序都是无序的。</p>
+<p>单元测试时可以重复执行的，不能收到外界环境的影响。比如单元测试通常会被放到持续集成中，每次有代码提交时单元测试都会被触发执行。如果单测对外部环境（网络、服务、中间件等）有依赖，则容易导致持续集成机制的不可用。</p>
+<h3 id="BCDE-原则"><a href="#BCDE-原则" class="headerlink" title="BCDE 原则"></a>BCDE 原则</h3><p>编写单元测试时要保证测试粒度足够小，这样有助于精确定位问题，单元测试用例默认是方法级别的。单测不负责检查跨类或者跨系统的交互逻辑，那是集成测试需要覆盖的范围。编写单元测试用例时，为了保证北侧模块的交付质量，需要符合BCDE原则。</p>
+<ul>
+<li>B: Border，边界值测试，包括循环便捷、特殊取值、特殊时间点、数据顺序等。</li>
+<li>C: Correct，正确的输入，并得到预期的结果。</li>
+<li>D: Design，与设计文档相结合，来编写单元测试。</li>
+<li>E: Error，单元测试的目的是证明程序有错，而不是程无错。为了发现代码中潜在的错误，我们需要在编写测试用例时有一些强制的错误输入（如非法数据、异常流程、非业务允许输入等）来得到预期的错误结果。</li>
+</ul>
+<p>由于单元测试只是系统集成测试前的小模块测试，有些因素往往是不具备的，因此需要进行Mock，例如：</p>
+<ol>
+<li>功能因素。如：被测试方法内部调用的功能不可用。</li>
+<li>时间因素。如：关键日企还没到来，与此时间相关的功能点。</li>
+<li>环境因素。如：政策环境，多端环境；</li>
+<li>数据因素。如：线下数据样本过小，难以覆盖各种线上真是场景。</li>
+<li>其他因素。为了简化测试编写，开发者也可以将一些负责的依赖采用Mock方式实现。</li>
+</ol>
+<p>最简单的Mock方式是硬编码，更为优雅的方式是使用配置文件，最佳的方式是使用相应的Mock框架。Mock的本质是让我们写出更稳定的单元测试，隔离上述因素对单元测试的影响，使结果变得可预测，做到真正的单元测试。</p>
+<h2 id="单元测试覆盖率"><a href="#单元测试覆盖率" class="headerlink" title="单元测试覆盖率"></a>单元测试覆盖率</h2><p>单元测试是一种白盒测试，测试者依据程序的内部结果来实现测试代码。单测的覆盖率是指业务代码被单测测试的比例和程度，它是衡量单元测试好坏的一个很重要的指标，各种覆盖率从粗到细、从弱到强排列如下：</p>
+<p>粗粒度的覆盖</p>
+<ul>
+<li>类覆盖</li>
+<li>方法覆盖</li>
+</ul>
+<p>细粒度的覆盖</p>
+<ul>
+<li>行覆盖</li>
+<li>分支覆盖</li>
+<li>条件判定覆盖</li>
+<li>条件组合覆盖</li>
+<li>路径覆盖</li>
+</ul>
+<h2 id="golang"><a href="#golang" class="headerlink" title="golang"></a>golang</h2><h3 id="testing"><a href="#testing" class="headerlink" title="testing"></a>testing</h3><pre><code class="go">func TestAdd(t *testing.T) &#123;
     got := Add(10)
     if got == 11 &#123;
         t.Errorf(&quot;wrong result of Add(10)&quot;)
